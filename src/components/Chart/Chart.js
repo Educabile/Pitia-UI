@@ -20,23 +20,6 @@ class Chart extends Component {
         },
       ],
     },
-    lineChartOptions: {
-      responsive: true,
-      maintainAspectRatio: true,
-      tooltips: {
-        enabled: true,
-      },
-      scales: {
-        xAxes: [
-          {
-            ticks: {
-              autoSkip: true,
-              maxTicksLimit: 10,
-            },
-          },
-        ],
-      },
-    },
   }
 
   state = {
@@ -116,7 +99,7 @@ class Chart extends Component {
   }
 
   render() {
-    return <Line data={this.state.lineChartData} options={this.state.lineChartOptions} />
+    return <Line width={452} height={226} data={this.state.lineChartData} />
   }
 }
 export default Chart

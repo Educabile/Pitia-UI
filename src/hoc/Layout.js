@@ -18,11 +18,7 @@ class Layout extends Component {
     return (
       <>
         <header>
-          <Navbar
-            className="z-depth-3 center"
-            fixed
-            fixedSidenav={this.props.loggedIn}
-            lignLinks="right">
+          <Navbar className="z-depth-3 center" fixed fixedSidenav={this.props.loggedIn}>
             <li>
               <div
                 className="user-view"
@@ -47,7 +43,7 @@ class Layout extends Component {
               </div>
             </li>
             <Link
-              className="sidenav-close"
+              className="sidenav-close waves-effect"
               to="/dashboard"
               scroll={el => scrollTo(el, offset)}
               style={{
@@ -65,8 +61,8 @@ class Layout extends Component {
               </span>
             </Link>
             <Link
-              className="sidenav-close"
-              to="/network"
+              className="sidenav-close waves-effect"
+              to="/networks"
               scroll={el => scrollTo(el, offset)}
               style={{
                 display: 'flex',
@@ -83,7 +79,7 @@ class Layout extends Component {
               </span>
             </Link>
             <Link
-              className="sidenav-close"
+              className="sidenav-close waves-effect"
               to="/settings"
               scroll={el => scrollTo(el, offset)}
               style={{
@@ -123,27 +119,6 @@ class Layout extends Component {
             height={141}
           />
         </Link>
-        <ScrollToTop
-          showUnder={800}
-          style={{
-            zIndex: '2',
-          }}>
-          <Button
-            floating
-            large
-            className="blueGradient hoverable"
-            waves="light"
-            style={{
-              bottom: 64,
-              right: 20,
-              position: 'fixed',
-              display: 'inline-flex',
-              justifyContent: 'center',
-              alignItems: 'center',
-            }}>
-            <Icon path={mdiArrowUp} size={1.125} color="white" />
-          </Button>
-        </ScrollToTop>
         <footer className="blue darken-3">
           <div className="row">
             <p className="center">{this.props.t('footer:copyright')}</p>

@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { Route, withRouter, Redirect, Switch } from 'react-router-dom'
 import Layout from 'hoc/Layout.js'
 import Dashboard from 'containers/Dashboard/Dashboard'
+import Networks from 'containers/Networks/Networks'
 import Network from 'containers/Network/Network'
 import Login from 'containers/Login/Login'
 
@@ -25,9 +26,11 @@ class App extends Component {
             exact
             render={() => <Dashboard loggedIn={this.state.loggedIn} />}
           />
-          <Route path="/network/:networkId" component={Network} />
+          <Route path="/networks/" exact component={Networks} />
+          <Route path="/networks/:networkId" exact component={Network} />
           <Route
             path="/login"
+            exact
             render={() => <Login loggedIn={this.state.loggedIn} logIn={this.logIn} />}
           />
           <Redirect to="/dashboard" />
