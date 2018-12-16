@@ -16,7 +16,7 @@ i18n
         {
           prefix: 'i18next_res_',
           versions: {
-            en: 'v1.0',
+            it: 'v1.0',
           },
         },
         {
@@ -24,11 +24,11 @@ i18n
         },
       ],
     },
-    fallbackLng: 'en',
+    fallbackLng: 'it',
     interpolation: {
       escapeValue: false, // react already safes from xss
     },
-    whitelist: ['en'],
+    whitelist: ['it'],
     ns: ['common'],
     defaultNS: 'common',
     react: {
