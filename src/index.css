@@ -67,15 +67,15 @@ html {
 }
 
 @media screen and (prefers-reduced-motion: reduce) {
-.btn,
-.btn-small,
-.btn-large {
-  transition: none;
-  &:hover,
-  &:focus {
-    background-color: inherit;
+  .btn,
+  .btn-small,
+  .btn-large {
+    transition: none;
+    &:hover,
+    &:focus {
+      background-color: inherit;
+    }
   }
-}
 }
 
 .btn,
@@ -112,8 +112,12 @@ main {
   padding-left: 300px;
 }
 
-nav ul a.active {
+ul a.active {
   background: rgba(0, 0, 0, 0.2);
+}
+
+ul.tabs {
+  padding: 0 !important;
 }
 
 @media screen and (prefers-reduced-motion: reduce) {

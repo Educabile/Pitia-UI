@@ -4,112 +4,80 @@ import { Row, Col, Card, Button } from 'react-materialize'
 import { Link } from 'react-router-dom'
 import Icon from '@mdi/react'
 import { mdiDelete, mdiPencil } from '@mdi/js'
+import { withNamespaces } from 'react-i18next'
+import { Redirect } from 'react-router-dom'
+import Resizable from 're-resizable'
+const networksMock = [
+  {
+    networkName: 'First Network Placeholder',
+    wss: 'wss://ws-feed.gdax.com',
+  },
+  {
+    networkName: 'Second Network Placeholder',
+  },
+]
 
-class App extends React.Component {
-  state = {
-    lineChartData: {
-      labels: [],
-      datasets: [
-        {
-          type: 'line',
-          label: 'BTC-USD',
-          backgroundColor: 'rgba(0, 0, 0, 0)',
-          borderColor: 'green',
-          pointBackgroundColor: 'yellow',
-          pointBorderColor: 'orange',
-          borderWidth: '2',
-          lineTension: 0.45,
-          data: [],
-        },
-      ],
-    },
-    lineChartOptions: {
-      responsive: true,
-      maintainAspectRatio: false,
-      tooltips: {
-        enabled: true,
-      },
-      scales: {
-        xAxes: [
-          {
-            ticks: {
-              autoSkip: true,
-              maxTicksLimit: 10,
-            },
-          },
-        ],
-      },
-    },
-  }
-
-  componentDidMount() {
-    const subscribe = {
-      type: 'subscribe',
-      channels: [
-        {
-          name: 'ticker',
-          product_ids: ['BTC-USD'],
-        },
-      ],
-    }
-
-    this.ws = new WebSocket('wss://ws-feed.gdax.com')
-
-    this.ws.onopen = () => {
-      this.ws.send(JSON.stringify(subscribe))
-    }
-
-    this.ws.onmessage = e => {
-      const value = JSON.parse(e.data)
-      if (value.type !== 'ticker') {
-        return
-      }
-
-      const oldBtcDataSet = this.state.lineChartData.datasets[0]
-      const newBtcDataSet = { ...oldBtcDataSet }
-      newBtcDataSet.data.push(value.price)
-
-      const newChartData = {
-        ...this.state.lineChartData,
-        datasets: [newBtcDataSet],
-        labels: this.state.lineChartData.labels.concat(new Date().toLocaleTimeString()),
-      }
-      this.setState({ lineChartData: newChartData })
-    }
-  }
-
-  componentWillUnmount() {
-    this.ws.close()
-  }
-
-  render() {
-    return (
-      <Row>
-        <Col s={12} m={6} xl={4}>
-          <Link
-            to={{
-              pathname: 'network/placeholder-network-name',
-              search: '?utm=your+face',
-              state: { wss: 'wss://ws-feed.gdax.com' },
-            }}>
-            <Card
-              textClassName="white-text"
-              title="Placeholder network name"
-              actions={[
-                <Button key="mod" floating flat tooltip="Modifica">
-                  <Icon path={mdiPencil} size={1.25} />
-                </Button>,
-                <Button key="del" floating flat tooltip="Elimina">
-                  <Icon path={mdiDelete} size={1.25} />
-                </Button>,
-              ]}>
-              <Chart data={this.state.lineChartData} options={this.state.lineChartOptions} />
-            </Card>
-          </Link>
+const Dashboard = ({ t, loggedIn }) =>
+  !loggedIn ? (
+    <Redirect to="/login" />
+  ) : (
+    <Row>
+      {networksMock.map(({ networkName, wss }) => (
+        <Col key={networkName}>
+          <Resizable
+            defaultSize={{
+              width: 500,
+            }}
+            minWidth={500}
+            snap={{ x: [500, 600, 780] }}>
+            <Link
+              to={{
+                pathname: `network/${networkName.toLowerCase().replace(/\s/g, '-')}`,
+                state: {
+                  wss,
+                },
+              }}>
+              <Card
+                textClassName="white-text"
+                title={networkName}
+                actions={[
+                  <Button
+                    key="mod"
+                    floating
+                    flat
+                    tooltip={t('modifica')}
+                    style={{
+                      display: 'inline-flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                    }}>
+                    <Icon path={mdiPencil} size={1.25} />
+                  </Button>,
+                  <Button
+                    key="del"
+                    waves
+                    floating
+                    flat
+                    tooltip={t('elimina')}
+                    onClick={e => {
+                      e.preventDefault()
+                      console.log(`Ciao da ${networkName}`)
+                    }}
+                    style={{
+                      display: 'inline-flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                    }}>
+                    <Icon path={mdiDelete} size={1.25} />
+                  </Button>,
+                ]}>
+                <Chart wss="wss://ws-feed.gdax.com" />
+              </Card>
+            </Link>
+          </Resizable>
         </Col>
-      </Row>
-    )
-  }
-}
+      ))}
+    </Row>
+  )
 
-export default App
+export default withNamespaces()(Dashboard)

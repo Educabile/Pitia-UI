@@ -1,86 +1,80 @@
-import React, { Component } from 'react'
+import React from 'react'
 import Chart from 'components/Chart/Chart'
+import Icon from '@mdi/react'
+import { mdiCrosshairsGps, mdiChartAreaspline, mdiTune } from '@mdi/js'
+import { Tabs, Tab } from 'react-materialize'
 
-class Network extends Component {
-  state = {
-    lineChartData: {
-      labels: [],
-      datasets: [
-        {
-          type: 'line',
-          label: 'BTC-USD',
-          backgroundColor: 'rgba(0, 0, 0, 0)',
-          borderColor: 'green',
-          pointBackgroundColor: 'yellow',
-          pointBorderColor: 'orange',
-          borderWidth: '2',
-          lineTension: 0.45,
-          data: [],
-        },
-      ],
-    },
-    lineChartOptions: {
-      responsive: true,
-      maintainAspectRatio: false,
-      tooltips: {
-        enabled: true,
-      },
-      scales: {
-        xAxes: [
-          {
-            ticks: {
-              autoSkip: true,
-              maxTicksLimit: 10,
-            },
-          },
-        ],
-      },
-    },
-  }
-
-  componentDidMount() {
-    const subscribe = {
-      type: 'subscribe',
-      channels: [
-        {
-          name: 'ticker',
-          product_ids: ['BTC-USD'],
-        },
-      ],
-    }
-
-    this.ws = new WebSocket(this.props.location.state.wss)
-
-    this.ws.onopen = () => {
-      this.ws.send(JSON.stringify(subscribe))
-    }
-
-    this.ws.onmessage = e => {
-      const value = JSON.parse(e.data)
-      if (value.type !== 'ticker') {
-        return
+const Network = props => (
+  <Tabs
+    className="tab-demo z-depth-1 tabs-fixed-width"
+    style={{
+      padding: 0,
+    }}>
+    <Tab
+      title={
+        <span
+          style={{
+            display: 'flex',
+            textTransform: 'uppercase',
+            alignItems: 'center',
+            justifyContent: 'center',
+            width: '100%',
+          }}>
+          <Icon path={mdiChartAreaspline} size={1.5} color="#1565c0" />
+          <span
+            style={{
+              marginLeft: '1em',
+            }}>
+            Monitor
+          </span>
+        </span>
       }
-
-      const oldBtcDataSet = this.state.lineChartData.datasets[0]
-      const newBtcDataSet = { ...oldBtcDataSet }
-      newBtcDataSet.data.push(value.price)
-
-      const newChartData = {
-        ...this.state.lineChartData,
-        datasets: [newBtcDataSet],
-        labels: this.state.lineChartData.labels.concat(new Date().toLocaleTimeString()),
-      }
-      this.setState({ lineChartData: newChartData })
-    }
-  }
-
-  componentWillUnmount() {
-    this.ws.close()
-  }
-
-  render() {
-    return <Chart data={this.state.lineChartData} options={this.state.lineChartOptions} />
-  }
-}
+      active>
+      <Chart wss={props.location.state.wss} />
+    </Tab>
+    <Tab
+      title={
+        <span
+          style={{
+            display: 'flex',
+            textTransform: 'uppercase',
+            alignItems: 'center',
+            justifyContent: 'center',
+            width: '100%',
+          }}>
+          <Icon path={mdiCrosshairsGps} size={1.5} color="#1565c0" />
+          <span
+            style={{
+              marginLeft: '1em',
+            }}>
+            Geolocation
+          </span>
+        </span>
+      }>
+      Google Map Section
+    </Tab>
+    <Tab
+      title={
+        <span
+          style={{
+            display: 'flex',
+            textTransform: 'uppercase',
+            alignItems: 'center',
+            justifyContent: 'center',
+            width: '100%',
+          }}>
+          <Icon path={mdiTune} size={1.5} color="#1565c0" />
+          <span
+            style={{
+              marginLeft: '1em',
+            }}>
+            Settings
+          </span>
+        </span>
+      }>
+      Settings page
+    </Tab>
+  </Tabs>
+)
 
 export default Network

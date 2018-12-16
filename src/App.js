@@ -3,14 +3,33 @@ import { Route, withRouter, Redirect, Switch } from 'react-router-dom'
 import Layout from 'hoc/Layout.js'
 import Dashboard from 'containers/Dashboard/Dashboard'
 import Network from 'containers/Network/Network'
+import Login from 'containers/Login/Login'
 
 class App extends Component {
+  state = {
+    loggedIn: false,
+  }
+
+  logIn = () => {
+    this.setState({
+      loggedIn: true,
+    })
+  }
+
   render() {
     return (
-      <Layout>
+      <Layout loggedIn={this.state.loggedIn}>
         <Switch>
-          <Route path="/dashboard" exact component={Dashboard} />
+          <Route
+            path="/dashboard"
+            exact
+            render={() => <Dashboard loggedIn={this.state.loggedIn} />}
+          />
           <Route path="/network/:networkId" component={Network} />
+          <Route
+            path="/login"
+            render={() => <Login loggedIn={this.state.loggedIn} logIn={this.logIn} />}
+          />
           <Redirect to="/dashboard" />
         </Switch>
       </Layout>

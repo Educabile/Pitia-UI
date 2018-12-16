@@ -1,12 +1,7 @@
 {
-  "scopriDiPiu": "Scopri di piu'",
-  "leggiDiPiu": "Leggi di piu'",
-  "filtraPerCategoria": "Filtra per categoria",
-  "tutteLeCategorie": "Tutte le categorie",
-  "didatticaDigitale": "Didattica Digitale",
-  "ordinaPer": "Ordina per",
-  "piuRecenti": "Piú recenti prima",
-  "menoRecenti": "Meno recenti prima",
-  "dataScience": "Data Science",
-  "tornaIndietro": "Torna indietro"
+  "dashboard": "Dashboard",
+  "network": "Network",
+  "tornaIndietro": "Torna indietro",
+  "elimina": "Elimina",
+  "modifica": "Modifica"
 }

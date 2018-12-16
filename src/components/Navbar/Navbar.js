@@ -5,8 +5,7 @@ import { Icon } from '@mdi/react'
 import { mdiMenu } from '@mdi/js'
 import Scrollspy from '@cloudpower97/react-spy'
 import { Breadcrumb, MenuItem } from 'react-materialize'
-import { withRouter } from 'react-router-dom'
-import { Link } from 'react-router-dom'
+import { Link, withRouter } from 'react-router-dom'
 
 class Navbar extends Component {
   componentDidMount() {
@@ -30,6 +29,7 @@ class Navbar extends Component {
       className,
       extendWith,
       fixed,
+      fixedSidenav,
       alignLinks,
       centerLogo,
       history: {
@@ -108,7 +108,9 @@ class Navbar extends Component {
 
         <ul
           id="mobile-nav"
-          className={cx('sidenav', [alignLinks], 'sidenav-fixed')}
+          className={cx('sidenav', [alignLinks], {
+            'sidenav-fixed': fixedSidenav,
+          })}
           ref={ul => {
             this._sidenav = ul
           }}>
