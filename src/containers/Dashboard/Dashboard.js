@@ -26,7 +26,12 @@ const Dashboard = ({ t, loggedIn }) =>
   ) : (
     <Row style={{ marginBottom: 0 }}>
       <Col s={12} m={8}>
-        <Row>
+        <Row
+          className="grey lighten-5"
+          style={{
+            height: 'calc(100vh - 108px)',
+            marginBottom: 0,
+          }}>
           <Col>
             <Resizable
               defaultSize={{
@@ -39,6 +44,7 @@ const Dashboard = ({ t, loggedIn }) =>
               snap={{ x: [240, 515] }}>
               <Collapsible>
                 <CollapsibleItem
+                  className="white flow-text"
                   expanded
                   header={
                     <span
@@ -70,6 +76,7 @@ const Dashboard = ({ t, loggedIn }) =>
               snap={{ x: [515, 615] }}>
               <Collapsible>
                 <CollapsibleItem
+                  className="white flow-text"
                   expanded
                   header={
                     <span
