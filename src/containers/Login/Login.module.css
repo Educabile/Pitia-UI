@@ -1,8 +1,8 @@
 .Login {
   align-items: center;
-  background: url(https://d2mpqlmtgl1znu.cloudfront.net/AcuCustom/Sitename/DAM/015/IoT_devices_Adobe.jpg);
   background-blend-mode: overlay;
   background-color: rgb(0, 0, 0, 0.35);
+  background-image: resolve('profile-background.jpg');
   background-position: center;
   background-size: cover;
   display: flex;

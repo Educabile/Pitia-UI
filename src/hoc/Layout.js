@@ -2,48 +2,47 @@ import React, { Component } from 'react'
 import Navbar from 'components/Navbar/Navbar'
 import { Button } from 'react-materialize'
 import Icon from '@mdi/react'
-import { mdiArrowUp, mdiViewDashboard, mdiAccessPointNetwork, mdiTune } from '@mdi/js'
-import ScrollToTop from 'react-scroll-up'
-import { NavHashLink as Link } from 'react-router-hash-link'
+import { mdiViewDashboard, mdiAccessPointNetwork, mdiTune } from '@mdi/js'
+import { withRouter, Link } from 'react-router-dom'
 import { withNamespaces } from 'react-i18next'
 import PropTypes from 'prop-types'
 import { logoEducabileIoTPng } from 'assets/img'
 import Picture from '@cloudpower97/react-progressive-picture'
 import { scrollTo } from 'libs/utils'
+import NetworkModal from 'components/NetworksModal/NetworksModal'
+import NodesModal from 'components/NodesModal/NodesModal'
+import { profileBackground, profileBackgroundSqip, personPlaceholder } from 'assets/img'
 
 const offset = 56
 
 class Layout extends Component {
   render() {
+    const { history } = this.props
     return (
       <>
         <header>
           <Navbar className="z-depth-3 center" fixed fixedSidenav={this.props.loggedIn}>
-            <li>
-              <div
-                className="user-view"
-                style={{
-                  backgroundColor: 'rgba(0,0,0, .5)',
-                }}>
-                <div className="background">
-                  <img src="https://images.idgesg.net/images/article/2017/10/wireless_network_internet_of_things_iot_thinkstock_853701554_3x2-100740688-large.jpg" />
-                </div>
-                <a href="#user">
-                  <img
-                    className="circle"
-                    src="http://heartlandpreciousmetals.com/wp-content/uploads/2014/06/person-placeholder.jpg"
-                  />
-                </a>
-                <a href="#name">
-                  <span className="white-text name">John Doe</span>
-                </a>
-                <a href="#email">
-                  <span className="white-text email">jdandturk@gmail.com</span>
-                </a>
+            <div
+              onClick={() => history.push('/user')}
+              className="user-view"
+              style={{
+                backgroundColor: 'rgba(0,0,0, .5)',
+              }}>
+              <div className="background">
+                <Picture src={profileBackground} delay={1000} placeholder={profileBackgroundSqip} />
               </div>
-            </li>
-            <Link
-              className="sidenav-close waves-effect"
+              <Picture blur={0} className="circle" src={personPlaceholder} />
+              <span className="white-text name">John Doe</span>
+              <span className="white-text email">jdandturk@gmail.com</span>
+            </div>
+            <Button
+              onClick={() => {
+                history.push('/dashboard')
+              }}
+              flat
+              large
+              waves
+              className="sidenav-close"
               to="/dashboard"
               scroll={el => scrollTo(el, offset)}
               style={{
@@ -51,6 +50,12 @@ class Layout extends Component {
                 textTransform: 'uppercase',
                 alignItems: 'center',
                 width: '100%',
+                borderRadius: 0,
+              }}
+              tooltip="Accedi alla tua dashboard"
+              tooltipOptions={{
+                position: 'right',
+                enterDelay: 1000,
               }}>
               <Icon path={mdiViewDashboard} size={1.5} color="#1565c0" />
               <span
@@ -59,9 +64,15 @@ class Layout extends Component {
                 }}>
                 {this.props.t('dashboard')}
               </span>
-            </Link>
-            <Link
-              className="sidenav-close waves-effect"
+            </Button>
+            <Button
+              onClick={() => {
+                history.push('/networks')
+              }}
+              flat
+              large
+              waves
+              className="sidenav-close"
               to="/networks"
               scroll={el => scrollTo(el, offset)}
               style={{
@@ -69,6 +80,12 @@ class Layout extends Component {
                 textTransform: 'uppercase',
                 alignItems: 'center',
                 width: '100%',
+                borderRadius: 0,
+              }}
+              tooltip="Gestisci i tuoi networks"
+              tooltipOptions={{
+                position: 'right',
+                enterDelay: 1000,
               }}>
               <Icon path={mdiAccessPointNetwork} size={1.5} color="#1565c0" />
               <span
@@ -77,8 +94,8 @@ class Layout extends Component {
                 }}>
                 {this.props.t('network')}
               </span>
-            </Link>
-            <Link
+            </Button>
+            <Button
               className="sidenav-close waves-effect"
               to="/settings"
               scroll={el => scrollTo(el, offset)}
@@ -87,6 +104,18 @@ class Layout extends Component {
                 textTransform: 'uppercase',
                 alignItems: 'center',
                 width: '100%',
+                borderRadius: 0,
+              }}
+              onClick={() => {
+                history.push('/settings')
+              }}
+              flat
+              large
+              waves
+              tooltip="Modifica le impostazioni"
+              tooltipOptions={{
+                position: 'right',
+                enterDelay: 1000,
               }}>
               <Icon path={mdiTune} size={1.5} color="#1565c0" />
               <span
@@ -95,10 +124,12 @@ class Layout extends Component {
                 }}>
                 {this.props.t('impostazioni')}
               </span>
-            </Link>
+            </Button>
           </Navbar>
         </header>
         <main>{this.props.children}</main>
+        <NetworkModal />
+        <NodesModal />
         <Link to="/dashboard">
           <Picture
             sources={[
@@ -134,4 +165,4 @@ Layout.propTypes = {
   t: PropTypes.func.isRequired,
 }
 
-export default withNamespaces('footer')(Layout)
+export default withRouter(withNamespaces('footer')(Layout))

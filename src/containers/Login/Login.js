@@ -56,7 +56,7 @@ class Login extends Component {
                 <div className="center">
                   <Button
                     disabled={!(this.state.username.length > 0 && this.state.password.length > 0)}
-                    className="hoverable blue darken-3 white-text"
+                    className="blueGradient hoverable white-text"
                     waves
                     style={{
                       display: 'inline-flex',

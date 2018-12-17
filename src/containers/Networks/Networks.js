@@ -22,24 +22,29 @@ const networksMock = [
     networkName: 'First Network Placeholder',
     networkPosition: 'Naples, Italy',
     networkIP: '143.225.48.253',
+    networkDescription: 'Lorem ipsum dolorem sit amet',
     wss: 'wss://ws-feed.gdax.com',
   },
   {
     networkName: 'This is a Network Placeholder',
     networkPosition: 'Orlando, USA',
     networkIP: '125.32.44.167',
+    networkDescription: 'This is a test description',
     wss: 'wss://ws-feed.gdax.com',
   },
   {
     networkName: 'Third Network Placeholder',
     networkPosition: 'Paris, France',
     networkIP: '230.12.222.176',
+    networkDescription:
+      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed congue vestibulum libero sit amet posuere. Nunc at vulputate tortor. Morbi pellentesque lectus ut quam tempor eleifend. Ut blandit ornare lacus, eget dapibus quam consequat luctus. Maecenas eu eros tellus. Cras scelerisque nunc mauris, nec rhoncus orci tincidunt non. Sed suscipit tincidunt molestie. Fusce imperdiet felis vel odio dignissim, vitae vehicula urna ullamcorper. Sed ornare fermentum massa ut lobortis. Suspendisse interdum lacinia sem, et semper enim.',
     wss: 'wss://ws-feed.gdax.com',
   },
   {
     networkName: 'Another Network Placeholder',
     networkPosition: 'Bruxelles, Belgium',
-    networkIP: '245,97.12.35',
+    networkIP: '245.97.12.35',
+    networkDescription: 'This network is situated in Bruxelles',
     wss: 'wss://ws-feed.gdax.com',
   },
 ]
@@ -47,15 +52,15 @@ const networksMock = [
 const Networks = ({ t, match }) => (
   <>
     <Row>
-      {networksMock.map(({ networkName, networkPosition, networkIP, wss }) => (
+      {networksMock.map(({ networkName, networkPosition, networkIP, networkDescription, wss }) => (
         <Col key={networkName}>
           <Resizable
             defaultSize={{
               height: 527,
             }}
-            // minWidth={500}
+            minWidth={515}
             maxWidth={780}
-            snap={{ x: [500, 600, 780] }}
+            snap={{ x: [515, 600, 780] }}
             enable={{
               bottom: false,
               top: false,
@@ -69,11 +74,12 @@ const Networks = ({ t, match }) => (
                   networkName,
                   networkPosition,
                   networkIP,
+                  networkDescription,
                   wss,
                 },
               }}>
               <Card
-                textClassName="white-text"
+                textClassName="grey-text text-darken-2 flow-text"
                 title={networkName}
                 actions={[
                   <Button
@@ -143,61 +149,6 @@ const Networks = ({ t, match }) => (
         }}
       />
     </Row>
-    <Modal
-      id="networks-modal"
-      header={
-        <span
-          style={{
-            display: 'inline-flex',
-            alignItems: 'center',
-          }}>
-          <Icon path={mdiPlusNetwork} size={1.5} color="#1565c0" />
-          <span style={{ marginLeft: '1em' }}>Crea un nuovo network</span>
-        </span>
-      }>
-      <form
-        onSubmit={e => {
-          e.preventDefault()
-        }}>
-        <Row>
-          <Input s={12} label="Nome della rete" validate required>
-            <Icon path={mdiLabelOutline} size={1.175} color="#1565c0" />
-          </Input>
-          <Input s={12} label="Posizione della rete" validate>
-            <Icon path={mdiCrosshairsGps} size={1.175} color="#1565c0" />
-          </Input>
-          <Input s={12} label="Struttura di riferimento" validate>
-            <Icon path={mdiDomain} size={1.175} color="#1565c0" />
-          </Input>
-          <Input s={12} label="Indirizzo IP della rete" validate>
-            <Icon path={mdiNumeric} size={1.175} color="#1565c0" />
-          </Input>
-
-          <div className="center">
-            <Button
-              onClick={() => {
-                window.$('#networks-modal').modal('close')
-                window.M.toast({ html: 'Nuova rete creata con successo', classes: 'rounded' })
-              }}
-              className="hoverable blue darken-3 white-text"
-              waves
-              style={{
-                display: 'inline-flex',
-                justifyContent: 'center',
-                alignItems: 'center',
-              }}>
-              <span
-                style={{
-                  marginRight: '1em',
-                }}>
-                Crea rete
-              </span>
-              <Icon path={mdiPlus} size={1} color="white" />
-            </Button>
-          </div>
-        </Row>
-      </form>
-    </Modal>
   </>
 )
 

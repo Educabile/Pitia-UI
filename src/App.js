@@ -8,7 +8,7 @@ import Login from 'containers/Login/Login'
 
 class App extends Component {
   state = {
-    loggedIn: false,
+    loggedIn: true,
   }
 
   logIn = () => {
@@ -26,8 +26,10 @@ class App extends Component {
             exact
             render={() => <Dashboard loggedIn={this.state.loggedIn} />}
           />
+          <Route path="/user" exact render={() => <h1>User</h1>} />
           <Route path="/networks/" exact component={Networks} />
           <Route path="/networks/:networkId" exact component={Network} />
+          <Route path="/settings" exact render={() => <h1>Settings</h1>} />
           <Route
             path="/login"
             exact

@@ -108,6 +108,7 @@ body {
 
 main {
   flex: 1 0 auto;
+  overflow-x: hidden;
   padding-bottom: 45px;
   padding-left: 300px;
 }

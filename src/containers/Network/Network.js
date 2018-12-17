@@ -107,7 +107,7 @@ const Network = ({
 
           <div className="center">
             <Button
-              className="hoverable blue darken-3 white-text"
+              className="blueGradient hoverable white-text"
               waves
               style={{
                 display: 'inline-flex',
