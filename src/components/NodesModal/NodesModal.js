@@ -1,20 +1,15 @@
 import React from 'react'
-import { Button, Modal, Input, Row } from 'react-materialize'
+import { Modal } from 'react-materialize'
 import Icon from '@mdi/react'
-import {
-  mdiLabelOutline,
-  mdiCrosshairsGps,
-  mdiMemory,
-  mdiNumeric,
-  mdiPlus,
-  mdiGoogleNearby,
-} from '@mdi/js'
+import { mdiGoogleNearby, mdiCloseCircleOutline } from '@mdi/js'
+import NodesForm from 'components/NodeForm/NodeForm'
 
 const NodesModal = () => (
   <Modal
     id="nodes-modal"
+    actions={null}
     header={
-      <span
+      <div
         style={{
           display: 'inline-flex',
           alignItems: 'center',
@@ -26,53 +21,20 @@ const NodesModal = () => (
           }}>
           Aggiungi un nodo alla rete
         </span>
-      </span>
+        <span
+          onClick={() => {
+            window.$('#networks-modal').modal('close')
+          }}
+          style={{
+            position: 'absolute',
+            right: 20,
+            cursor: 'pointer',
+          }}>
+          <Icon path={mdiCloseCircleOutline} size={1.5} color="#5a5a5a" />
+        </span>
+      </div>
     }>
-    <form
-      onSubmit={e => {
-        e.preventDefault()
-      }}>
-      <Row>
-        <Input s={12} label="Nome del sensore" validate required>
-          <Icon path={mdiLabelOutline} size={1.175} color="#1565c0" />
-        </Input>
-        <Input s={12} label="Tipo del sensore" validate required>
-          <Icon path={mdiMemory} size={1.175} color="#1565c0" />
-        </Input>
-        <Input s={12} label="Posizione del sensore" validate>
-          <Icon path={mdiCrosshairsGps} size={1.175} color="#1565c0" />
-        </Input>
-        <Input s={12} label="Indirizzo IP del sensore" validate>
-          <Icon path={mdiNumeric} size={1.175} color="#1565c0" />
-        </Input>
-
-        <div className="center">
-          <Button
-            onClick={() => {
-              window.$('#nodes-modal').modal('close')
-              window.M.toast({
-                html: 'Nuovo nodo aggiunto con successo',
-                classes: 'rounded',
-              })
-            }}
-            className="blueGradient hoverable white-text"
-            waves
-            style={{
-              display: 'inline-flex',
-              justifyContent: 'center',
-              alignItems: 'center',
-            }}>
-            <span
-              style={{
-                marginRight: '1em',
-              }}>
-              Aggiungi nodo
-            </span>
-            <Icon path={mdiPlus} size={1} color="white" />
-          </Button>
-        </div>
-      </Row>
-    </form>
+    <NodesForm />
   </Modal>
 )
 

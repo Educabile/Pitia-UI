@@ -51,7 +51,7 @@ const networksMock = [
 
 const Networks = ({ t, match }) => (
   <>
-    <Row>
+    <Row className="grey lighten-5" style={{ marginBottom: 0 }}>
       {networksMock.map(({ networkName, networkPosition, networkIP, networkDescription, wss }) => (
         <Col key={networkName}>
           <Resizable

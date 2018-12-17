@@ -15,8 +15,8 @@ import { withNamespaces } from 'react-i18next'
 import { Tabs, Tab, Row, Input } from 'react-materialize'
 import Chart from 'components/Chart/Chart'
 import Button from 'components/Button/Button'
+import NetworkForm from 'components/NetworkForm/NetworkForm'
 import Style from './Network.module.css'
-
 const Network = ({
   t,
   location: {
@@ -86,45 +86,11 @@ const Network = ({
           </span>
         </span>
       }>
-      Settings page
-      <form
-        onSubmit={e => {
-          e.preventDefault()
-        }}>
-        <Row>
-          <Input s={12} label="Nome della rete" validate required value={networkName}>
-            <Icon path={mdiLabelOutline} size={1.175} color="#1565c0" />
-          </Input>
-          <Input s={12} label="Posizione della rete" validate value={networkPosition}>
-            <Icon path={mdiCrosshairsGps} size={1.175} color="#1565c0" />
-          </Input>
-          <Input s={12} label="Struttura di riferimento" validate>
-            <Icon path={mdiDomain} size={1.175} color="#1565c0" />
-          </Input>
-          <Input s={12} label="Indirizzo IP della rete" validate value={networkIP}>
-            <Icon path={mdiNumeric} size={1.175} color="#1565c0" />
-          </Input>
-
-          <div className="center">
-            <Button
-              className="blueGradient hoverable white-text"
-              waves
-              style={{
-                display: 'inline-flex',
-                justifyContent: 'center',
-                alignItems: 'center',
-              }}>
-              <span
-                style={{
-                  marginRight: '1em',
-                }}>
-                Modifica rete
-              </span>
-              <Icon path={mdiPencil} size={1} color="white" />
-            </Button>
-          </div>
-        </Row>
-      </form>
+      <NetworkForm
+        networkName={networkName}
+        networkPosition={networkPosition}
+        networkIP={networkIP}
+      />
     </Tab>
   </Tabs>
 )
