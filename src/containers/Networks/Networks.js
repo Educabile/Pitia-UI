@@ -1,20 +1,11 @@
 import React from 'react'
 import Chart from 'components/Chart/Chart'
 import Icon from '@mdi/react'
-import {
-  mdiDelete,
-  mdiPencil,
-  mdiPlus,
-  mdiPlusNetwork,
-  mdiLabelOutline,
-  mdiCrosshairsGps,
-  mdiDomain,
-  mdiNumeric,
-} from '@mdi/js'
+import { mdiDelete, mdiPencil, mdiPlus } from '@mdi/js'
 import { withNamespaces } from 'react-i18next'
 import Button from 'components/Button/Button'
 import Resizable from 're-resizable'
-import { Row, Col, Card, Modal, Input } from 'react-materialize'
+import { Row, Col, Card } from 'react-materialize'
 import { Link } from 'react-router-dom'
 
 const networksMock = [
@@ -102,7 +93,6 @@ const Networks = ({ t, match }) => (
                     tooltip={t('elimina')}
                     onClick={e => {
                       e.preventDefault()
-                      console.log(`Ciao da ${networkName}`)
                     }}
                     style={{
                       display: 'inline-flex',

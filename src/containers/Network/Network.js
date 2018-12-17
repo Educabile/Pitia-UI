@@ -2,21 +2,13 @@ import React from 'react'
 import cx from 'class-names'
 import PropTypes from 'prop-types'
 import Icon from '@mdi/react'
-import {
-  mdiCrosshairsGps,
-  mdiChartAreaspline,
-  mdiTune,
-  mdiPencil,
-  mdiLabelOutline,
-  mdiDomain,
-  mdiNumeric,
-} from '@mdi/js'
+import { mdiCrosshairsGps, mdiChartAreaspline, mdiTune } from '@mdi/js'
 import { withNamespaces } from 'react-i18next'
-import { Tabs, Tab, Row, Input } from 'react-materialize'
+import { Tabs, Tab } from 'react-materialize'
 import Chart from 'components/Chart/Chart'
-import Button from 'components/Button/Button'
 import NetworkForm from 'components/NetworkForm/NetworkForm'
 import Style from './Network.module.css'
+
 const Network = ({
   t,
   location: {
@@ -95,6 +87,12 @@ const Network = ({
   </Tabs>
 )
 
-Network.propTypes = {}
+Network.propTypes = {
+  t: PropTypes.func.isRequired,
+  networkName: PropTypes.string,
+  networkPosition: PropTypes.string,
+  networkIp: PropTypes.string,
+  wss: PropTypes.string,
+}
 
 export default withNamespaces()(Network)

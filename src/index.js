@@ -6,27 +6,6 @@ import 'vendor/modernizr.min.js'
 import App from './App'
 import { BrowserRouter } from 'react-router-dom'
 import * as serviceWorker from './serviceWorker'
-import { defaults } from 'react-chartjs-2'
-
-// lineChartOptions: {
-//   responsive: true,
-//     maintainAspectRatio: true,
-//       tooltips: {
-//     enabled: true,
-//       },
-//   scales: {
-//     xAxes: [
-//       {
-//         ticks: {
-//           autoSkip: true,
-//           maxTicksLimit: 10,
-//         },
-//       },
-//     ],
-//       },
-// },
-
-// defaults.global.animation = false
 
 const { PUBLIC_URL } = process.env
 

@@ -6,12 +6,11 @@ import { mdiViewDashboard, mdiAccessPointNetwork, mdiTune } from '@mdi/js'
 import { withRouter, Link } from 'react-router-dom'
 import { withNamespaces } from 'react-i18next'
 import PropTypes from 'prop-types'
-import { logoEducabileIoTPng } from 'assets/img'
 import Picture from '@cloudpower97/react-progressive-picture'
 import { scrollTo } from 'libs/utils'
 import NetworkModal from 'components/NetworksModal/NetworksModal'
 import NodesModal from 'components/NodesModal/NodesModal'
-import { profileBackground, profileBackgroundSqip } from 'assets/img'
+import { profileBackground, profileBackgroundSqip, logoEducabileIoTPng } from 'assets/img'
 import Avatar from 'react-avatar'
 
 const offset = 56

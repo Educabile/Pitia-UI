@@ -103,7 +103,7 @@ class Button extends Component {
         style={this.props.style}
         data-tooltip={this.props.tooltip}
         onClick={this.props.onClick}>
-        <a className={className}>{this.renderIcon()}</a>
+        <button className={className}>{this.renderIcon()}</button>
         <ul>
           {React.Children.map(this.props.children, (child, index) => (
             <li key={index}>{child}</li>

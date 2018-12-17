@@ -1,7 +1,7 @@
 import React from 'react'
 import cx from 'class-names'
-import Chart from 'components/Chart/Chart'
-import { Row, Col, Card, Badge, Collapsible, CollapsibleItem, Tabs, Tab } from 'react-materialize'
+import PropTypes from 'prop-types'
+import { Row, Col, Badge, Collapsible, CollapsibleItem, Tabs, Tab } from 'react-materialize'
 import Icon from '@mdi/react'
 import {
   mdiPlus,
@@ -15,7 +15,7 @@ import {
   mdiCodeTagsCheck,
 } from '@mdi/js'
 import { withNamespaces } from 'react-i18next'
-import { Redirect, Link } from 'react-router-dom'
+import { Redirect } from 'react-router-dom'
 import Resizable from 're-resizable'
 import Button from 'components/Button/Button'
 import Style from './Dashboard.module.css'
@@ -259,5 +259,10 @@ const Dashboard = ({ t, loggedIn }) =>
       </Col>
     </Row>
   )
+
+Dashboard.propTypes = {
+  t: PropTypes.func.isRequired,
+  loggedIn: PropTypes.bool.isRequired,
+}
 
 export default withNamespaces()(Dashboard)

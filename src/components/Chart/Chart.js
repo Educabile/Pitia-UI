@@ -3,23 +3,12 @@ import { Line } from 'react-chartjs-2'
 import PropTypes from 'prop-types'
 
 class Chart extends Component {
+  static propTypes = {
+    wss: PropTypes.string.isRequired,
+  }
+
   static defaultProps = {
-    lineChartData: {
-      labels: [],
-      datasets: [
-        {
-          type: 'line',
-          label: 'BTC-USD',
-          backgroundColor: 'rgba(0, 0, 0, 0)',
-          borderColor: '#1565c0',
-          pointBackgroundColor: '#9c27b0',
-          pointBorderColor: '#9c27b0',
-          borderWidth: '2',
-          lineTension: 0.45,
-          data: [],
-        },
-      ],
-    },
+    wss: '',
   }
 
   state = {
