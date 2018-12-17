@@ -11,13 +11,14 @@ import Picture from '@cloudpower97/react-progressive-picture'
 import { scrollTo } from 'libs/utils'
 import NetworkModal from 'components/NetworksModal/NetworksModal'
 import NodesModal from 'components/NodesModal/NodesModal'
-import { profileBackground, profileBackgroundSqip, personPlaceholder } from 'assets/img'
+import { profileBackground, profileBackgroundSqip } from 'assets/img'
+import Avatar from 'react-avatar'
 
 const offset = 56
 
 class Layout extends Component {
   render() {
-    const { history } = this.props
+    const { history, username, email } = this.props
     return (
       <>
         <header>
@@ -29,11 +30,11 @@ class Layout extends Component {
                 backgroundColor: 'rgba(0,0,0, .5)',
               }}>
               <div className="background">
-                <Picture src={profileBackground} delay={1000} placeholder={profileBackgroundSqip} />
+                <Picture src={profileBackground} placeholder={profileBackgroundSqip} />
               </div>
-              <Picture blur={0} className="circle" src={personPlaceholder} />
-              <span className="white-text name">John Doe</span>
-              <span className="white-text email">jdandturk@gmail.com</span>
+              <Avatar color="#1565C0" name={username} email={email} round size={70} />
+              <span className="white-text name">{username}</span>
+              <span className="white-text email">{email}</span>
             </div>
             <Button
               onClick={() => {

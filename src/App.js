@@ -5,10 +5,14 @@ import Dashboard from 'containers/Dashboard/Dashboard'
 import Networks from 'containers/Networks/Networks'
 import Network from 'containers/Network/Network'
 import Login from 'containers/Login/Login'
+import Settings from 'containers/Settings/Settings'
+import User from 'containers/User/User'
 
 class App extends Component {
   state = {
     loggedIn: true,
+    username: 'Mario Rossi',
+    email: 'mario.rossi@email.it',
   }
 
   logIn = () => {
@@ -17,19 +21,55 @@ class App extends Component {
     })
   }
 
+  updateUsername = username => {
+    this.setState({
+      username,
+    })
+  }
+
+  updateEmail = email => {
+    this.setState({
+      email,
+    })
+  }
+
   render() {
+    const { loggedIn, username, email } = this.state
+
     return (
-      <Layout loggedIn={this.state.loggedIn}>
+      <Layout loggedIn={loggedIn} username={username} email={email}>
         <Switch>
           <Route
             path="/dashboard"
             exact
             render={() => <Dashboard loggedIn={this.state.loggedIn} />}
           />
-          <Route path="/user" exact render={() => <h1>User</h1>} />
+          <Route
+            path="/user"
+            exact
+            render={() => (
+              <User
+                username={username}
+                email={email}
+                updateEmail={this.updateEmail}
+                updateUsername={this.updateUsername}
+              />
+            )}
+          />
           <Route path="/networks/" exact component={Networks} />
           <Route path="/networks/:networkId" exact component={Network} />
-          <Route path="/settings" exact render={() => <h1>Settings</h1>} />
+          <Route
+            path="/settings"
+            exact
+            render={() => (
+              <Settings
+                username={username}
+                email={email}
+                updateEmail={this.updateEmail}
+                updateUsername={this.updateUsername}
+              />
+            )}
+          />
           <Route
             path="/login"
             exact
