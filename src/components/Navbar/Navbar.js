@@ -3,7 +3,6 @@ import PropTypes from 'prop-types'
 import cx from 'class-names'
 import { Icon } from '@mdi/react'
 import { mdiMenu } from '@mdi/js'
-import Scrollspy from '@cloudpower97/react-spy'
 import { Breadcrumb, MenuItem } from 'react-materialize'
 import { Link, withRouter } from 'react-router-dom'
 
@@ -57,25 +56,22 @@ class Navbar extends Component {
 
     const navMobileCSS = cx('hide-on-med-and-down', 'hide-on-med-and-up', [alignLinks])
 
-    const links = Children.map(children, (link, index) => <li key={index}>{link}</li>)
-    const scrollSpy = (
-      <Scrollspy
-        items={['azienda', 'destinatari', 'aree-di-intervento', 'in-evidenza', 'contatti']}
-        options={{
-          rootMargin: '56px 0px 56px 0px',
-          threshold: 0.75,
-        }}>
-        <li>
-          {brand &&
-            cloneElement(brand, {
+    const links = (
+      <>
+        {brand ? (
+          <li>
+            {cloneElement(brand, {
               className: cx(brand.props.className, brandClasses),
               style: {
                 pointerEvents: 'none',
               },
             })}
-        </li>
-        {links}
-      </Scrollspy>
+          </li>
+        ) : null}
+        {Children.map(children, (link, index) => (
+          <li key={index}>{link}</li>
+        ))}
+      </>
     )
     let navbar = (
       <nav className={navCSS}>
@@ -92,7 +88,7 @@ class Navbar extends Component {
             />
           </a>
           <Breadcrumb>{breadcrumbs}</Breadcrumb>
-          <ul className={navMobileCSS}>{scrollSpy}</ul>
+          <ul className={navMobileCSS}>{links}</ul>
         </div>
         {extendWith && <div className="nav-content">{extendWith}</div>}
       </nav>
@@ -114,7 +110,7 @@ class Navbar extends Component {
           ref={ul => {
             this._sidenav = ul
           }}>
-          {scrollSpy}
+          {links}
         </ul>
       </>
     )
