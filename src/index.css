@@ -79,15 +79,15 @@ html {
 }
 
 @media screen and (prefers-reduced-motion: reduce) {
-.btn,
-.btn-small,
-.btn-large {
-  transition: none;
-  &:hover,
-  &:focus {
-    background-color: inherit;
+  .btn,
+  .btn-small,
+  .btn-large {
+    transition: none;
+    &:hover,
+    &:focus {
+      background-color: inherit;
+    }
   }
-}
 }
 
 .btn,
@@ -110,6 +110,10 @@ html {
 
 .greenGradient {
   background: var(--green-gradient);
+}
+
+.purpleGradient {
+  background: var(--purple-gradient);
 }
 
 body {

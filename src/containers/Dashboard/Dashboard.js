@@ -4,6 +4,7 @@ import PropTypes from 'prop-types'
 import { Row, Col, Badge, Collapsible, CollapsibleItem, Tabs, Tab } from 'react-materialize'
 import Icon from '@mdi/react'
 import {
+  mdiPencil,
   mdiPlus,
   mdiEye,
   mdiCheckbook,
@@ -13,6 +14,7 @@ import {
   mdiPlusNetwork,
   mdiGoogleNearby,
   mdiCodeTagsCheck,
+  mdiCursorMove,
 } from '@mdi/js'
 import { withNamespaces } from 'react-i18next'
 import { Redirect } from 'react-router-dom'
@@ -140,6 +142,75 @@ const Dashboard = ({ t, loggedIn }) =>
             </Resizable>
           </Col>
         </Row>
+        <Button
+          floating
+          fab="vertical"
+          waves="light"
+          icon={
+            <Icon
+              path={mdiPencil}
+              size={1.25}
+              color="white"
+              style={{
+                position: 'absolute',
+                top: '50%',
+                left: '50%',
+                transform: 'translate(-50%, -50%)',
+              }}
+            />
+          }
+          className="blueGradient hoverable"
+          large
+          style={{
+            bottom: 20,
+            right: 560,
+          }}>
+          <Button
+            floating
+            icon={
+              <Icon
+                path={mdiCursorMove}
+                size={1.25}
+                color="white"
+                style={{
+                  position: 'absolute',
+                  top: '50%',
+                  left: '50%',
+                  transform: 'translate(-50%, -50%)',
+                }}
+              />
+            }
+            className="orangeGradient"
+            tooltip="Riorganizza widget"
+            tooltipOptions={{
+              position: 'left',
+            }}
+          />
+          <Button
+            onClick={() => {
+              window.$('#widgets-modal').modal('open')
+            }}
+            floating
+            icon={
+              <Icon
+                path={mdiPlus}
+                size={1.25}
+                color="white"
+                style={{
+                  position: 'absolute',
+                  top: '50%',
+                  left: '50%',
+                  transform: 'translate(-50%, -50%)',
+                }}
+              />
+            }
+            className="greenGradient"
+            tooltip="Aggiungi widget"
+            tooltipOptions={{
+              position: 'left',
+            }}
+          />
+        </Button>
       </Col>
       <Col s={12} m={4} className={cx('z-depth-1', Style.Col)}>
         <div className="collapsible-header">

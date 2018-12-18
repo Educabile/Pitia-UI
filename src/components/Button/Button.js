@@ -22,9 +22,7 @@ class Button extends Component {
     }
 
     if (fab) {
-      this.instance = window.M.FloatingActionButton.init(this._floatingActionBtn, {
-        vertical: true,
-      })
+      this.instance = window.M.FloatingActionButton.init(this._floatingActionBtn, {})
     }
   }
 
