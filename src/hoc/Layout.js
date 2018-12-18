@@ -10,6 +10,7 @@ import Picture from '@cloudpower97/react-progressive-picture'
 import { scrollTo } from 'libs/utils'
 import NetworkModal from 'components/NetworksModal/NetworksModal'
 import NodesModal from 'components/NodesModal/NodesModal'
+import WidgetsModal from 'components/WidgetsModal/WidgetsModal'
 import { profileBackground, profileBackgroundSqip, logoEducabileIoTPng } from 'assets/img'
 import Avatar from 'react-avatar'
 
@@ -130,6 +131,7 @@ class Layout extends Component {
         <main>{this.props.children}</main>
         <NetworkModal />
         <NodesModal />
+        <WidgetsModal />
         <Link to="/dashboard">
           <Picture
             sources={[
