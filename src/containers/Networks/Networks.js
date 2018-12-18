@@ -131,7 +131,7 @@ const Networks = ({ t, match }) => (
         className="blueGradient hoverable"
         large
         style={{
-          bottom: 72,
+          bottom: 20,
         }}
         tooltip="Crea un nuovo network"
         tooltipOptions={{

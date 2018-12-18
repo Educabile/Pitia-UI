@@ -1,6 +1,7 @@
 import React from 'react'
 import cx from 'class-names'
-import { Row, Col, Badge, Tabs, Tab } from 'react-materialize'
+import { Row, Col, Badge, Tab } from 'react-materialize'
+import Tabs from 'components/Tabs/Tabs'
 import Icon from '@mdi/react'
 import {
   mdiCheckbook,
@@ -23,7 +24,14 @@ const formatter = buildFormatter(italianStrings)
 
 const Logger = ({ history }) => (
   <>
-    <div className="collapsible-header flow-text">
+    <div
+      className="collapsible-header flow-text white"
+      style={{
+        position: 'sticky',
+        top: 0,
+        left: 0,
+        zIndex: 2,
+      }}>
       <span
         style={{
           display: 'inline-flex',
@@ -60,7 +68,13 @@ const Logger = ({ history }) => (
         </span>
       </span>
     </div>
-    <Tabs className={cx('z-depth-1 tabs-fixed-width')}>
+    <Tabs
+      className={cx('z-depth-1 tabs-fixed-width')}
+      style={{
+        position: 'sticky',
+        top: 65,
+        zIndex: 2,
+      }}>
       <Tab
         title={
           <span
