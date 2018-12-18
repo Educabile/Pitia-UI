@@ -14300,6 +14300,13 @@ react-error-overlay@^5.1.0:
   resolved "https://registry.yarnpkg.com/react-error-overlay/-/react-error-overlay-5.1.0.tgz#c516995a5652e7bfbed8b497910d5280df74a7e8"
   integrity sha512-akMy/BQT5m1J3iJIHkSb4qycq2wzllWsmmolaaFVnb+LPV9cIJ/nTud40ZsiiT0H3P+/wXIdbjx2fzF61OaeOQ==
 
+react-event-timeline@^1.6.2:
+  version "1.6.2"
+  resolved "https://registry.yarnpkg.com/react-event-timeline/-/react-event-timeline-1.6.2.tgz#e96e6614e69663a3a85584bab0597d304f53746d"
+  integrity sha512-w5YCRxv9g8qJBOhmn2HE1crc9U2yZFDUi9qVLIOZy61Q6TEZkCd5/eUC91dpzZcaNKzlFqYYdlqXtrmupqFlyw==
+  dependencies:
+    prop-types "^15.6.0"
+
 react-fuzzy@^0.5.2:
   version "0.5.2"
   resolved "https://registry.yarnpkg.com/react-fuzzy/-/react-fuzzy-0.5.2.tgz#fc13bf6f0b785e5fefe908724efebec4935eaefe"
@@ -14491,6 +14498,11 @@ react-textarea-autosize@^7.0.4:
   dependencies:
     "@babel/runtime" "^7.1.2"
     prop-types "^15.6.0"
+
+react-timeago@^4.1.9:
+  version "4.1.9"
+  resolved "https://registry.yarnpkg.com/react-timeago/-/react-timeago-4.1.9.tgz#a5dee4ac072299a9a5ca5a61f56177a80f83c1fb"
+  integrity sha512-MKucv9nU65BOPqIrClAFxqvpGCC4RdRpqp0P1YIb7C3yT6TQVdcoOlr0k4TDHvLQhbkwd3nbTxiDQMa3iDlZxg==
 
 react-transition-group@^2.0.0:
   version "2.5.1"
