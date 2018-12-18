@@ -41,26 +41,26 @@ const Logger = ({ history }) => (
         <span style={{ marginLeft: '1em' }}>
           Attivita'
           <Badge
+            className="blueGradient"
             style={{
               marginLeft: '1em',
-              backgroundColor: '#1565c0',
               color: 'white',
             }}>
             1 info
           </Badge>
           <Badge
+            className="orangeGradient"
             style={{
               marginLeft: '1em',
-              backgroundColor: '#feb93d',
               color: 'white',
             }}
             className="amber darken-2">
             1 new warning
           </Badge>
           <Badge
+            className="redGradient"
             style={{
               marginLeft: '1em',
-              backgroundColor: '#fb3349',
               color: 'white',
             }}>
             1 new error
