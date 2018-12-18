@@ -1,0 +1,4 @@
+.Col {
+  height: calc(100vh - 108px);
+  padding: 0 !important;
+}

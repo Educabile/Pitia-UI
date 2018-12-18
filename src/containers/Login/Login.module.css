@@ -1,0 +1,14 @@
+.Login {
+  align-items: center;
+  background-blend-mode: overlay;
+  background-color: rgb(0, 0, 0, 0.35);
+  background-image: resolve('profile-background.jpg');
+  background-position: center;
+  background-size: cover;
+  display: flex;
+  height: calc(100vh - 56px - 52px);
+  justify-content: center;
+  left: 0;
+  position: absolute;
+  width: 100vw;
+}
