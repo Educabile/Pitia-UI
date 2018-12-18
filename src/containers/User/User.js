@@ -3,7 +3,9 @@ import { Button, Input, Row, Col, Section, Card } from 'react-materialize'
 import Icon from '@mdi/react'
 import { mdiAccountCardDetails, mdiTranslate, mdiAt } from '@mdi/js'
 import Avatar from 'react-avatar'
-
+import 'react-toastify/dist/ReactToastify.css'
+import InfoToast from 'components/InfoToast/InfoToast'
+import { withRouter } from 'react-router-dom'
 class User extends Component {
   state = {
     email: this.props.email,
@@ -11,15 +13,17 @@ class User extends Component {
   }
 
   render() {
+    const { history } = this.props
+
     return (
-      <Section className="grey lighten-4" style={{ minHeight: 'calc(100vh - 56px - 53px)' }}>
+      <Section className="grey lighten-4" style={{ minHeight: 'calc(100vh - 56px)' }}>
         <Row style={{ paddingTop: '15vh' }}>
           <Col s={12} m={6} className="push-m3">
             <Card className="rounded">
               <Row>
                 <Col s={12} className="center">
                   <Avatar
-                    color="#1565C0"
+                    className="blueGradient"
                     name={this.state.username}
                     email={this.state.email}
                     round
@@ -71,9 +75,8 @@ class User extends Component {
                           this.props.updateEmail(this.state.email)
                           this.props.updateUsername(this.state.username)
 
-                          window.M.toast({
-                            html: 'Informazioni aggiornate con successo',
-                            classes: 'rounded',
+                          InfoToast({
+                            content: 'Informazioni aggiornate correttamente',
                           })
                         }}
                         className="blueGradient hoverable white-text"
@@ -98,4 +101,4 @@ class User extends Component {
 }
 User.propTypes = {}
 
-export default User
+export default withRouter(User)

@@ -2,20 +2,17 @@ import React, { Component } from 'react'
 import Navbar from 'components/Navbar/Navbar'
 import { Button } from 'react-materialize'
 import Icon from '@mdi/react'
-import { mdiViewDashboard, mdiAccessPointNetwork, mdiTune } from '@mdi/js'
+import { mdiViewDashboard, mdiLan, mdiTune, mdiBookOpen, mdiDomain } from '@mdi/js'
 import { withRouter, Link } from 'react-router-dom'
 import { withNamespaces } from 'react-i18next'
 import PropTypes from 'prop-types'
 import Picture from '@cloudpower97/react-progressive-picture'
-import { scrollTo } from 'libs/utils'
 import NetworkModal from 'components/NetworksModal/NetworksModal'
 import NodesModal from 'components/NodesModal/NodesModal'
 import WidgetsModal from 'components/WidgetsModal/WidgetsModal'
 import { profileBackground, profileBackgroundSqip, logoEducabileIoTPng } from 'assets/img'
 import Avatar from 'react-avatar'
-
-const offset = 56
-
+import { ToastContainer } from 'react-toastify'
 class Layout extends Component {
   render() {
     const { history, username, email } = this.props
@@ -32,7 +29,7 @@ class Layout extends Component {
               <div className="background">
                 <Picture src={profileBackground} placeholder={profileBackgroundSqip} />
               </div>
-              <Avatar color="#1565C0" name={username} email={email} round size={70} />
+              <Avatar className="blueGradient" name={username} email={email} round size={70} />
               <span className="white-text name">{username}</span>
               <span className="white-text email">{email}</span>
             </div>
@@ -44,8 +41,6 @@ class Layout extends Component {
               large
               waves
               className="sidenav-close"
-              to="/dashboard"
-              scroll={el => scrollTo(el, offset)}
               style={{
                 display: 'flex',
                 textTransform: 'uppercase',
@@ -74,8 +69,6 @@ class Layout extends Component {
               large
               waves
               className="sidenav-close"
-              to="/networks"
-              scroll={el => scrollTo(el, offset)}
               style={{
                 display: 'flex',
                 textTransform: 'uppercase',
@@ -88,7 +81,7 @@ class Layout extends Component {
                 position: 'right',
                 enterDelay: 1000,
               }}>
-              <Icon path={mdiAccessPointNetwork} size={1.5} color="#1565c0" />
+              <Icon path={mdiLan} size={1.5} color="#1565c0" />
               <span
                 style={{
                   marginLeft: '1em',
@@ -97,9 +90,63 @@ class Layout extends Component {
               </span>
             </Button>
             <Button
+              onClick={() => {
+                history.push('/assets')
+              }}
+              flat
+              large
+              waves
+              className="sidenav-close"
+              style={{
+                display: 'flex',
+                textTransform: 'uppercase',
+                alignItems: 'center',
+                width: '100%',
+                borderRadius: 0,
+              }}
+              tooltip="Gestisci i tuoi assets"
+              tooltipOptions={{
+                position: 'right',
+                enterDelay: 1000,
+              }}>
+              <Icon path={mdiDomain} size={1.5} color="#1565c0" />
+              <span
+                style={{
+                  marginLeft: '1em',
+                }}>
+                {this.props.t('assets')}
+              </span>
+            </Button>
+            <Button
+              onClick={() => {
+                history.push('/documentation')
+              }}
+              flat
+              large
+              waves
+              className="sidenav-close"
+              style={{
+                display: 'flex',
+                textTransform: 'uppercase',
+                alignItems: 'center',
+                width: '100%',
+                borderRadius: 0,
+              }}
+              tooltip="Consulta il manuale"
+              tooltipOptions={{
+                position: 'right',
+                enterDelay: 1000,
+              }}>
+              <Icon path={mdiBookOpen} size={1.5} color="#1565c0" />
+              <span
+                style={{
+                  marginLeft: '1em',
+                }}>
+                {this.props.t('manuale')}
+              </span>
+            </Button>
+            <Button
               className="sidenav-close waves-effect"
-              to="/settings"
-              scroll={el => scrollTo(el, offset)}
               style={{
                 display: 'flex',
                 textTransform: 'uppercase',
@@ -132,6 +179,17 @@ class Layout extends Component {
         <NetworkModal />
         <NodesModal />
         <WidgetsModal />
+        <ToastContainer
+          style={{ top: 70 }}
+          autoClose={4000}
+          hideProgressBar={false}
+          newestOnTop
+          closeOnClick
+          rtl={false}
+          pauseOnVisibilityChange
+          draggable
+          pauseOnHover
+        />
         <Link to="/dashboard">
           <Picture
             sources={[

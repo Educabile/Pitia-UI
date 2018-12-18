@@ -3,13 +3,20 @@ import PropTypes from 'prop-types'
 import { Button, Input, Row } from 'react-materialize'
 import Icon from '@mdi/react'
 import { mdiHelpNetwork, mdiCrosshairsGps, mdiDomain, mdiIpNetwork, mdiPlus } from '@mdi/js'
-
+import InfoToast from 'components/InfoToast/InfoToast'
 class NetworkForm extends Component {
   static propTypes = {
     networkName: PropTypes.string,
     networkPosition: PropTypes.string,
     networkStructure: PropTypes.string,
     networkIP: PropTypes.string,
+  }
+
+  static defaultProps = {
+    networkName: '',
+    networkPosition: '',
+    networkStructure: '',
+    networkIP: '',
   }
 
   state = {
@@ -96,9 +103,8 @@ class NetworkForm extends Component {
             <Button
               onClick={() => {
                 window.$('#networks-modal').modal('close')
-                window.M.toast({
-                  html: `Nuova rete \`${name}\` creata con successo`,
-                  classes: 'rounded',
+                InfoToast({
+                  content: `Nuova rete \`${name}\` creata`,
                 })
               }}
               className="blueGradient hoverable white-text"

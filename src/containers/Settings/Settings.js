@@ -12,14 +12,14 @@ class Settings extends Component {
 
   render() {
     return (
-      <Section className="grey lighten-4" style={{ minHeight: 'calc(100vh - 56px - 53px)' }}>
+      <Section className="grey lighten-4" style={{ minHeight: 'calc(100vh - 56px)' }}>
         <Row style={{ paddingTop: '15vh' }}>
           <Col s={12} m={6} className="push-m3">
             <Card className="rounded">
               <Row>
                 <Col s={12} className="center">
                   <Avatar
-                    color="#1565C0"
+                    className="blueGradient"
                     name={this.state.username}
                     email={this.state.email}
                     round

@@ -101,19 +101,23 @@ html {
 }
 
 .blueGradient {
-  background-image: var(--blue-gradient);
+  background: var(--blue-gradient) !important;
 }
 
 .orangeGradient {
-  background: var(--orange-gradient);
+  background: var(--orange-gradient) !important;
 }
 
 .greenGradient {
-  background: var(--green-gradient);
+  background: var(--green-gradient) !important;
 }
 
 .purpleGradient {
-  background: var(--purple-gradient);
+  background: var(--purple-gradient) !important;
+}
+
+.redGradient {
+  background: var(--red-gradient) !important;
 }
 
 body {

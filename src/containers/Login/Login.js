@@ -19,8 +19,9 @@ class Login extends Component {
         <Col>
           <Card className="rounded hoverable center">
             <Avatar
-              value={<Icon path={mdiAccount} size={3} color="white" />}
+              className="blueGradient"
               color="#1565C0"
+              value={<Icon path={mdiAccount} size={3} color="white" />}
               name={this.state.email.split('@')[0].replace(/\./gi, ' ')}
               email={this.state.email}
               round
@@ -63,6 +64,7 @@ class Login extends Component {
                   <Button
                     disabled={!(this.state.email.length > 0 && this.state.password.length > 0)}
                     className="blueGradient hoverable white-text"
+                    large
                     waves
                     style={{
                       display: 'inline-flex',
