@@ -10,7 +10,7 @@ import User from 'containers/User/User'
 
 class App extends Component {
   state = {
-    loggedIn: true,
+    loggedIn: false,
     username: 'Mario Rossi',
     email: 'mario.rossi@email.it',
   }

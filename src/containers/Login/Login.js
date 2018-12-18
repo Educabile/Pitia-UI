@@ -4,9 +4,10 @@ import { Row, Col, Input, Card, Button } from 'react-materialize'
 import { Icon } from '@mdi/react'
 import { mdiAccount, mdiLogin } from '@mdi/js'
 import Style from './Login.module.css'
+import Avatar from 'react-avatar'
 class Login extends Component {
   state = {
-    username: '',
+    email: '',
     password: '',
   }
 
@@ -16,26 +17,32 @@ class Login extends Component {
     ) : (
       <Row className={Style.Login}>
         <Col>
-          <Card className="rounded hoverable">
-            <Icon path={mdiAccount} size={5} color="#1565c0" className="center-block" />
+          <Card className="rounded hoverable center">
+            <Avatar
+              value={<Icon path={mdiAccount} size={3} color="white" />}
+              color="#1565C0"
+              name={this.state.email.split('@')[0].replace(/\./gi, ' ')}
+              email={this.state.email}
+              round
+              size={100}
+            />
             <form
               onSubmit={e => {
                 e.preventDefault()
 
-                if (this.state.username === 'educabile') {
-                  this.props.logIn()
-                }
+                this.props.logIn()
               }}>
               <Row>
                 <Input
                   s={12}
-                  label="Username"
-                  onChange={({ target: { value: username } }) =>
+                  label="Email"
+                  onChange={({ target: { value: email } }) =>
                     this.setState({
-                      username,
+                      email,
                     })
                   }
-                  value={this.state.username}
+                  type="email"
+                  value={this.state.email}
                   validate
                   required
                 />
@@ -54,7 +61,7 @@ class Login extends Component {
                 />
                 <div className="center">
                   <Button
-                    disabled={!(this.state.username.length > 0 && this.state.password.length > 0)}
+                    disabled={!(this.state.email.length > 0 && this.state.password.length > 0)}
                     className="blueGradient hoverable white-text"
                     waves
                     style={{
