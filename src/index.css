@@ -78,6 +78,18 @@ html {
   }
 }
 
+@media screen and (prefers-reduced-motion: reduce) {
+.btn,
+.btn-small,
+.btn-large {
+  transition: none;
+  &:hover,
+  &:focus {
+    background-color: inherit;
+  }
+}
+}
+
 .btn,
 .btn-small,
 .btn-large {
@@ -109,7 +121,6 @@ body {
 main {
   flex: 1 0 auto;
   overflow-x: hidden;
-  padding-bottom: 45px;
   padding-left: 300px;
 }
 
@@ -159,12 +170,12 @@ ul.tabs {
 }
 
 #mobile-nav {
-  height: calc(100vh - 56px - 52px);
+  height: calc(100vh - 56px);
   margin-top: 56px;
 }
 
 #footer-logo {
-  bottom: 57px;
+  bottom: 10px;
   left: 25px;
   position: fixed;
   z-index: 1000;

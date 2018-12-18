@@ -29,8 +29,11 @@ const Dashboard = ({ t, loggedIn }) =>
         <Row
           className="grey lighten-5"
           style={{
-            height: 'calc(100vh - 108px)',
+            minHeight: 'calc(100vh - 56px)',
+            maxHeight: 'calc(100vh - 56px)',
             marginBottom: 0,
+            overflowX: 'hidden',
+            overflowY: 'auto',
           }}>
           <Col>
             <Resizable

@@ -150,11 +150,6 @@ class Layout extends Component {
             height={141}
           />
         </Link>
-        <footer className="blue darken-3">
-          <div className="row">
-            <p className="center">{this.props.t('footer:copyright')}</p>
-          </div>
-        </footer>
       </>
     )
   }
