@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { Button, Input, Row } from 'react-materialize'
 import Icon from '@mdi/react'
-import { mdiHelpNetwork, mdiCrosshairsGps, mdiDomain, mdiNumeric, mdiPlus } from '@mdi/js'
+import { mdiHelpNetwork, mdiCrosshairsGps, mdiDomain, mdiIpNetwork, mdiPlus } from '@mdi/js'
 
 class NetworkForm extends Component {
   static propTypes = {
@@ -89,7 +89,7 @@ class NetworkForm extends Component {
             validate
             value={ip}
             onChange={this.updateIP}>
-            <Icon path={mdiNumeric} size={1.175} color="#1565c0" />
+            <Icon path={mdiIpNetwork} size={1.175} color="#1565c0" />
           </Input>
 
           <div className="center">

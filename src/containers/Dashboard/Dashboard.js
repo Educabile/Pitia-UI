@@ -1,16 +1,12 @@
 import React from 'react'
 import cx from 'class-names'
 import PropTypes from 'prop-types'
-import { Row, Col, Badge, Collapsible, CollapsibleItem, Tabs, Tab } from 'react-materialize'
+import { Row, Col, Collapsible, CollapsibleItem } from 'react-materialize'
 import Icon from '@mdi/react'
 import {
   mdiPencil,
   mdiPlus,
   mdiEye,
-  mdiCheckbook,
-  mdiInformationOutline,
-  mdiAlert,
-  mdiAlertCircle,
   mdiPlusNetwork,
   mdiGoogleNearby,
   mdiCodeTagsCheck,
@@ -18,6 +14,7 @@ import {
 } from '@mdi/js'
 import { withNamespaces } from 'react-i18next'
 import { Redirect } from 'react-router-dom'
+import Logger from 'components/Logger/Logger'
 import Resizable from 're-resizable'
 import Button from 'components/Button/Button'
 import Style from './Dashboard.module.css'
@@ -213,123 +210,7 @@ const Dashboard = ({ t, loggedIn }) =>
         </Button>
       </Col>
       <Col s={12} m={4} className={cx('z-depth-1', Style.Col)}>
-        <div className="collapsible-header">
-          <span
-            style={{
-              display: 'inline-flex',
-              alignItems: 'center',
-            }}>
-            <Icon path={mdiCheckbook} size={1.5} color="#1565c0" />
-            <span style={{ marginLeft: '1em' }}>
-              Attivita' recente
-              <Badge
-                style={{
-                  marginLeft: '1em',
-                  backgroundColor: '#1565c0',
-                  color: 'white',
-                }}>
-                1 info
-              </Badge>
-              <Badge
-                style={{
-                  marginLeft: '1em',
-                  backgroundColor: '#feb93d',
-                  color: 'white',
-                }}
-                className="amber darken-2">
-                1 new warning
-              </Badge>
-              <Badge
-                style={{
-                  marginLeft: '1em',
-                  backgroundColor: '#fb3349',
-                  color: 'white',
-                }}>
-                1 new error
-              </Badge>
-            </span>
-          </span>
-        </div>
-        <Tabs className={cx('z-depth-1 tabs-fixed-width')}>
-          <Tab
-            title={
-              <span
-                style={{
-                  display: 'flex',
-                  textTransform: 'uppercase',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  width: '100%',
-                }}>
-                <Icon path={mdiInformationOutline} size={1.25} color="#1565c0" />
-                <span
-                  style={{
-                    marginLeft: '1em',
-                  }}>
-                  Informations
-                </span>
-              </span>
-            }
-            active>
-            <Row>
-              <Col s={12} className="flow-text">
-                La rete `Network Placeholder` e' stata creata 2 giorni fa
-              </Col>
-            </Row>
-          </Tab>
-          <Tab
-            title={
-              <span
-                style={{
-                  display: 'flex',
-                  textTransform: 'uppercase',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  width: '100%',
-                }}>
-                <Icon path={mdiAlert} size={1.25} color="#1565c0" />
-                <span
-                  style={{
-                    marginLeft: '1em',
-                  }}>
-                  Warnings
-                </span>
-              </span>
-            }>
-            <Col s={12}>
-              <span style={{ backgroundColor: '#fffae6', color: '#957b5a' }} className="flow-text">
-                <Icon path={mdiAlert} size={1.25} color="#ffa000" /> Il nodo `2` della rete `Network
-                Placeholder` ha segnalato un comportamento anomalo
-              </span>
-            </Col>
-          </Tab>
-          <Tab
-            title={
-              <span
-                style={{
-                  display: 'flex',
-                  textTransform: 'uppercase',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  width: '100%',
-                }}>
-                <Icon path={mdiAlertCircle} size={1.25} color="#1565c0" />
-                <span
-                  style={{
-                    marginLeft: '1em',
-                  }}>
-                  Errors
-                </span>
-              </span>
-            }>
-            <Col s={12}>
-              <span style={{ backgroundColor: '#ffeff0', color: '#ff677e' }} className="flow-text">
-                <Icon path={mdiAlertCircle} size={1.25} color="#fb3349" /> Il network `Network
-                Placeholder` non e' raggiungibile
-              </span>
-            </Col>{' '}
-          </Tab>
-        </Tabs>
+        <Logger />
       </Col>
     </Row>
   )
