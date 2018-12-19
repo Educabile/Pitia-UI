@@ -17,7 +17,7 @@ import { Offline, Online } from 'react-detect-offline'
 import { ErrorToast, SuccessToast } from 'components/Toast'
 class Layout extends Component {
   render() {
-    const { history, username, email } = this.props
+    const { history, username, email, addInfoEvent } = this.props
     return (
       <>
         <header>
@@ -178,8 +178,8 @@ class Layout extends Component {
           </Navbar>
         </header>
         <main>{this.props.children}</main>
-        <NetworkModal />
-        <NodesModal />
+        <NetworkModal addInfoEvent={addInfoEvent} />
+        <NodesModal addInfoEvent={addInfoEvent} />
         <WidgetsModal />
         <ToastContainer
           style={{ top: 70 }}

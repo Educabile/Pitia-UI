@@ -4,7 +4,7 @@ import Icon from '@mdi/react'
 import { mdiPlusNetwork, mdiCloseCircleOutline } from '@mdi/js'
 import NetworkForm from 'components/NetworkForm/NetworkForm'
 
-const NetworksModal = () => (
+const NetworksModal = ({ addInfoEvent }) => (
   <Modal
     id="networks-modal"
     actions={null}
@@ -34,7 +34,7 @@ const NetworksModal = () => (
         </span>
       </div>
     }>
-    <NetworkForm />
+    <NetworkForm addInfoEvent={addInfoEvent} />
   </Modal>
 )
 

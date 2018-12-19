@@ -19,7 +19,7 @@ import Resizable from 're-resizable'
 import Button from 'components/Button/Button'
 import Style from './Dashboard.module.css'
 
-const Dashboard = ({ t, loggedIn }) =>
+const Dashboard = ({ t, loggedIn, infoEventMock, addInfoEvent }) =>
   !loggedIn ? (
     <Redirect to="/login" />
   ) : (
@@ -210,7 +210,7 @@ const Dashboard = ({ t, loggedIn }) =>
         </Button>
       </Col>
       <Col s={12} m={4} className={cx('z-depth-1', Style.Col)}>
-        <Logger />
+        <Logger infoEventMock={infoEventMock} />
       </Col>
     </Row>
   )

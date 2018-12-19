@@ -4,7 +4,7 @@ import Icon from '@mdi/react'
 import { mdiGoogleNearby, mdiCloseCircleOutline } from '@mdi/js'
 import NodesForm from 'components/NodeForm/NodeForm'
 
-const NodesModal = () => (
+const NodesModal = ({ addInfoEvent }) => (
   <Modal
     id="nodes-modal"
     actions={null}
@@ -34,7 +34,7 @@ const NodesModal = () => (
         </span>
       </div>
     }>
-    <NodesForm />
+    <NodesForm addInfoEvent={addInfoEvent} />
   </Modal>
 )
 

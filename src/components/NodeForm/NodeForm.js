@@ -52,6 +52,7 @@ class NodeForm extends Component {
 
   render() {
     const { name, type, position, ip } = this.state
+    const { addInfoEvent } = this.props
 
     return (
       <form
@@ -106,6 +107,12 @@ class NodeForm extends Component {
                 window.$('#nodes-modal').modal('close')
                 SuccessToast({
                   content: `Nuovo nodo \`${name}\` aggiunto con successo`,
+                  action: addInfoEvent({
+                    type: 'newNode',
+                    content: `Nuovo nodo \`${name}\` aggiunto con successo`,
+                    details: `E' stata aggiunto un nuovo nodo: \`${name}\``,
+                    date: +new Date(),
+                  }),
                 })
               }}
               large

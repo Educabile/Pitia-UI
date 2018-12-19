@@ -22,20 +22,7 @@ import Button from 'components/Button/Button'
 
 const formatter = buildFormatter(italianStrings)
 
-const infoEventMock = [
-  {
-    type: 'newNetwork',
-    content: "E' stata creata una nuova rete: `Network Placeholder`",
-    date: '2018-09-12 10:06 PM',
-  },
-  {
-    type: 'newNode',
-    content: "E' stato creato un nuovo nodo: `Node Placeholder`",
-    date: '2018-19-12 10:06 AM',
-  },
-]
-
-const Logger = ({ history }) => (
+const Logger = ({ history, infoEventMock }) => (
   <>
     <div
       className="collapsible-header flow-text white"
@@ -137,10 +124,8 @@ const Logger = ({ history }) => (
                     borderColor: '#1565C0',
                   }}
                   contentStyle={{ backgroundColor: '#1565C0ed', color: 'white' }}
-                  title={
-                    event.type === 'newNetwork' ? 'Nuova rete creata' : 'Nodo di rete aggiunto'
-                  }
-                  createdAt={<TimeAgo date={'2018-09-12 10:06 PM'} formatter={formatter} />}
+                  title={event.type === 'newNetwork' ? event.content : 'Nodo di rete aggiunto'}
+                  createdAt={<TimeAgo date={event.date} formatter={formatter} />}
                   icon={
                     event.type === 'newNetwork' ? (
                       <Icon path={mdiPlusNetwork} size={1} color="#1565C0" />
@@ -148,199 +133,9 @@ const Logger = ({ history }) => (
                       <Icon path={mdiAccessPointNetwork} size={1} color="#1565C0" />
                     )
                   }>
-                  {event.content}
+                  {event.details}
                 </TimelineEvent>
               ))}
-              {/* <TimelineEvent
-                buttons={
-                  <Button
-                    className="white-text btn-small"
-                    flat
-                    waves
-                    onClick={() => history.push('/networks')}
-                    tooltip="Visualizza l'evento"
-                    tooltipOptions={{
-                      position: 'left',
-                      enterDelay: 250,
-                    }}>
-                    <Icon path={mdiKeyboardTab} size={1.2} color="#1565C0" />
-                  </Button>
-                }
-                collapsible
-                className="flow-text"
-                bubbleStyle={{
-                  borderColor: '#1565C0',
-                }}
-                contentStyle={{ backgroundColor: '#1565C0ed', color: 'white' }}
-                title="Nuova rete creata"
-                createdAt={<TimeAgo date={'2018-09-12 10:06 PM'} formatter={formatter} />}
-                icon={<Icon path={mdiPlusNetwork} size={1} color="#1565C0" />}>
-                E' stata creata una nuova rete: `Network Placeholder`
-              </TimelineEvent>
-              <TimelineEvent
-                collapsible
-                contentStyle={{ backgroundColor: '#1565C0ed', color: 'white' }}
-                className="flow-text"
-                bubbleStyle={{
-                  borderColor: '#1565C0',
-                }}
-                title="Nodo di rete aggiunto"
-                createdAt={<TimeAgo date={'2018-04-12 10:06 PM'} formatter={formatter} />}
-                icon={<Icon path={mdiAccessPointNetwork} size={0.9} color="#1565C0" />}>
-                E' stato aggiunto un nuovo nodo `Node Placeholder` alla rete `Network Placeholder`
-              </TimelineEvent>
-              <TimelineEvent
-                buttons={
-                  <Button
-                    className="white-text btn-small"
-                    flat
-                    waves
-                    onClick={() => history.push('/networks')}
-                    tooltip="Visualizza l'evento"
-                    tooltipOptions={{
-                      position: 'left',
-                      enterDelay: 250,
-                    }}>
-                    <Icon path={mdiKeyboardTab} size={1.2} color="#1565C0" />
-                  </Button>
-                }
-                collapsible
-                className="flow-text"
-                bubbleStyle={{
-                  borderColor: '#1565C0',
-                }}
-                contentStyle={{ backgroundColor: '#1565C0ed', color: 'white' }}
-                title="Nuova rete creata"
-                createdAt={<TimeAgo date={'2018-09-12 10:06 PM'} formatter={formatter} />}
-                icon={<Icon path={mdiPlusNetwork} size={1} color="#1565C0" />}>
-                E' stata creata una nuova rete: `Network Placeholder`
-              </TimelineEvent>
-              <TimelineEvent
-                collapsible
-                contentStyle={{ backgroundColor: '#1565C0ed', color: 'white' }}
-                className="flow-text"
-                bubbleStyle={{
-                  borderColor: '#1565C0',
-                }}
-                title="Nodo di rete aggiunto"
-                createdAt={<TimeAgo date={'2018-04-12 10:06 PM'} formatter={formatter} />}
-                icon={<Icon path={mdiAccessPointNetwork} size={0.9} color="#1565C0" />}>
-                E' stato aggiunto un nuovo nodo `Node Placeholder` alla rete `Network Placeholder`
-              </TimelineEvent>
-              <TimelineEvent
-                buttons={
-                  <Button
-                    className="white-text btn-small"
-                    flat
-                    waves
-                    onClick={() => history.push('/networks')}
-                    tooltip="Visualizza l'evento"
-                    tooltipOptions={{
-                      position: 'left',
-                      enterDelay: 250,
-                    }}>
-                    <Icon path={mdiKeyboardTab} size={1.2} color="#1565C0" />
-                  </Button>
-                }
-                collapsible
-                className="flow-text"
-                bubbleStyle={{
-                  borderColor: '#1565C0',
-                }}
-                contentStyle={{ backgroundColor: '#1565C0ed', color: 'white' }}
-                title="Nuova rete creata"
-                createdAt={<TimeAgo date={'2018-09-12 10:06 PM'} formatter={formatter} />}
-                icon={<Icon path={mdiPlusNetwork} size={1} color="#1565C0" />}>
-                E' stata creata una nuova rete: `Network Placeholder`
-              </TimelineEvent>
-              <TimelineEvent
-                collapsible
-                contentStyle={{ backgroundColor: '#1565C0ed', color: 'white' }}
-                className="flow-text"
-                bubbleStyle={{
-                  borderColor: '#1565C0',
-                }}
-                title="Nodo di rete aggiunto"
-                createdAt={<TimeAgo date={'2018-04-12 10:06 PM'} formatter={formatter} />}
-                icon={<Icon path={mdiAccessPointNetwork} size={0.9} color="#1565C0" />}>
-                E' stato aggiunto un nuovo nodo `Node Placeholder` alla rete `Network Placeholder`
-              </TimelineEvent>
-              <TimelineEvent
-                buttons={
-                  <Button
-                    className="white-text btn-small"
-                    flat
-                    waves
-                    onClick={() => history.push('/networks')}
-                    tooltip="Visualizza l'evento"
-                    tooltipOptions={{
-                      position: 'left',
-                      enterDelay: 250,
-                    }}>
-                    <Icon path={mdiKeyboardTab} size={1.2} color="#1565C0" />
-                  </Button>
-                }
-                collapsible
-                className="flow-text"
-                bubbleStyle={{
-                  borderColor: '#1565C0',
-                }}
-                contentStyle={{ backgroundColor: '#1565C0ed', color: 'white' }}
-                title="Nuova rete creata"
-                createdAt={<TimeAgo date={'2018-09-12 10:06 PM'} formatter={formatter} />}
-                icon={<Icon path={mdiPlusNetwork} size={1} color="#1565C0" />}>
-                E' stata creata una nuova rete: `Network Placeholder`
-              </TimelineEvent>
-              <TimelineEvent
-                collapsible
-                contentStyle={{ backgroundColor: '#1565C0ed', color: 'white' }}
-                className="flow-text"
-                bubbleStyle={{
-                  borderColor: '#1565C0',
-                }}
-                title="Nodo di rete aggiunto"
-                createdAt={<TimeAgo date={'2018-04-12 10:06 PM'} formatter={formatter} />}
-                icon={<Icon path={mdiAccessPointNetwork} size={0.9} color="#1565C0" />}>
-                E' stato aggiunto un nuovo nodo `Node Placeholder` alla rete `Network Placeholder`
-              </TimelineEvent>
-              <TimelineEvent
-                buttons={
-                  <Button
-                    className="white-text btn-small"
-                    flat
-                    waves
-                    onClick={() => history.push('/networks')}
-                    tooltip="Visualizza l'evento"
-                    tooltipOptions={{
-                      position: 'left',
-                      enterDelay: 250,
-                    }}>
-                    <Icon path={mdiKeyboardTab} size={1.2} color="#1565C0" />
-                  </Button>
-                }
-                collapsible
-                className="flow-text"
-                bubbleStyle={{
-                  borderColor: '#1565C0',
-                }}
-                contentStyle={{ backgroundColor: '#1565C0ed', color: 'white' }}
-                title="Nuova rete creata"
-                createdAt={<TimeAgo date={'2018-09-12 10:06 PM'} formatter={formatter} />}
-                icon={<Icon path={mdiPlusNetwork} size={1} color="#1565C0" />}>
-                E' stata creata una nuova rete: `Network Placeholder`
-              </TimelineEvent>
-              <TimelineEvent
-                collapsible
-                contentStyle={{ backgroundColor: '#1565C0ed', color: 'white' }}
-                className="flow-text"
-                bubbleStyle={{
-                  borderColor: '#1565C0',
-                }}
-                title="Nodo di rete aggiunto"
-                createdAt={<TimeAgo date={'2018-04-12 10:06 PM'} formatter={formatter} />}
-                icon={<Icon path={mdiAccessPointNetwork} size={0.9} color="#1565C0" />}>
-                E' stato aggiunto un nuovo nodo `Node Placeholder` alla rete `Network Placeholder`
-              </TimelineEvent> */}
             </Timeline>
           </Col>
         </Row>

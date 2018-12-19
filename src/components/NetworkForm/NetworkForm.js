@@ -58,6 +58,7 @@ class NetworkForm extends Component {
 
   render() {
     const { name, position, structure, ip } = this.state
+    const { addInfoEvent } = this.props
 
     return (
       <form
@@ -105,6 +106,12 @@ class NetworkForm extends Component {
                 window.$('#networks-modal').modal('close')
                 SuccessToast({
                   content: `Nuova rete \`${name}\` creata`,
+                  action: addInfoEvent({
+                    type: 'newNetwork',
+                    content: `Nuova rete \`${name}\` creata`,
+                    details: `E' stata creata una nuova rete: \`${name}\``,
+                    date: +new Date(),
+                  }),
                 })
               }}
               className="blueGradient hoverable white-text"
