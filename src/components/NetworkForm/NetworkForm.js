@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import { Button, Input, Row } from 'react-materialize'
 import Icon from '@mdi/react'
 import { mdiHelpNetwork, mdiCrosshairsGps, mdiDomain, mdiIpNetwork, mdiPlus } from '@mdi/js'
-import InfoToast from 'components/InfoToast/InfoToast'
+import { InfoToast } from 'components/Toast'
 class NetworkForm extends Component {
   static propTypes = {
     networkName: PropTypes.string,

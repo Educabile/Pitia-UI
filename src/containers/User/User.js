@@ -4,7 +4,7 @@ import Icon from '@mdi/react'
 import { mdiAccountCardDetails, mdiTranslate, mdiAt } from '@mdi/js'
 import Avatar from 'react-avatar'
 import 'react-toastify/dist/ReactToastify.css'
-import InfoToast from 'components/InfoToast/InfoToast'
+import { SuccessToast } from 'components/Toast'
 import { withRouter } from 'react-router-dom'
 class User extends Component {
   state = {
@@ -16,8 +16,10 @@ class User extends Component {
     const { history } = this.props
 
     return (
-      <Section className="grey lighten-4" style={{ minHeight: 'calc(100vh - 56px)' }}>
-        <Row style={{ paddingTop: '15vh' }}>
+      <div
+        className="grey lighten-4"
+        style={{ minHeight: 'calc(100vh - 56px - 48px)', margin: '0 -0.75rem' }}>
+        <Row style={{ paddingTop: '15vh', marginBottom: 0 }}>
           <Col s={12} m={6} className="push-m3">
             <Card className="rounded">
               <Row>
@@ -75,7 +77,7 @@ class User extends Component {
                           this.props.updateEmail(this.state.email)
                           this.props.updateUsername(this.state.username)
 
-                          InfoToast({
+                          SuccessToast({
                             content: 'Informazioni aggiornate correttamente',
                           })
                         }}
@@ -95,10 +97,11 @@ class User extends Component {
             </Card>
           </Col>
         </Row>
-      </Section>
+      </div>
     )
   }
 }
+
 User.propTypes = {}
 
 export default withRouter(User)

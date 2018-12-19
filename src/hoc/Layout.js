@@ -12,11 +12,9 @@ import NodesModal from 'components/NodesModal/NodesModal'
 import WidgetsModal from 'components/WidgetsModal/WidgetsModal'
 import { profileBackground, profileBackgroundSqip, logoEducabileIoTPng } from 'assets/img'
 import Avatar from 'react-avatar'
-import { ToastContainer } from 'react-toastify'
+import { ToastContainer, toast } from 'react-toastify'
 import { Offline, Online } from 'react-detect-offline'
-import { toast } from 'react-toastify'
-import ErrorToast from 'components/ErrorToast/ErrorToast'
-import SuccessToast from 'components/SuccessToast/SuccessToast'
+import { ErrorToast, SuccessToast } from 'components/Toast'
 class Layout extends Component {
   render() {
     const { history, username, email } = this.props
@@ -216,7 +214,6 @@ class Layout extends Component {
               })
           }}
         />
-
         <Link to="/dashboard">
           <Picture
             sources={[
