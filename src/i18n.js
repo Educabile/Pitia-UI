@@ -28,7 +28,7 @@ i18n
     interpolation: {
       escapeValue: false, // react already safes from xss
     },
-    whitelist: ['it'],
+    whitelist: ['it', 'en'],
     ns: ['common'],
     defaultNS: 'common',
     react: {

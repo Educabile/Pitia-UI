@@ -1,20 +1,32 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import { Button, Input, Row, Col, Card } from 'react-materialize'
+import { Input, Row, Col, Card } from 'react-materialize'
+import Button from 'components/Button/Button'
+import Select from 'components/Select/Select'
 import Icon from '@mdi/react'
 import { mdiAccountCardDetails, mdiTranslate, mdiAt } from '@mdi/js'
 import Avatar from 'react-avatar'
 import 'react-toastify/dist/ReactToastify.css'
 import { SuccessToast } from 'components/Toast'
 import { withNamespaces } from 'react-i18next'
+import i18n from '../../i18n'
 class User extends Component {
+  static propTypes = {
+    t: PropTypes.func.isRequired,
+    email: PropTypes.string.isRequired,
+    username: PropTypes.string.isRequired,
+    updateEmail: PropTypes.func.isRequired,
+    updateUsername: PropTypes.func.isRequired,
+  }
+
   state = {
     email: this.props.email,
     username: this.props.username,
+    language: i18n.language,
   }
 
   render() {
-    const { email, username } = this.state
+    const { email, username, language } = this.state
     const { t, updateEmail, updateUsername } = this.props
 
     return (
@@ -52,7 +64,7 @@ class User extends Component {
                         </Input>
                         <Input
                           s={12}
-                          label={t('Nome e Cognome')}
+                          label={t('common:Nome e Cognome')}
                           validate
                           required
                           value={username}
@@ -61,9 +73,20 @@ class User extends Component {
                           }}>
                           <Icon path={mdiAccountCardDetails} size={1.175} color="#1565c0" />
                         </Input>
-                        <Input s={12} label={t('lingua')} validate value="Italiano" disabled>
-                          <Icon path={mdiTranslate} size={1.175} color="#1565c0" />
-                        </Input>
+                        <Select
+                          id="boo"
+                          s={12}
+                          label={t('common:lingua')}
+                          value={language}
+                          icon={<Icon path={mdiTranslate} size={1.175} color="#1565c0" />}
+                          onChange={({ currentTarget: { value: language } }) => {
+                            this.setState({
+                              language,
+                            })
+                          }}>
+                          <option value="it">Italiano</option>
+                          <option value="en">English</option>
+                        </Select>
                       </Row>
                     </form>
 
@@ -77,6 +100,8 @@ class User extends Component {
                           SuccessToast({
                             content: t('informazioniAggiornate'),
                           })
+
+                          i18n.changeLanguage(language)
                         }}
                         className="blueGradient hoverable white-text"
                         waves
@@ -85,7 +110,7 @@ class User extends Component {
                           justifyContent: 'center',
                           alignItems: 'center',
                         }}>
-                        <span>{t('aggiornaInformazioni')}</span>
+                        <span>{t('common:aggiornaInformazioni')}</span>
                       </Button>
                     </div>
                   </div>
@@ -97,14 +122,6 @@ class User extends Component {
       </div>
     )
   }
-}
-
-User.propTypes = {
-  t: PropTypes.func.isRequired,
-  email: PropTypes.string.isRequired,
-  username: PropTypes.string.isRequired,
-  updateEmail: PropTypes.func.isRequired,
-  updateUsername: PropTypes.isRequired,
 }
 
 export default withNamespaces(['notifications'])(User)

@@ -1,12 +1,13 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import cx from 'class-names'
+import cx from 'classnames'
+import idgen from 'libs/idgen'
 
 class Select extends Component {
   constructor(props) {
     super(props)
 
-    this.id = props.id
+    this.id = props.id || idgen()
     this.handleChange = this.handleChange.bind(this)
     this.state = { value: props.value }
   }
@@ -25,16 +26,19 @@ class Select extends Component {
   }
 
   componentDidMount() {
-    if (typeof M !== 'undefined') {
+    if (typeof window.M !== 'undefined') {
       this.instance = window.M.FormSelect.init(this._selectRef)
     }
   }
 
   render() {
     const {
+      s,
+      m,
+      l,
       disabled,
       noLayout,
-      placeholder,
+      browserDefault,
       icon,
       label,
       selectClassName,
@@ -45,12 +49,12 @@ class Select extends Component {
       multiple,
     } = this.props
 
-    // const sizes = { s, m, l }
+    const sizes = { s, m, l }
+    const SIZES = ['s', 'm', 'l', 'xl']
     let responsiveClasses
     if (!noLayout) {
-      const sizes = ['s', 'm', 'l', 'xl']
       responsiveClasses = { col: true }
-      sizes.forEach(size => {
+      SIZES.forEach(size => {
         responsiveClasses[size + sizes[size]] = sizes[size]
       })
     }
@@ -58,7 +62,6 @@ class Select extends Component {
     const wrapperClasses = cx('input-field', responsiveClasses)
 
     const selectProps = {
-      placeholder,
       type: 'select',
       id: this.id,
       value: this.state.value,
@@ -88,7 +91,14 @@ class Select extends Component {
             this._selectRef = el
           }}
           onChange={this.handleChange}
-          className={cx({ validate, multiple }, selectClassName)}
+          className={cx(
+            {
+              validate,
+              multiple,
+              ['browser-default']: browserDefault,
+            },
+            selectClassName
+          )}
           {...selectProps}>
           {renderOptions()}
         </select>
@@ -108,13 +118,21 @@ Select.propTypes = {
    */
   noLayout: PropTypes.bool,
   /*
+   * Responsive size for Small
+   */
+  s: PropTypes.number,
+  /*
+   * Responsive size for Medium
+   */
+  m: PropTypes.number,
+  /*
+   * Responsive size for Large
+   */
+  l: PropTypes.number,
+  /*
    * disabled input
    */
   disabled: PropTypes.bool,
-  /*
-   * Placeholder string
-   */
-  placeholder: PropTypes.string,
   /*
    * override id
    * @default idgen()
@@ -123,7 +141,7 @@ Select.propTypes = {
   /*
    * prefix icon
    */
-  icon: PropTypes.string,
+  icon: PropTypes.node,
   /*
    * label text
    */
