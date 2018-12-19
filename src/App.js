@@ -6,11 +6,10 @@ import Networks from 'containers/Networks/Networks'
 import Network from 'containers/Network/Network'
 import Login from 'containers/Login/Login'
 import Settings from 'containers/Settings/Settings'
-import User from 'containers/User/User'
 
 class App extends Component {
   state = {
-    loggedIn: false,
+    loggedIn: true,
     username: 'Mario Rossi',
     email: 'mario.rossi@email.it',
   }
@@ -43,18 +42,6 @@ class App extends Component {
             path="/dashboard"
             exact
             render={() => <Dashboard loggedIn={this.state.loggedIn} />}
-          />
-          <Route
-            path="/user"
-            exact
-            render={() => (
-              <User
-                username={username}
-                email={email}
-                updateEmail={this.updateEmail}
-                updateUsername={this.updateUsername}
-              />
-            )}
           />
           <Route path="/networks/" exact component={Networks} />
           <Route path="/networks/:networkId" exact component={Network} />

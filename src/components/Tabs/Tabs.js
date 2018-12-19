@@ -42,8 +42,13 @@ class Tabs extends Component {
   render() {
     const { children, className, defaultValue, style } = this.props
     return (
-      <Row>
-        <Col s={12} style={style}>
+      <Row style={{ marginBottom: 0 }}>
+        <Col
+          s={12}
+          style={{
+            padding: 0,
+            ...style,
+          }}>
           <ul className={cx('tabs', className)} ref={el => (this._tabsEl = el)}>
             {React.Children.map(children, (child, id) => {
               const idx = `${this.scope}${id}`
