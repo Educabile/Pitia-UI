@@ -2,9 +2,10 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { Modal } from 'react-materialize'
 import Icon from '@mdi/react'
-import { mdiGoogleNearby, mdiCloseCircleOutline, mdiWidgets } from '@mdi/js'
+import { mdiCloseCircleOutline, mdiWidgets } from '@mdi/js'
+import { withNamespaces } from 'react-i18next'
 
-const WidgetModal = () => (
+const WidgetModal = ({ t }) => (
   <Modal
     id="widgets-modal"
     actions={null}
@@ -19,7 +20,7 @@ const WidgetModal = () => (
           style={{
             marginLeft: '1em',
           }}>
-          Aggiungi un widget
+          {t('aggiungiWidget')}
         </span>
         <span
           onClick={() => {
@@ -38,6 +39,8 @@ const WidgetModal = () => (
   </Modal>
 )
 
-WidgetModal.propTypes = {}
+WidgetModal.propTypes = {
+  t: PropTypes.func.isRequired,
+}
 
-export default WidgetModal
+export default withNamespaces()(WidgetModal)

@@ -1,15 +1,19 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import { Button, Input, Row } from 'react-materialize'
+import { Input, Row } from 'react-materialize'
+import Button from 'components/Button/Button'
 import Icon from '@mdi/react'
 import { mdiCrosshairsGps, mdiPlus, mdiLabelOutline, mdiMemory, mdiIpNetwork } from '@mdi/js'
 import { SuccessToast } from 'components/Toast'
+import { withNamespaces } from 'react-i18next'
 class NodeForm extends Component {
   static propTypes = {
+    t: PropTypes.func.isRequired,
     sensorName: PropTypes.string,
     sensorType: PropTypes.string,
     sensorPosition: PropTypes.string,
     sensorIP: PropTypes.string,
+    addInfoEvent: PropTypes.func.isRequired,
   }
 
   static defaultProps = {
@@ -52,7 +56,7 @@ class NodeForm extends Component {
 
   render() {
     const { name, type, position, ip } = this.state
-    const { addInfoEvent } = this.props
+    const { t, addInfoEvent } = this.props
 
     return (
       <form
@@ -62,7 +66,7 @@ class NodeForm extends Component {
         <Row>
           <Input
             s={12}
-            label="Nome del sensore"
+            label={t('nomeSensore')}
             validate
             required
             value={name}
@@ -71,7 +75,7 @@ class NodeForm extends Component {
           </Input>
           <Input
             s={12}
-            label="Tipo del sensore"
+            label={t('tipoSensore')}
             validate
             required
             value={type}
@@ -80,18 +84,13 @@ class NodeForm extends Component {
           </Input>
           <Input
             s={12}
-            label="Posizione del sensore"
+            label={t('posizioneSensore')}
             validate
             value={position}
             onChange={this.updatePosition}>
             <Icon path={mdiCrosshairsGps} size={1.175} color="#1565c0" />
           </Input>
-          <Input
-            s={12}
-            label="Indirizzo IP del sensore"
-            validate
-            value={ip}
-            onChange={this.updateIP}>
+          <Input s={12} label={t('ipSensore')} validate value={ip} onChange={this.updateIP}>
             <Icon path={mdiIpNetwork} size={1.175} color="#1565c0" />
           </Input>
 
@@ -127,7 +126,7 @@ class NodeForm extends Component {
                 style={{
                   marginRight: '1em',
                 }}>
-                Aggiungi nodo
+                {t('aggiungiNodo')}
               </span>
               <Icon path={mdiPlus} size={1} color="white" />
             </Button>
@@ -138,4 +137,4 @@ class NodeForm extends Component {
   }
 }
 
-export default NodeForm
+export default withNamespaces()(NodeForm)

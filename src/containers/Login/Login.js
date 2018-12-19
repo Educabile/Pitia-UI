@@ -1,17 +1,28 @@
 import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 import { Redirect } from 'react-router-dom'
 import { Row, Col, Input, Card, Button } from 'react-materialize'
 import { Icon } from '@mdi/react'
 import { mdiAccount, mdiLogin } from '@mdi/js'
 import Style from './Login.module.css'
 import Avatar from 'react-avatar'
+import { withNamespaces } from 'react-i18next'
 class Login extends Component {
+  static propTypes = {
+    loggedIn: PropTypes.bool.isRequired,
+    logIn: PropTypes.func.isRequired,
+    t: PropTypes.func.isRequired,
+  }
+
   state = {
     email: '',
     password: '',
   }
 
   render() {
+    const { email, password } = this.state
+    const { t, logIn } = this.props
+
     return this.props.loggedIn ? (
       <Redirect to="/dashboard" />
     ) : (
@@ -22,8 +33,8 @@ class Login extends Component {
               className="blueGradient"
               color="#1565C0"
               value={<Icon path={mdiAccount} size={3} color="white" />}
-              name={this.state.email.split('@')[0].replace(/\./gi, ' ')}
-              email={this.state.email}
+              name={email.split('@')[0].replace(/\./gi, ' ')}
+              email={email}
               round
               size={100}
             />
@@ -31,38 +42,38 @@ class Login extends Component {
               onSubmit={e => {
                 e.preventDefault()
 
-                this.props.logIn()
+                logIn()
               }}>
               <Row>
                 <Input
                   s={12}
-                  label="Email"
+                  label={t('email')}
                   onChange={({ target: { value: email } }) =>
                     this.setState({
                       email,
                     })
                   }
                   type="email"
-                  value={this.state.email}
+                  value={email}
                   validate
                   required
                 />
                 <Input
                   type="password"
-                  label="Password"
+                  label={t('password')}
                   s={12}
                   onChange={({ target: { value: password } }) =>
                     this.setState({
                       password,
                     })
                   }
-                  value={this.state.password}
+                  value={password}
                   validate
                   required
                 />
                 <div className="center">
                   <Button
-                    disabled={!(this.state.email.length > 0 && this.state.password.length > 0)}
+                    disabled={!(email.length > 0 && password.length > 0)}
                     className="blueGradient hoverable white-text"
                     large
                     waves
@@ -75,7 +86,7 @@ class Login extends Component {
                       style={{
                         marginRight: '1em',
                       }}>
-                      Login
+                      {t('login')}
                     </span>
                     <Icon path={mdiLogin} size={1} color="white" />
                   </Button>
@@ -89,6 +100,4 @@ class Login extends Component {
   }
 }
 
-Login.propTypes = {}
-
-export default Login
+export default withNamespaces()(Login)

@@ -1,11 +1,13 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import { Tab } from 'react-materialize'
 import Tabs from 'components/Tabs/Tabs'
 import Icon from '@mdi/react'
 import { mdiAccount, mdiBellRing, mdiApplication, mdiInformationOutline } from '@mdi/js'
 import User from 'containers/User/User'
+import { withNamespaces } from 'react-i18next'
 
-const Settings = ({ username, email, updateEmail, updateUsername }) => (
+const Settings = ({ t, username, email, updateEmail, updateUsername }) => (
   <Tabs className="z-depth-1 tabs-fixed-width">
     <Tab
       title={
@@ -22,7 +24,7 @@ const Settings = ({ username, email, updateEmail, updateUsername }) => (
             style={{
               marginLeft: '1em',
             }}>
-            Interfaccia
+            {t('interfaccia')}
           </span>
         </span>
       }
@@ -44,7 +46,7 @@ const Settings = ({ username, email, updateEmail, updateUsername }) => (
             style={{
               marginLeft: '1em',
             }}>
-            Notifiche
+            {t('notifiche')}
           </span>
         </span>
       }
@@ -66,7 +68,7 @@ const Settings = ({ username, email, updateEmail, updateUsername }) => (
             style={{
               marginLeft: '1em',
             }}>
-            Account
+            {t('account')}
           </span>
         </span>
       }
@@ -93,7 +95,7 @@ const Settings = ({ username, email, updateEmail, updateUsername }) => (
             style={{
               marginLeft: '1em',
             }}>
-            Informazioni
+            {t('informazioni')}
           </span>
         </span>
       }
@@ -103,6 +105,12 @@ const Settings = ({ username, email, updateEmail, updateUsername }) => (
   </Tabs>
 )
 
-Settings.propTypes = {}
+Settings.propTypes = {
+  t: PropTypes.func.isRequired,
+  username: PropTypes.string.isRequired,
+  email: PropTypes.string.isRequired,
+  updateEmail: PropTypes.string.isRequired,
+  updateUsername: PropTypes.string.isRequired,
+}
 
-export default Settings
+export default withNamespaces()(Settings)

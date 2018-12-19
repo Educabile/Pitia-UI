@@ -1,10 +1,12 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import { Modal } from 'react-materialize'
 import Icon from '@mdi/react'
 import { mdiPlusNetwork, mdiCloseCircleOutline } from '@mdi/js'
 import NetworkForm from 'components/NetworkForm/NetworkForm'
+import { withNamespaces } from 'react-i18next'
 
-const NetworksModal = ({ addInfoEvent }) => (
+const NetworksModal = ({ t, addInfoEvent }) => (
   <Modal
     id="networks-modal"
     actions={null}
@@ -19,7 +21,7 @@ const NetworksModal = ({ addInfoEvent }) => (
           style={{
             marginLeft: '1em',
           }}>
-          Crea un nuovo network
+          {t('creaNetwork')}
         </span>
         <span
           onClick={() => {
@@ -38,4 +40,9 @@ const NetworksModal = ({ addInfoEvent }) => (
   </Modal>
 )
 
-export default NetworksModal
+NetworksModal.propTypes = {
+  t: PropTypes.func.isRequired,
+  addInfoEvent: PropTypes.func.isRequired,
+}
+
+export default withNamespaces()(NetworksModal)

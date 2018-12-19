@@ -1,15 +1,19 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import { Button, Input, Row } from 'react-materialize'
+import { Input, Row } from 'react-materialize'
+import Button from 'components/Button/Button'
 import Icon from '@mdi/react'
 import { mdiHelpNetwork, mdiCrosshairsGps, mdiDomain, mdiIpNetwork, mdiPlus } from '@mdi/js'
 import { SuccessToast } from 'components/Toast'
+import { withNamespaces } from 'react-i18next'
 class NetworkForm extends Component {
   static propTypes = {
     networkName: PropTypes.string,
     networkPosition: PropTypes.string,
     networkStructure: PropTypes.string,
     networkIP: PropTypes.string,
+    addInfoEvent: PropTypes.func.isRequired,
+    t: PropTypes.func.isRequired,
   }
 
   static defaultProps = {
@@ -58,7 +62,7 @@ class NetworkForm extends Component {
 
   render() {
     const { name, position, structure, ip } = this.state
-    const { addInfoEvent } = this.props
+    const { t, addInfoEvent } = this.props
 
     return (
       <form
@@ -68,7 +72,7 @@ class NetworkForm extends Component {
         <Row>
           <Input
             s={12}
-            label="Nome della rete"
+            label={t('nomeRete')}
             validate
             required
             value={name}
@@ -77,7 +81,7 @@ class NetworkForm extends Component {
           </Input>
           <Input
             s={12}
-            label="Posizione della rete"
+            label={t('posizioneRete')}
             validate
             value={position}
             onChange={this.updatePosition}>
@@ -85,18 +89,13 @@ class NetworkForm extends Component {
           </Input>
           <Input
             s={12}
-            label="Struttura di riferimento"
+            label={t('assetRiferimento')}
             validate
             value={structure}
             onChange={this.updateStructure}>
             <Icon path={mdiDomain} size={1.175} color="#1565c0" />
           </Input>
-          <Input
-            s={12}
-            label="Indirizzo IP della rete"
-            validate
-            value={ip}
-            onChange={this.updateIP}>
+          <Input s={12} label={t('ipRete')} validate value={ip} onChange={this.updateIP}>
             <Icon path={mdiIpNetwork} size={1.175} color="#1565c0" />
           </Input>
 
@@ -126,7 +125,7 @@ class NetworkForm extends Component {
                 style={{
                   marginRight: '1em',
                 }}>
-                Crea rete
+                {t('creaNetwork')}
               </span>
               <Icon path={mdiPlus} size={1} color="white" />
             </Button>
@@ -137,4 +136,4 @@ class NetworkForm extends Component {
   }
 }
 
-export default NetworkForm
+export default withNamespaces()(NetworkForm)

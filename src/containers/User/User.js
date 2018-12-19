@@ -1,11 +1,12 @@
 import React, { Component } from 'react'
-import { Button, Input, Row, Col, Section, Card } from 'react-materialize'
+import PropTypes from 'prop-types'
+import { Button, Input, Row, Col, Card } from 'react-materialize'
 import Icon from '@mdi/react'
 import { mdiAccountCardDetails, mdiTranslate, mdiAt } from '@mdi/js'
 import Avatar from 'react-avatar'
 import 'react-toastify/dist/ReactToastify.css'
 import { SuccessToast } from 'components/Toast'
-import { withRouter } from 'react-router-dom'
+import { withNamespaces } from 'react-i18next'
 class User extends Component {
   state = {
     email: this.props.email,
@@ -13,7 +14,8 @@ class User extends Component {
   }
 
   render() {
-    const { history } = this.props
+    const { email, username } = this.state
+    const { t, updateEmail, updateUsername } = this.props
 
     return (
       <div
@@ -24,12 +26,7 @@ class User extends Component {
             <Card className="rounded">
               <Row>
                 <Col s={12} className="center">
-                  <Avatar
-                    className="blueGradient"
-                    name={this.state.username}
-                    email={this.state.email}
-                    round
-                  />
+                  <Avatar className="blueGradient" name={username} email={email} round />
                 </Col>
 
                 <Col s={8} className="push-s2">
@@ -42,10 +39,10 @@ class User extends Component {
                         <Input
                           type="email"
                           s={12}
-                          label="Email"
+                          label={t('email')}
                           validate
                           required
-                          value={this.state.email}
+                          value={email}
                           onChange={({ target: { value: email } }) => {
                             this.setState({
                               email,
@@ -55,16 +52,16 @@ class User extends Component {
                         </Input>
                         <Input
                           s={12}
-                          label="Nome e Cognome"
+                          label={t('Nome e Cognome')}
                           validate
                           required
-                          value={this.state.username}
+                          value={username}
                           onChange={({ target: { value: username } }) => {
                             this.setState({ username })
                           }}>
                           <Icon path={mdiAccountCardDetails} size={1.175} color="#1565c0" />
                         </Input>
-                        <Input s={12} label="Lingua" validate value="Italiano" disabled>
+                        <Input s={12} label={t('lingua')} validate value="Italiano" disabled>
                           <Icon path={mdiTranslate} size={1.175} color="#1565c0" />
                         </Input>
                       </Row>
@@ -74,11 +71,11 @@ class User extends Component {
                       <Button
                         large
                         onClick={() => {
-                          this.props.updateEmail(this.state.email)
-                          this.props.updateUsername(this.state.username)
+                          updateEmail(email)
+                          updateUsername(username)
 
                           SuccessToast({
-                            content: 'Informazioni aggiornate correttamente',
+                            content: t('informazioniAggiornate'),
                           })
                         }}
                         className="blueGradient hoverable white-text"
@@ -88,7 +85,7 @@ class User extends Component {
                           justifyContent: 'center',
                           alignItems: 'center',
                         }}>
-                        <span>Aggiorna informazioni</span>
+                        <span>{t('aggiornaInformazioni')}</span>
                       </Button>
                     </div>
                   </div>
@@ -102,6 +99,12 @@ class User extends Component {
   }
 }
 
-User.propTypes = {}
+User.propTypes = {
+  t: PropTypes.func.isRequired,
+  email: PropTypes.string.isRequired,
+  username: PropTypes.string.isRequired,
+  updateEmail: PropTypes.func.isRequired,
+  updateUsername: PropTypes.isRequired,
+}
 
-export default withRouter(User)
+export default withNamespaces(['notifications'])(User)

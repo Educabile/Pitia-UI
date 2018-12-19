@@ -14,9 +14,9 @@ i18n
       backends: [LocalStorageBackend, XHR],
       backendOptions: [
         {
-          prefix: 'i18next_res_',
+          prefix: 'pitia_res_',
           versions: {
-            it: 'v1.0',
+            it: 'v1.0 Dev',
           },
         },
         {

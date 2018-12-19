@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import cx from 'class-names'
 import { Row, Col, Badge, Tab } from 'react-materialize'
 import Tabs from 'components/Tabs/Tabs'
@@ -7,8 +8,9 @@ import { mdiCheckbook, mdiInformationOutline, mdiAlert, mdiAlertCircle } from '@
 import { Timeline } from 'react-event-timeline'
 import Select from 'components/Select/Select'
 import Notification from 'components/Notifications/Notification'
+import { withNamespaces } from 'react-i18next'
 
-const Logger = ({ infoEventMock }) => (
+const Logger = ({ infoEventMock, t }) => (
   <>
     <div
       className="collapsible-header flow-text white"
@@ -25,7 +27,7 @@ const Logger = ({ infoEventMock }) => (
         }}>
         <Icon path={mdiCheckbook} size={1.5} color="#1565c0" />
         <span style={{ marginLeft: '1em' }}>
-          Attivita'
+          {t('attivita')}
           <Badge
             className="blueGradient"
             style={{
@@ -75,15 +77,15 @@ const Logger = ({ infoEventMock }) => (
               style={{
                 marginLeft: '1em',
               }}>
-              Informations
+              {t('informazioni')}
             </span>
           </span>
         }
         active>
         <Row>
-          <Select label="Ordina per" value={'Piu recenti'}>
-            <option value="3,4">Piu' recenti</option>
-            <option value="4">Meno recenti</option>
+          <Select label={t('ordinaPer')} value={'Piu recenti'}>
+            <option value="3,4">{t('piuRecenti')}</option>
+            <option value="4">{t('menoRecenti')}</option>
           </Select>
           <Col s={12} className="flow-text">
             <Timeline lineColor="#1565C0">
@@ -110,13 +112,13 @@ const Logger = ({ infoEventMock }) => (
                 marginLeft: '1em',
                 color: '#ffa000',
               }}>
-              Warnings
+              {t('warnings')}
             </span>
           </span>
         }>
-        <Select label="Ordina per" value={'Piu recenti'}>
-          <option value="3,4">Piu' recenti</option>
-          <option value="4">Meno recenti</option>
+        <Select label={t('ordinaPer')} value={'Piu recenti'}>
+          <option value="3,4">{t('piuRecenti')}</option>
+          <option value="4">{t('menoRecenti')}</option>
         </Select>
         <Col s={12}>
           <Timeline lineColor="#ffa000">
@@ -142,13 +144,13 @@ const Logger = ({ infoEventMock }) => (
                 marginLeft: '1em',
                 color: '#fb3349',
               }}>
-              Errors
+              {t('errori')}
             </span>
           </span>
         }>
-        <Select label="Ordina per" value={'Piu recenti'}>
-          <option value="3,4">Piu' recenti</option>
-          <option value="4">Meno recenti</option>
+        <Select label={t('ordinaPer')} value={'Piu recenti'}>
+          <option value="3,4">{t('piuRecenti')}</option>
+          <option value="4">{t('menoRecenti')}</option>
         </Select>
         <Col s={12}>
           <Timeline lineColor="#fb3349">
@@ -162,4 +164,9 @@ const Logger = ({ infoEventMock }) => (
   </>
 )
 
-export default Logger
+Logger.propTypes = {
+  t: PropTypes.func.isRequired,
+  infoEventMock: PropTypes.arrayOf(PropTypes.object).isRequired,
+}
+
+export default withNamespaces()(Logger)

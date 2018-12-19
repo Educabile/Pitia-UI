@@ -31,7 +31,7 @@ const Network = ({
             style={{
               marginLeft: '1em',
             }}>
-            Monitor
+            {t('monitora')}
           </span>
         </span>
       }
@@ -53,7 +53,7 @@ const Network = ({
             style={{
               marginLeft: '1em',
             }}>
-            Geolocation
+            {t('geolocalizza')}
           </span>
         </span>
       }>
@@ -74,7 +74,7 @@ const Network = ({
             style={{
               marginLeft: '1em',
             }}>
-            Settings
+            {t('impostazioni')}
           </span>
         </span>
       }>
@@ -93,6 +93,7 @@ Network.propTypes = {
   networkPosition: PropTypes.string,
   networkIp: PropTypes.string,
   wss: PropTypes.string,
+  location: PropTypes.object.isRequired,
 }
 
 export default withNamespaces()(Network)

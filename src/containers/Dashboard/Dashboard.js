@@ -19,7 +19,7 @@ import Resizable from 're-resizable'
 import Button from 'components/Button/Button'
 import Style from './Dashboard.module.css'
 
-const Dashboard = ({ t, loggedIn, infoEventMock, addInfoEvent }) =>
+const Dashboard = ({ t, loggedIn, infoEventMock }) =>
   !loggedIn ? (
     <Redirect to="/login" />
   ) : (
@@ -55,7 +55,7 @@ const Dashboard = ({ t, loggedIn, infoEventMock, addInfoEvent }) =>
                         alignItems: 'center',
                       }}>
                       <Icon path={mdiEye} size={1.5} color="#1565c0" />
-                      <span style={{ marginLeft: '1em' }}>A colpo d'occhio</span>
+                      <span style={{ marginLeft: '1em' }}>{t('riassunto')}</span>
                     </span>
                   }>
                   <Row>
@@ -87,7 +87,7 @@ const Dashboard = ({ t, loggedIn, infoEventMock, addInfoEvent }) =>
                         alignItems: 'center',
                       }}>
                       <Icon path={mdiPlus} size={1.5} color="#1565c0" />
-                      <span style={{ marginLeft: '1em' }}>Creazione Rapida</span>
+                      <span style={{ marginLeft: '1em' }}>{t('widget:creazioneRapida')}</span>
                     </span>
                   }>
                   <Button
@@ -101,7 +101,7 @@ const Dashboard = ({ t, loggedIn, infoEventMock, addInfoEvent }) =>
                         alignItems: 'center',
                       }}>
                       <Icon path={mdiPlusNetwork} size={1.5} color="#1565c0" />
-                      <span style={{ marginLeft: '1em' }}>Crea un nuovo network</span>
+                      <span style={{ marginLeft: '1em' }}>{t('common:creaNetwork')}</span>
                     </span>
                   </Button>
                   <hr />
@@ -116,7 +116,7 @@ const Dashboard = ({ t, loggedIn, infoEventMock, addInfoEvent }) =>
                         alignItems: 'center',
                       }}>
                       <Icon path={mdiGoogleNearby} size={1.5} color="#1565c0" />
-                      <span style={{ marginLeft: '1em' }}>Aggiungi un nodo alla rete</span>
+                      <span style={{ marginLeft: '1em' }}>{t('common:aggiungiNodo')}</span>
                     </span>
                   </Button>
                   <hr />
@@ -131,7 +131,7 @@ const Dashboard = ({ t, loggedIn, infoEventMock, addInfoEvent }) =>
                         alignItems: 'center',
                       }}>
                       <Icon path={mdiCodeTagsCheck} size={1.5} color="#1565c0" />
-                      <span style={{ marginLeft: '1em' }}>Aggiungi regole al network</span>
+                      <span style={{ marginLeft: '1em' }}>{t('common:aggiungiRegole')}</span>
                     </span>
                   </Button>
                 </CollapsibleItem>
@@ -178,7 +178,7 @@ const Dashboard = ({ t, loggedIn, infoEventMock, addInfoEvent }) =>
               />
             }
             className="orangeGradient"
-            tooltip="Riorganizza widget"
+            tooltip={t('common:riorganizzaWidget')}
             tooltipOptions={{
               position: 'left',
             }}
@@ -202,7 +202,7 @@ const Dashboard = ({ t, loggedIn, infoEventMock, addInfoEvent }) =>
               />
             }
             className="greenGradient"
-            tooltip="Aggiungi widget"
+            tooltip={t('common:aggiungiWidget')}
             tooltipOptions={{
               position: 'left',
             }}
@@ -218,6 +218,7 @@ const Dashboard = ({ t, loggedIn, infoEventMock, addInfoEvent }) =>
 Dashboard.propTypes = {
   t: PropTypes.func.isRequired,
   loggedIn: PropTypes.bool.isRequired,
+  infoEventMock: PropTypes.arrayOf(PropTypes.object),
 }
 
-export default withNamespaces()(Dashboard)
+export default withNamespaces(['widget'])(Dashboard)

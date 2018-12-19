@@ -1,10 +1,12 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import { Modal } from 'react-materialize'
 import Icon from '@mdi/react'
 import { mdiGoogleNearby, mdiCloseCircleOutline } from '@mdi/js'
 import NodesForm from 'components/NodeForm/NodeForm'
+import { withNamespaces } from 'react-i18next'
 
-const NodesModal = ({ addInfoEvent }) => (
+const NodesModal = ({ t, addInfoEvent }) => (
   <Modal
     id="nodes-modal"
     actions={null}
@@ -19,11 +21,11 @@ const NodesModal = ({ addInfoEvent }) => (
           style={{
             marginLeft: '1em',
           }}>
-          Aggiungi un nodo alla rete
+          {t('aggiungiNodo')}
         </span>
         <span
           onClick={() => {
-            window.$('#networks-modal').modal('close')
+            window.$('#nodes-modal').modal('close')
           }}
           style={{
             position: 'absolute',
@@ -38,4 +40,9 @@ const NodesModal = ({ addInfoEvent }) => (
   </Modal>
 )
 
-export default NodesModal
+NodesModal.propTypes = {
+  t: PropTypes.func.isRequired,
+  addInfoEvent: PropTypes.func.isRequired,
+}
+
+export default withNamespaces()(NodesModal)

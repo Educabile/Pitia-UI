@@ -8,7 +8,7 @@ class Chart extends Component {
   }
 
   static defaultProps = {
-    wss: '',
+    wss: 'wss://ws-feed.gdax.com/',
   }
 
   state = {

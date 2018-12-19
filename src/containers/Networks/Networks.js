@@ -133,7 +133,7 @@ const Networks = ({ t, match }) => (
         style={{
           bottom: 20,
         }}
-        tooltip="Crea un nuovo network"
+        tooltip={t('creaNetwork')}
         tooltipOptions={{
           position: 'left',
         }}

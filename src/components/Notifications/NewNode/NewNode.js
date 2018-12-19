@@ -10,9 +10,8 @@ import buildFormatter from 'react-timeago/lib/formatters/buildFormatter'
 import { withRouter } from 'react-router-dom'
 const formatter = buildFormatter(italianStrings)
 
-const NewNode = ({ key, event, history }) => (
+const NewNode = ({ event, history }) => (
   <TimelineEvent
-    key={key}
     buttons={
       <Button
         className="white-text btn-small"
@@ -41,7 +40,6 @@ const NewNode = ({ key, event, history }) => (
 )
 
 NewNode.propTypes = {
-  key: PropTypes.number.isRequired,
   event: PropTypes.object.isRequired,
   history: PropTypes.object.isRequired,
 }

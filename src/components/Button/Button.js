@@ -50,6 +50,8 @@ class Button extends Component {
       ...other
     } = this.props
 
+    delete other.tooltipOptions
+
     const toggle = fabClickOnly ? 'click-to-toggle' : ''
     let C = node
     let classes = {
@@ -139,11 +141,11 @@ Button.propTypes = {
    * If enabled, any children button will be rendered as actions, remember to provide an icon.
    * @default vertical. This will disable any onClick function from being called on the main button.
    */
-  fab: PropTypes.oneOf(['vertical', 'horizontal', 'toolbar']),
+  fab: PropTypes.oneOf([true, 'vertical', 'horizontal', 'toolbar']),
   /**
    * The icon to display, if specified it will create a button with the material icon.
    */
-  icon: PropTypes.string,
+  icon: PropTypes.node,
   modal: PropTypes.oneOf(['close', 'confirm']),
   node: PropTypes.node,
   /**
@@ -165,7 +167,7 @@ Button.propTypes = {
     tooltip: PropTypes.string,
     html: PropTypes.bool,
   }),
-  waves: PropTypes.oneOf(['light', 'red', 'yellow', 'orange', 'purple', 'green', 'teal']),
+  waves: PropTypes.oneOf([true, 'light', 'red', 'yellow', 'orange', 'purple', 'green', 'teal']),
   /**
    * FAB Click-Only
    * Turns a FAB from a hover-toggle to a click-toggle

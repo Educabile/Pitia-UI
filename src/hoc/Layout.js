@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import Navbar from 'components/Navbar/Navbar'
-import { Button } from 'react-materialize'
+import Button from 'components/Button/Button'
 import Icon from '@mdi/react'
 import { mdiViewDashboard, mdiLan, mdiTune, mdiBookOpen, mdiDomain } from '@mdi/js'
 import { withRouter, Link } from 'react-router-dom'
@@ -16,12 +16,27 @@ import { ToastContainer, toast } from 'react-toastify'
 import { Offline, Online } from 'react-detect-offline'
 import { ErrorToast, SuccessToast } from 'components/Toast'
 class Layout extends Component {
+  static propTypes = {
+    children: PropTypes.node,
+    t: PropTypes.func.isRequired,
+    history: PropTypes.object.isRequired,
+    username: PropTypes.string.isRequired,
+    email: PropTypes.string.isRequired,
+    addInfoEvent: PropTypes.func.isRequired,
+    loggedIn: PropTypes.bool.isRequired,
+  }
+
+  state = {
+    errorToast: null,
+  }
+
   render() {
-    const { history, username, email, addInfoEvent } = this.props
+    const { errorToast } = this.state
+    const { children, t, history, username, email, addInfoEvent, loggedIn } = this.props
     return (
       <>
         <header>
-          <Navbar className="z-depth-3 center" fixed fixedSidenav={this.props.loggedIn}>
+          <Navbar className="z-depth-3 center" fixed fixedSidenav={loggedIn}>
             <div
               onClick={() => history.push('/user')}
               className="user-view"
@@ -50,7 +65,7 @@ class Layout extends Component {
                 width: '100%',
                 borderRadius: 0,
               }}
-              tooltip="Accedi alla tua dashboard"
+              tooltip={t('common:visualizzaDashboard')}
               tooltipOptions={{
                 position: 'right',
                 enterDelay: 1000,
@@ -60,7 +75,7 @@ class Layout extends Component {
                 style={{
                   marginLeft: '1em',
                 }}>
-                {this.props.t('dashboard')}
+                {t('common:dashboard')}
               </span>
             </Button>
             <Button
@@ -78,7 +93,7 @@ class Layout extends Component {
                 width: '100%',
                 borderRadius: 0,
               }}
-              tooltip="Gestisci i tuoi networks"
+              tooltip={t('common:gestisciNetworks')}
               tooltipOptions={{
                 position: 'right',
                 enterDelay: 1000,
@@ -88,7 +103,7 @@ class Layout extends Component {
                 style={{
                   marginLeft: '1em',
                 }}>
-                {this.props.t('network')}
+                {t('common:network')}
               </span>
             </Button>
             <Button
@@ -106,7 +121,7 @@ class Layout extends Component {
                 width: '100%',
                 borderRadius: 0,
               }}
-              tooltip="Gestisci i tuoi assets"
+              tooltip={t('common:gestisciAssets')}
               tooltipOptions={{
                 position: 'right',
                 enterDelay: 1000,
@@ -116,7 +131,7 @@ class Layout extends Component {
                 style={{
                   marginLeft: '1em',
                 }}>
-                {this.props.t('assets')}
+                {t('assets')}
               </span>
             </Button>
             <Button
@@ -134,7 +149,7 @@ class Layout extends Component {
                 width: '100%',
                 borderRadius: 0,
               }}
-              tooltip="Consulta il manuale"
+              tooltip={t('common:consultaManuale')}
               tooltipOptions={{
                 position: 'right',
                 enterDelay: 1000,
@@ -144,7 +159,7 @@ class Layout extends Component {
                 style={{
                   marginLeft: '1em',
                 }}>
-                {this.props.t('manuale')}
+                {t('common:manuale')}
               </span>
             </Button>
             <Button
@@ -162,7 +177,7 @@ class Layout extends Component {
               flat
               large
               waves
-              tooltip="Modifica le impostazioni"
+              tooltip={t('common:modificaImpostazioni')}
               tooltipOptions={{
                 position: 'right',
                 enterDelay: 1000,
@@ -172,12 +187,12 @@ class Layout extends Component {
                 style={{
                   marginLeft: '1em',
                 }}>
-                {this.props.t('impostazioni')}
+                {t('common:impostazioni')}
               </span>
             </Button>
           </Navbar>
         </header>
-        <main>{this.props.children}</main>
+        <main>{children}</main>
         <NetworkModal addInfoEvent={addInfoEvent} />
         <NodesModal addInfoEvent={addInfoEvent} />
         <WidgetsModal />
@@ -196,10 +211,10 @@ class Layout extends Component {
           onChange={online => {
             if (online) {
               SuccessToast({
-                content: 'Connessione ristabilita',
+                content: t('notifications:connessioneRistabilita'),
               })
 
-              toast.dismiss(this.state.errorToast)
+              toast.dismiss(errorToast)
             }
           }}
         />
@@ -208,7 +223,7 @@ class Layout extends Component {
             !online &&
               this.setState({
                 errorToast: ErrorToast({
-                  content: 'Connessione interrotta',
+                  content: t('notifications:connessioneInterrotta'),
                   autoClose: false,
                 }),
               })
@@ -239,9 +254,4 @@ class Layout extends Component {
   }
 }
 
-Layout.propTypes = {
-  children: PropTypes.node,
-  t: PropTypes.func.isRequired,
-}
-
-export default withRouter(withNamespaces('footer')(Layout))
+export default withRouter(withNamespaces(['notifications'])(Layout))

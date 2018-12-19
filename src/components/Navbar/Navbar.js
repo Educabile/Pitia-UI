@@ -3,8 +3,8 @@ import PropTypes from 'prop-types'
 import cx from 'class-names'
 import { Icon } from '@mdi/react'
 import { mdiMenu } from '@mdi/js'
-import { Breadcrumb, MenuItem } from 'react-materialize'
-import { Link, withRouter } from 'react-router-dom'
+import { Breadcrumb } from 'react-materialize'
+import { withRouter } from 'react-router-dom'
 
 class Navbar extends Component {
   componentDidMount() {
@@ -34,6 +34,7 @@ class Navbar extends Component {
       history: {
         location: { pathname },
       },
+      history,
     } = this.props
 
     const brandClasses = cx({
@@ -41,16 +42,9 @@ class Navbar extends Component {
       center: centerLogo,
     })
 
-    const breadcrumbs = pathname
-      .split('/')
-      .slice(1)
-      .map((breadcrumb, index) => (
-        <MenuItem key={index} style={{ textTransform: 'capitalize' }}>
-          {breadcrumb.replace(/-/g, ' ')}
-        </MenuItem>
-      ))
+    const breadcrumbs = pathname.split('/').slice(1)
 
-    breadcrumbs[0] = <Link to={`/${breadcrumbs[0].props.children}`}>{breadcrumbs[0]}</Link>
+    // breadcrumbs[0] = <Link to={`/${breadcrumbs[0].props.children}`}>{breadcrumbs[0]}</Link>
 
     const navCSS = cx({ 'nav-extended': extendWith }, className)
 
@@ -87,7 +81,22 @@ class Navbar extends Component {
               style={{ position: 'absolute', top: '50%', transform: 'translateY(-50%)' }}
             />
           </a>
-          <Breadcrumb>{breadcrumbs}</Breadcrumb>
+          <Breadcrumb>
+            {breadcrumbs.map((breadcrumb, index) => (
+              <span
+                key={index}
+                style={{ textTransform: 'capitalize', cursor: 'pointer' }}
+                onClick={() => {
+                  if (index > 0) {
+                    history.push(`/${breadcrumbs.join('/')}`)
+                  } else {
+                    history.push(`/${breadcrumbs[0]}`)
+                  }
+                }}>
+                {breadcrumb.replace(/-/g, ' ')}
+              </span>
+            ))}
+          </Breadcrumb>
           <ul className={navMobileCSS}>{links}</ul>
         </div>
         {extendWith && <div className="nav-content">{extendWith}</div>}
@@ -122,6 +131,7 @@ Navbar.propTypes = {
   children: PropTypes.node,
   className: PropTypes.string,
   extendWith: PropTypes.node,
+  history: PropTypes.object,
   /**
    * left makes the navbar links left aligned, right makes them right aligned
    */
@@ -135,6 +145,7 @@ Navbar.propTypes = {
    * Makes the navbar fixed
    */
   fixed: PropTypes.bool,
+  fixedSidenav: PropTypes.bool,
   /**
    * Options hash for the sidenav.
    * More info: https://materializecss.com/sidenav.html#options

@@ -3,13 +3,13 @@ import PropTypes from 'prop-types'
 import NewNetwork from './NewNetwork/NewNetwork'
 import NewNode from './NewNode/NewNode'
 
-const Notification = ({ key, event }) => {
+const Notification = ({ event }) => {
   switch (event.type) {
     case 'newNetwork':
-      return <NewNetwork key={key} event={event} />
+      return <NewNetwork event={event} />
 
     case 'newNode':
-      return <NewNode key={key} event={event} />
+      return <NewNode event={event} />
 
     default:
       break
@@ -17,7 +17,6 @@ const Notification = ({ key, event }) => {
 }
 
 Notification.propTypes = {
-  key: PropTypes.number.isRequired,
   event: PropTypes.object.isRequired,
 }
 
