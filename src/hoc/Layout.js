@@ -13,6 +13,10 @@ import WidgetsModal from 'components/WidgetsModal/WidgetsModal'
 import { profileBackground, profileBackgroundSqip, logoEducabileIoTPng } from 'assets/img'
 import Avatar from 'react-avatar'
 import { ToastContainer } from 'react-toastify'
+import { Offline, Online } from 'react-detect-offline'
+import { toast } from 'react-toastify'
+import ErrorToast from 'components/ErrorToast/ErrorToast'
+import SuccessToast from 'components/SuccessToast/SuccessToast'
 class Layout extends Component {
   render() {
     const { history, username, email } = this.props
@@ -53,7 +57,7 @@ class Layout extends Component {
                 position: 'right',
                 enterDelay: 1000,
               }}>
-              <Icon path={mdiViewDashboard} size={1.5} color="#1565c0" />
+              <Icon path={mdiViewDashboard} size={1.5} color="#1565C0" />
               <span
                 style={{
                   marginLeft: '1em',
@@ -81,7 +85,7 @@ class Layout extends Component {
                 position: 'right',
                 enterDelay: 1000,
               }}>
-              <Icon path={mdiLan} size={1.5} color="#1565c0" />
+              <Icon path={mdiLan} size={1.5} color="#1565C0" />
               <span
                 style={{
                   marginLeft: '1em',
@@ -109,7 +113,7 @@ class Layout extends Component {
                 position: 'right',
                 enterDelay: 1000,
               }}>
-              <Icon path={mdiDomain} size={1.5} color="#1565c0" />
+              <Icon path={mdiDomain} size={1.5} color="#1565C0" />
               <span
                 style={{
                   marginLeft: '1em',
@@ -137,7 +141,7 @@ class Layout extends Component {
                 position: 'right',
                 enterDelay: 1000,
               }}>
-              <Icon path={mdiBookOpen} size={1.5} color="#1565c0" />
+              <Icon path={mdiBookOpen} size={1.5} color="#1565C0" />
               <span
                 style={{
                   marginLeft: '1em',
@@ -190,6 +194,29 @@ class Layout extends Component {
           draggable
           pauseOnHover
         />
+        <Online
+          onChange={online => {
+            if (online) {
+              SuccessToast({
+                content: 'Connessione ristabilita',
+              })
+
+              toast.dismiss(this.state.errorToast)
+            }
+          }}
+        />
+        <Offline
+          onChange={online => {
+            !online &&
+              this.setState({
+                errorToast: ErrorToast({
+                  content: 'Connessione interrotta',
+                  autoClose: false,
+                }),
+              })
+          }}
+        />
+
         <Link to="/dashboard">
           <Picture
             sources={[
