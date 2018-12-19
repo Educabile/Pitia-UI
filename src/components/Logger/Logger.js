@@ -3,26 +3,12 @@ import cx from 'class-names'
 import { Row, Col, Badge, Tab } from 'react-materialize'
 import Tabs from 'components/Tabs/Tabs'
 import Icon from '@mdi/react'
-import {
-  mdiCheckbook,
-  mdiPlusNetwork,
-  mdiAccessPointNetwork,
-  mdiInformationOutline,
-  mdiAlert,
-  mdiAlertCircle,
-  mdiKeyboardTab,
-} from '@mdi/js'
-import { Timeline, TimelineEvent } from 'react-event-timeline'
+import { mdiCheckbook, mdiInformationOutline, mdiAlert, mdiAlertCircle } from '@mdi/js'
+import { Timeline } from 'react-event-timeline'
 import Select from 'components/Select/Select'
-import { withRouter } from 'react-router-dom'
-import TimeAgo from 'react-timeago'
-import italianStrings from 'react-timeago/lib/language-strings/it'
-import buildFormatter from 'react-timeago/lib/formatters/buildFormatter'
-import Button from 'components/Button/Button'
+import Notification from 'components/Notifications/Notification'
 
-const formatter = buildFormatter(italianStrings)
-
-const Logger = ({ history, infoEventMock }) => (
+const Logger = ({ infoEventMock }) => (
   <>
     <div
       className="collapsible-header flow-text white"
@@ -102,39 +88,7 @@ const Logger = ({ history, infoEventMock }) => (
           <Col s={12} className="flow-text">
             <Timeline lineColor="#1565C0">
               {infoEventMock.map((event, index) => (
-                <TimelineEvent
-                  key={index}
-                  buttons={
-                    <Button
-                      className="white-text btn-small"
-                      flat
-                      waves
-                      onClick={() => history.push('/networks')}
-                      tooltip="Visualizza l'evento"
-                      tooltipOptions={{
-                        position: 'left',
-                        enterDelay: 250,
-                      }}>
-                      <Icon path={mdiKeyboardTab} size={1.2} color="#1565C0" />
-                    </Button>
-                  }
-                  collapsible
-                  className="flow-text"
-                  bubbleStyle={{
-                    borderColor: '#1565C0',
-                  }}
-                  contentStyle={{ backgroundColor: '#1565C0ed', color: 'white' }}
-                  title={event.type === 'newNetwork' ? event.content : 'Nodo di rete aggiunto'}
-                  createdAt={<TimeAgo date={event.date} formatter={formatter} />}
-                  icon={
-                    event.type === 'newNetwork' ? (
-                      <Icon path={mdiPlusNetwork} size={1} color="#1565C0" />
-                    ) : (
-                      <Icon path={mdiAccessPointNetwork} size={1} color="#1565C0" />
-                    )
-                  }>
-                  {event.details}
-                </TimelineEvent>
+                <Notification key={index} event={event} />
               ))}
             </Timeline>
           </Col>
@@ -166,30 +120,9 @@ const Logger = ({ history, infoEventMock }) => (
         </Select>
         <Col s={12}>
           <Timeline lineColor="#ffa000">
-            <TimelineEvent
-              collapsible
-              className="flow-text"
-              bubbleStyle={{
-                borderColor: '#ffa000',
-              }}
-              contentStyle={{ backgroundColor: '#fffae6', color: '#957b5a' }}
-              title="Nuova rete creata"
-              createdAt={<TimeAgo date={'2018-06-12 10:06 PM'} formatter={formatter} />}
-              icon={<Icon path={mdiPlusNetwork} size={1} color="#1565C0" />}>
-              E' stata creata una nuova rete: `Network Placeholder`
-            </TimelineEvent>
-            <TimelineEvent
-              collapsible
-              className="flow-text"
-              bubbleStyle={{
-                borderColor: '#ffa000',
-              }}
-              contentStyle={{ backgroundColor: '#fffae6', color: '#957b5a' }}
-              title="Nuova noodo creato"
-              createdAt={<TimeAgo date={'2018-12-18 10:06 AM'} formatter={formatter} />}
-              icon={<Icon path={mdiAccessPointNetwork} size={1} color="#1565C0" />}>
-              E' stato aggiunto un nuovo nodo `Node Placeholder` alla rete `Network Placeholder`
-            </TimelineEvent>
+            {infoEventMock.map((event, index) => (
+              <Notification key={index} event={event} />
+            ))}
           </Timeline>
         </Col>
       </Tab>
@@ -219,30 +152,9 @@ const Logger = ({ history, infoEventMock }) => (
         </Select>
         <Col s={12}>
           <Timeline lineColor="#fb3349">
-            <TimelineEvent
-              collapsible
-              className="flow-text"
-              bubbleStyle={{
-                borderColor: '#fb3349',
-              }}
-              contentStyle={{ backgroundColor: '#ffeff0', color: '#ff677e' }}
-              title="Nuova rete creata"
-              createdAt={<TimeAgo date={'2018-12-18 13:00 AM'} formatter={formatter} />}
-              icon={<Icon path={mdiPlusNetwork} size={1} color="#1565C0" />}>
-              E' stata creata una nuova rete: `Network Placeholder`
-            </TimelineEvent>
-            <TimelineEvent
-              collapsible
-              className="flow-text"
-              bubbleStyle={{
-                borderColor: '#fb3349',
-              }}
-              contentStyle={{ backgroundColor: '#ffeff0', color: '#ff677e' }}
-              title="Nuova noodo creato"
-              createdAt={<TimeAgo date={'2017-05-12 10:06 PM'} formatter={formatter} />}
-              icon={<Icon path={mdiAccessPointNetwork} size={1} color="#1565C0" />}>
-              E' stato aggiunto un nuovo nodo `Node Placeholder` alla rete `Network Placeholder`
-            </TimelineEvent>
+            {infoEventMock.map((event, index) => (
+              <Notification key={index} event={event} />
+            ))}
           </Timeline>
         </Col>
       </Tab>
@@ -250,4 +162,4 @@ const Logger = ({ history, infoEventMock }) => (
   </>
 )
 
-export default withRouter(Logger)
+export default Logger
