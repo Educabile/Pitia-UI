@@ -22,6 +22,19 @@ import Button from 'components/Button/Button'
 
 const formatter = buildFormatter(italianStrings)
 
+const infoEventMock = [
+  {
+    type: 'newNetwork',
+    content: "E' stata creata una nuova rete: `Network Placeholder`",
+    date: '2018-09-12 10:06 PM',
+  },
+  {
+    type: 'newNode',
+    content: "E' stato creato un nuovo nodo: `Node Placeholder`",
+    date: '2018-19-12 10:06 AM',
+  },
+]
+
 const Logger = ({ history }) => (
   <>
     <div
@@ -53,8 +66,7 @@ const Logger = ({ history }) => (
             style={{
               marginLeft: '1em',
               color: 'white',
-            }}
-            className="amber darken-2">
+            }}>
             1 new warning
           </Badge>
           <Badge
@@ -102,7 +114,44 @@ const Logger = ({ history }) => (
           </Select>
           <Col s={12} className="flow-text">
             <Timeline lineColor="#1565C0">
-              <TimelineEvent
+              {infoEventMock.map((event, index) => (
+                <TimelineEvent
+                  key={index}
+                  buttons={
+                    <Button
+                      className="white-text btn-small"
+                      flat
+                      waves
+                      onClick={() => history.push('/networks')}
+                      tooltip="Visualizza l'evento"
+                      tooltipOptions={{
+                        position: 'left',
+                        enterDelay: 250,
+                      }}>
+                      <Icon path={mdiKeyboardTab} size={1.2} color="#1565C0" />
+                    </Button>
+                  }
+                  collapsible
+                  className="flow-text"
+                  bubbleStyle={{
+                    borderColor: '#1565C0',
+                  }}
+                  contentStyle={{ backgroundColor: '#1565C0ed', color: 'white' }}
+                  title={
+                    event.type === 'newNetwork' ? 'Nuova rete creata' : 'Nodo di rete aggiunto'
+                  }
+                  createdAt={<TimeAgo date={'2018-09-12 10:06 PM'} formatter={formatter} />}
+                  icon={
+                    event.type === 'newNetwork' ? (
+                      <Icon path={mdiPlusNetwork} size={1} color="#1565C0" />
+                    ) : (
+                      <Icon path={mdiAccessPointNetwork} size={1} color="#1565C0" />
+                    )
+                  }>
+                  {event.content}
+                </TimelineEvent>
+              ))}
+              {/* <TimelineEvent
                 buttons={
                   <Button
                     className="white-text btn-small"
@@ -291,7 +340,7 @@ const Logger = ({ history }) => (
                 createdAt={<TimeAgo date={'2018-04-12 10:06 PM'} formatter={formatter} />}
                 icon={<Icon path={mdiAccessPointNetwork} size={0.9} color="#1565C0" />}>
                 E' stato aggiunto un nuovo nodo `Node Placeholder` alla rete `Network Placeholder`
-              </TimelineEvent>
+              </TimelineEvent> */}
             </Timeline>
           </Col>
         </Row>
