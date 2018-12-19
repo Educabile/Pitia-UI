@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import { Button, Input, Row } from 'react-materialize'
 import Icon from '@mdi/react'
 import { mdiCrosshairsGps, mdiPlus, mdiLabelOutline, mdiMemory, mdiIpNetwork } from '@mdi/js'
-import { InfoToast } from 'components/Toast'
+import { SuccessToast } from 'components/Toast'
 class NodeForm extends Component {
   static propTypes = {
     sensorName: PropTypes.string,
@@ -104,7 +104,7 @@ class NodeForm extends Component {
                   ip: '',
                 })
                 window.$('#nodes-modal').modal('close')
-                InfoToast({
+                SuccessToast({
                   content: `Nuovo nodo \`${name}\` aggiunto con successo`,
                 })
               }}
