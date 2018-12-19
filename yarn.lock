@@ -14242,6 +14242,11 @@ react-color@^2.14.1:
     reactcss "^1.2.0"
     tinycolor2 "^1.4.1"
 
+react-detect-offline@^2.1.2:
+  version "2.1.2"
+  resolved "https://registry.yarnpkg.com/react-detect-offline/-/react-detect-offline-2.1.2.tgz#1827b1db88c8ae40ca70dfd995dfb0aff702126b"
+  integrity sha512-wO0CWabGz2/vb6QS7gueFVOdvlHY4xGdi7v3at9FMNmUB94ZNHAZcIPsOx5JSVlZajKH1I/6mFX23xgwrWCjkA==
+
 react-dev-utils@^6.1.0, react-dev-utils@^6.1.1:
   version "6.1.1"
   resolved "https://registry.yarnpkg.com/react-dev-utils/-/react-dev-utils-6.1.1.tgz#a07e3e8923c4609d9f27e5af5207e3ca20724895"

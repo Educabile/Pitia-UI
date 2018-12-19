@@ -1,10 +1,10 @@
 import React from 'react'
 import { toast } from 'react-toastify'
 
-export default ({ content, action }) =>
+export default ({ content, action, autoClose = 6000 }) =>
   toast.warning(<div onClick={action}>{content}</div>, {
     position: 'top-right',
-    autoClose: 4000,
+    autoClose: autoClose,
     hideProgressBar: false,
     closeOnClick: true,
     pauseOnHover: true,
