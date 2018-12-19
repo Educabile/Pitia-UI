@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import { Button, Input, Row } from 'react-materialize'
 import Icon from '@mdi/react'
 import { mdiCrosshairsGps, mdiPlus, mdiLabelOutline, mdiMemory, mdiIpNetwork } from '@mdi/js'
-import InfoToast from 'components/InfoToast/InfoToast'
+import { InfoToast } from 'components/Toast'
 class NodeForm extends Component {
   static propTypes = {
     sensorName: PropTypes.string,
