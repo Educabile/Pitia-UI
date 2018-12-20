@@ -37,7 +37,7 @@ const Settings = ({
             style={{
               marginLeft: '1em',
             }}>
-            {t('interfaccia')}
+            {t('settings:interfaccia')}
           </span>
         </span>
       }
@@ -59,7 +59,7 @@ const Settings = ({
             style={{
               marginLeft: '1em',
             }}>
-            {t('notifiche')}
+            {t('settings:notifiche')}
           </span>
         </span>
       }
@@ -76,14 +76,14 @@ const Settings = ({
         }}>
         <Col s={12} m={6}>
           <Card
-            title={<span className="white-text">Info Notification</span>}
+            title={<span className="white-text">{t('settings:notificheInfo')}</span>}
             className="blueGradient rounded hoverable"
             actions={[
               <Button
                 key="info-notification"
                 floating
                 flat
-                tooltip="Test"
+                tooltip={t('notifications:testNotifica')}
                 style={{
                   display: 'inline-flex',
                   alignItems: 'center',
@@ -102,14 +102,14 @@ const Settings = ({
         </Col>
         <Col s={12} m={6}>
           <Card
-            title={<span className="white-text">Success Notification</span>}
+            title={<span className="white-text">{t('settings:notificheSuccesso')}</span>}
             className="greenGradient rounded hoverable"
             actions={[
               <Button
                 key="success-notification"
                 floating
                 flat
-                tooltip="Test"
+                tooltip={t('notifications:testNotifica')}
                 style={{
                   display: 'inline-flex',
                   alignItems: 'center',
@@ -128,14 +128,14 @@ const Settings = ({
         </Col>
         <Col s={12} m={6}>
           <Card
-            title={<span className="white-text">Warning Notification</span>}
+            title={<span className="white-text">{t('settings:notificheWarning')}</span>}
             className="orangeGradient rounded hoverable"
             actions={[
               <Button
                 key="warning-notification"
                 floating
                 flat
-                tooltip="Test"
+                tooltip={t('notifications:testNotifica')}
                 style={{
                   display: 'inline-flex',
                   alignItems: 'center',
@@ -154,14 +154,14 @@ const Settings = ({
         </Col>
         <Col s={12} m={6}>
           <Card
-            title={<span className="white-text">Error Notification</span>}
+            title={<span className="white-text">{t('settings:notificheErrore')}</span>}
             className="redGradient rounded hoverable"
             actions={[
               <Button
                 key="error-notification"
                 floating
                 flat
-                tooltip="Test"
+                tooltip={t('notifications:testNotifica')}
                 style={{
                   display: 'inline-flex',
                   alignItems: 'center',
@@ -213,7 +213,7 @@ const Settings = ({
             style={{
               marginLeft: '1em',
             }}>
-            {t('account')}
+            {t('settings:account')}
           </span>
         </span>
       }
@@ -240,7 +240,7 @@ const Settings = ({
             style={{
               marginLeft: '1em',
             }}>
-            {t('informazioni')}
+            {t('settings:informazioni')}
           </span>
         </span>
       }
@@ -259,4 +259,4 @@ Settings.propTypes = {
   match: PropTypes.object.isRequired,
 }
 
-export default withNamespaces(['notifications'])(withRouter(Settings))
+export default withNamespaces(['notifications', 'settings'])(withRouter(Settings))

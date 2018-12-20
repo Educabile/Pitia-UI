@@ -51,7 +51,7 @@ class User extends Component {
                         <Input
                           type="email"
                           s={12}
-                          label={t('email')}
+                          label={t('settings:email')}
                           validate
                           required
                           value={email}
@@ -64,7 +64,7 @@ class User extends Component {
                         </Input>
                         <Input
                           s={12}
-                          label={t('common:Nome e Cognome')}
+                          label={t('settings:nomeCognome')}
                           validate
                           required
                           value={username}
@@ -76,7 +76,7 @@ class User extends Component {
                         <Select
                           id="boo"
                           s={12}
-                          label={t('common:lingua')}
+                          label={t('settings:lingua')}
                           value={language}
                           icon={<Icon path={mdiTranslate} size={1.175} color="#1565c0" />}
                           onChange={({ currentTarget: { value: language } }) => {
@@ -124,4 +124,4 @@ class User extends Component {
   }
 }
 
-export default withNamespaces(['notifications'])(User)
+export default withNamespaces(['notifications', 'settings'])(User)

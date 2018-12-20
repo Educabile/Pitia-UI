@@ -1,0 +1,15 @@
+{
+  "interfaccia": "Interfaccia",
+  "durataNotifiche": "Durata della notifica",
+  "suonoNotifiche": "Suono della notifica",
+  "notifiche": "Notifiche",
+  "notificheInfo": "Notifiche informative",
+  "notificheSuccesso": "Notifiche di successo",
+  "notificheWarning": "Notifiche di allerta",
+  "notificheErrore": "Notifiche di errore",
+  "account": "Account",
+  "informazioni": "Informazioni",
+  "nomeCognome": "Nome e Cognome",
+  "lingua": "Lingua",
+  "email": "Email"
+}

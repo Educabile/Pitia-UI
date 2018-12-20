@@ -45,7 +45,7 @@ class NotificationForm extends Component {
             s={12}
             type="number"
             className={Style.Input}
-            label={t('Tempo di visualizzazione')}
+            label={t('settings:durataNotifiche')}
             validate
             required
             value={timer}
@@ -55,7 +55,7 @@ class NotificationForm extends Component {
           <Input
             className={Style.Input}
             s={12}
-            label={t('Suono della notifica')}
+            label={t('settings:suonoNotifiche')}
             validate
             value={notificationSound}
             onChange={this.updateNotificationSound}>
@@ -67,4 +67,4 @@ class NotificationForm extends Component {
   }
 }
 
-export default withNamespaces()(NotificationForm)
+export default withNamespaces('settings')(NotificationForm)
