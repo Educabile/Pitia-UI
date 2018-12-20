@@ -2,7 +2,7 @@ import React from 'react'
 import { toast } from 'react-toastify'
 import { notification } from 'assets/sounds/notifications'
 
-export default ({ content, action }) =>
+export default ({ content, action }) => {
   toast.info(
     <>
       <div onClick={action}>{content}</div>
@@ -19,3 +19,6 @@ export default ({ content, action }) =>
       bodyClassName: 'flow-text',
     }
   )
+
+  return null
+}

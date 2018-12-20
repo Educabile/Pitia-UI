@@ -1,25 +1,17 @@
 import React from 'react'
 import cx from 'class-names'
 import PropTypes from 'prop-types'
-import { Row, Col, Collapsible, CollapsibleItem } from 'react-materialize'
+import { Row, Col } from 'react-materialize'
 import Icon from '@mdi/react'
-import {
-  mdiPencil,
-  mdiPlus,
-  mdiEye,
-  mdiPlusNetwork,
-  mdiGoogleNearby,
-  mdiCodeTagsCheck,
-  mdiCursorMove,
-} from '@mdi/js'
+import { mdiPencil, mdiPlus, mdiCursorMove } from '@mdi/js'
 import { withNamespaces } from 'react-i18next'
 import { Redirect } from 'react-router-dom'
 import Logger from 'components/Logger/Logger'
-import Resizable from 're-resizable'
 import Button from 'components/Button/Button'
 import Style from './Dashboard.module.css'
+import Widget from 'components/Widgets'
 
-const Dashboard = ({ t, loggedIn, infoEventMock }) =>
+const Dashboard = ({ t, loggedIn, infoEventMock, widgetsMock }) =>
   !loggedIn ? (
     <Redirect to="/login" />
   ) : (
@@ -34,110 +26,12 @@ const Dashboard = ({ t, loggedIn, infoEventMock }) =>
             overflowX: 'hidden',
             overflowY: 'auto',
           }}>
-          <Col>
-            <Resizable
-              defaultSize={{
-                width: 240,
-                height: 213.25,
-              }}
-              minWidth={240}
-              maxWidth={515}
-              minHeight={213.25}
-              snap={{ x: [240, 515] }}>
-              <Collapsible>
-                <CollapsibleItem
-                  className="white flow-text"
-                  expanded
-                  header={
-                    <span
-                      style={{
-                        display: 'inline-flex',
-                        alignItems: 'center',
-                      }}>
-                      <Icon path={mdiEye} size={1.5} color="#1565c0" />
-                      <span style={{ marginLeft: '1em' }}>{t('riassunto')}</span>
-                    </span>
-                  }>
-                  <Row>
-                    <Col s={12}>4 Network</Col>
-                    <Col s={12}>20 Sensori</Col>
-                  </Row>
-                </CollapsibleItem>
-              </Collapsible>
-            </Resizable>
-          </Col>
-          <Col>
-            <Resizable
-              defaultSize={{
-                width: 515,
-                height: 300,
-              }}
-              minWidth={515}
-              maxWidth={615}
-              minHeight={213.25}
-              snap={{ x: [515, 615] }}>
-              <Collapsible>
-                <CollapsibleItem
-                  className="white flow-text"
-                  expanded
-                  header={
-                    <span
-                      style={{
-                        display: 'inline-flex',
-                        alignItems: 'center',
-                      }}>
-                      <Icon path={mdiPlus} size={1.5} color="#1565c0" />
-                      <span style={{ marginLeft: '1em' }}>{t('widget:creazioneRapida')}</span>
-                    </span>
-                  }>
-                  <Button
-                    flat
-                    onClick={() => {
-                      window.$('#networks-modal').modal('open')
-                    }}>
-                    <span
-                      style={{
-                        display: 'inline-flex',
-                        alignItems: 'center',
-                      }}>
-                      <Icon path={mdiPlusNetwork} size={1.5} color="#1565c0" />
-                      <span style={{ marginLeft: '1em' }}>{t('common:creaNetwork')}</span>
-                    </span>
-                  </Button>
-                  <hr />
-                  <Button
-                    flat
-                    onClick={() => {
-                      window.$('#nodes-modal').modal('open')
-                    }}>
-                    <span
-                      style={{
-                        display: 'inline-flex',
-                        alignItems: 'center',
-                      }}>
-                      <Icon path={mdiGoogleNearby} size={1.5} color="#1565c0" />
-                      <span style={{ marginLeft: '1em' }}>{t('common:aggiungiNodo')}</span>
-                    </span>
-                  </Button>
-                  <hr />
-                  <Button
-                    flat
-                    onClick={() => {
-                      window.$('#networks-modal').modal('open')
-                    }}>
-                    <span
-                      style={{
-                        display: 'inline-flex',
-                        alignItems: 'center',
-                      }}>
-                      <Icon path={mdiCodeTagsCheck} size={1.5} color="#1565c0" />
-                      <span style={{ marginLeft: '1em' }}>{t('common:aggiungiRegole')}</span>
-                    </span>
-                  </Button>
-                </CollapsibleItem>
-              </Collapsible>
-            </Resizable>
-          </Col>
+          {widgetsMock.map((widget, index) => (
+            <Col key={`${widget}-${index}`}>
+              <Widget type={widget} />
+            </Col>
+          ))}
+
           <Button
             floating
             fab="vertical"
@@ -219,6 +113,7 @@ Dashboard.propTypes = {
   t: PropTypes.func.isRequired,
   loggedIn: PropTypes.bool.isRequired,
   infoEventMock: PropTypes.arrayOf(PropTypes.object),
+  widgetsMock: PropTypes.arrayOf(PropTypes.object),
 }
 
 export default withNamespaces(['widget'])(Dashboard)

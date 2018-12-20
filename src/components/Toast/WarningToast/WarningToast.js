@@ -2,7 +2,7 @@ import React from 'react'
 import { toast } from 'react-toastify'
 import { notification15 } from 'assets/sounds/notifications'
 
-export default ({ content, action, autoClose = 6000 }) =>
+export default ({ content, action, autoClose = 6000 }) => {
   toast.warning(
     <>
       <div onClick={action}>{content}</div>
@@ -19,3 +19,6 @@ export default ({ content, action, autoClose = 6000 }) =>
       bodyClassName: 'flow-text',
     }
   )
+
+  return null
+}

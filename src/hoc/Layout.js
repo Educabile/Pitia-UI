@@ -23,6 +23,7 @@ class Layout extends Component {
     username: PropTypes.string.isRequired,
     email: PropTypes.string.isRequired,
     addInfoEvent: PropTypes.func.isRequired,
+    addWidget: PropTypes.func.isRequired,
     loggedIn: PropTypes.bool.isRequired,
   }
 
@@ -32,7 +33,7 @@ class Layout extends Component {
 
   render() {
     const { errorToast } = this.state
-    const { children, t, history, username, email, addInfoEvent, loggedIn } = this.props
+    const { children, t, history, username, email, addInfoEvent, addWidget, loggedIn } = this.props
     return (
       <>
         <header>
@@ -196,7 +197,7 @@ class Layout extends Component {
         <main>{children}</main>
         <NetworkModal addInfoEvent={addInfoEvent} />
         <NodesModal addInfoEvent={addInfoEvent} />
-        <WidgetsModal />
+        <WidgetsModal addWidget={addWidget} />
         <ToastContainer
           style={{ top: 70 }}
           autoClose={4000}

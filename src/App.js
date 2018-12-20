@@ -24,6 +24,7 @@ class App extends Component {
         date: '2018-19-12 10:06 AM',
       },
     ],
+    widgetsMock: [],
   }
 
   logIn = () => {
@@ -54,6 +55,12 @@ class App extends Component {
     })
   }
 
+  addWidget = widget => {
+    this.setState(({ widgetsMock }) => ({
+      widgetsMock: widgetsMock.concat(widget),
+    }))
+  }
+
   render() {
     const { loggedIn, username, email } = this.state
 
@@ -62,13 +69,18 @@ class App extends Component {
         loggedIn={loggedIn}
         username={username}
         email={email}
-        addInfoEvent={this.addInfoEvent}>
+        addInfoEvent={this.addInfoEvent}
+        addWidget={this.addWidget}>
         <Switch>
           <Route
             path="/dashboard"
             exact
             render={() => (
-              <Dashboard loggedIn={this.state.loggedIn} infoEventMock={this.state.infoEventMock} />
+              <Dashboard
+                loggedIn={this.state.loggedIn}
+                infoEventMock={this.state.infoEventMock}
+                widgetsMock={this.state.widgetsMock}
+              />
             )}
           />
           <Route path="/networks/" exact component={Networks} />
