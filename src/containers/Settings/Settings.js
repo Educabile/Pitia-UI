@@ -1,12 +1,15 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { Tab } from 'react-materialize'
+import { Tab, Col, Card, Row } from 'react-materialize'
 import Tabs from 'components/Tabs/Tabs'
 import Icon from '@mdi/react'
 import { mdiAccount, mdiBellRing, mdiApplication, mdiInformationOutline } from '@mdi/js'
 import User from 'containers/User/User'
 import { withNamespaces } from 'react-i18next'
 import { withRouter } from 'react-router-dom'
+import { ErrorToast, SuccessToast, InfoToast, WarningToast } from 'components/Toast'
+import Button from 'components/Button/Button'
+import NotificationForm from 'components/NotificationForm/NotificationForm'
 
 const Settings = ({
   t,
@@ -38,7 +41,7 @@ const Settings = ({
           </span>
         </span>
       }
-      active={section === 'interface' ? true : false}>
+      active={section === 'interface' || section === undefined ? true : false}>
       <h1>Interface Settings</h1>
     </Tab>
     <Tab
@@ -61,7 +64,139 @@ const Settings = ({
         </span>
       }
       active={section === 'notifications' ? true : false}>
-      <h1>Notifications Settings</h1>
+      <Row
+        className="grey lighten-4"
+        style={{
+          minHeight: 'calc(100vh - 56px - 48px)',
+          margin: '0 -0.75rem',
+          display: 'flex',
+          flexWrap: 'wrap',
+          justifyContent: 'center',
+          alignItems: 'center',
+        }}>
+        <Col s={12} m={6}>
+          <Card
+            title={<span className="white-text">Info Notification</span>}
+            className="blueGradient rounded hoverable"
+            actions={[
+              <Button
+                key="info-notification"
+                floating
+                flat
+                tooltip="Test"
+                style={{
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                }}
+                onClick={() => {
+                  InfoToast({
+                    content: t('notifications:testNotifica'),
+                  })
+                }}>
+                <Icon path={mdiBellRing} size={1.25} color="white" />
+              </Button>,
+            ]}>
+            <NotificationForm />
+          </Card>
+        </Col>
+        <Col s={12} m={6}>
+          <Card
+            title={<span className="white-text">Success Notification</span>}
+            className="greenGradient rounded hoverable"
+            actions={[
+              <Button
+                key="success-notification"
+                floating
+                flat
+                tooltip="Test"
+                style={{
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                }}
+                onClick={() => {
+                  SuccessToast({
+                    content: t('notifications:testNotifica'),
+                  })
+                }}>
+                <Icon path={mdiBellRing} size={1.25} color="white" />
+              </Button>,
+            ]}>
+            <NotificationForm />
+          </Card>
+        </Col>
+        <Col s={12} m={6}>
+          <Card
+            title={<span className="white-text">Warning Notification</span>}
+            className="orangeGradient rounded hoverable"
+            actions={[
+              <Button
+                key="warning-notification"
+                floating
+                flat
+                tooltip="Test"
+                style={{
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                }}
+                onClick={() => {
+                  WarningToast({
+                    content: t('notifications:testNotifica'),
+                  })
+                }}>
+                <Icon path={mdiBellRing} size={1.25} color="white" />
+              </Button>,
+            ]}>
+            <NotificationForm />
+          </Card>
+        </Col>
+        <Col s={12} m={6}>
+          <Card
+            title={<span className="white-text">Error Notification</span>}
+            className="redGradient rounded hoverable"
+            actions={[
+              <Button
+                key="error-notification"
+                floating
+                flat
+                tooltip="Test"
+                style={{
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                }}
+                onClick={() => {
+                  ErrorToast({
+                    content: t('notifications:testNotifica'),
+                  })
+                }}>
+                <Icon path={mdiBellRing} size={1.25} color="white" />
+              </Button>,
+            ]}>
+            <NotificationForm />
+          </Card>
+        </Col>
+        <div className="center">
+          <Button
+            large
+            onClick={() => {
+              SuccessToast({
+                content: t('notifications:testNotifica'),
+              })
+            }}
+            className="blueGradient hoverable white-text"
+            waves
+            style={{
+              display: 'inline-flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+            }}>
+            <span>{t('common:aggiornaInformazioni')}</span>
+          </Button>
+        </div>
+      </Row>
     </Tab>
     <Tab
       title={
@@ -124,4 +259,4 @@ Settings.propTypes = {
   match: PropTypes.object.isRequired,
 }
 
-export default withNamespaces()(withRouter(Settings))
+export default withNamespaces(['notifications'])(withRouter(Settings))

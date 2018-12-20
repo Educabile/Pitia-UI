@@ -10,8 +10,8 @@ import Settings from 'containers/Settings/Settings'
 class App extends Component {
   state = {
     loggedIn: true,
-    username: 'Mario Rossi',
-    email: 'mario.rossi@email.it',
+    username: 'Claudio Cortese',
+    email: 'claudio.cortese@outlook.it',
     infoEventMock: [
       {
         type: 'newNetwork',
