@@ -110,7 +110,7 @@ const Settings = ({
         </span>
       }
       active={section === 'informations' ? true : false}>
-      <h1>Pitia v0.1.0</h1>
+      <h1>Pitia v{process.env.REACT_APP_VERSION}</h1>
     </Tab>
   </Tabs>
 )
