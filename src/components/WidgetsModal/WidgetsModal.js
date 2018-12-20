@@ -1,11 +1,13 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { Modal } from 'react-materialize'
+import { Modal, Col, Row } from 'react-materialize'
 import Icon from '@mdi/react'
 import { mdiCloseCircleOutline, mdiWidgets } from '@mdi/js'
 import { withNamespaces } from 'react-i18next'
+import Widget from 'components/Widgets'
+import { SuccessToast } from 'components/Toast'
 
-const WidgetModal = ({ t }) => (
+const WidgetModal = ({ t, addWidget }) => (
   <Modal
     id="widgets-modal"
     actions={null}
@@ -35,12 +37,57 @@ const WidgetModal = ({ t }) => (
         </span>
       </div>
     }>
+    <Row>
+      <Col
+        onClick={() => {
+          addWidget('glance')
+          SuccessToast({
+            content: "Widget `A colpo d'occhio` aggiunto",
+          })
+        }}>
+        <Widget
+          type="glance"
+          enableResize={{
+            top: false,
+            right: false,
+            bottom: false,
+            left: false,
+            topRight: false,
+            bottomRight: false,
+            bottomLeft: false,
+            topLeft: false,
+          }}
+        />
+      </Col>
+      <Col
+        onClick={() => {
+          addWidget('rapidCreation')
+          SuccessToast({
+            content: 'Widget `Creazione Rapida` aggiunto',
+          })
+        }}>
+        <Widget
+          type="rapidCreation"
+          enableResize={{
+            top: false,
+            right: false,
+            bottom: false,
+            left: false,
+            topRight: false,
+            bottomRight: false,
+            bottomLeft: false,
+            topLeft: false,
+          }}
+        />
+      </Col>
+    </Row>
     <div />
   </Modal>
 )
 
 WidgetModal.propTypes = {
   t: PropTypes.func.isRequired,
+  addWidget: PropTypes.func.isRequired,
 }
 
 export default withNamespaces()(WidgetModal)
