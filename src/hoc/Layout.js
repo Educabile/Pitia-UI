@@ -38,10 +38,11 @@ class Layout extends Component {
         <header>
           <Navbar className="z-depth-3 center" fixed fixedSidenav={loggedIn}>
             <div
-              onClick={() => history.push('/user')}
+              onClick={() => history.push('settings/account')}
               className="user-view"
               style={{
                 backgroundColor: 'rgba(0,0,0, .5)',
+                cursor: 'pointer',
               }}>
               <div className="background">
                 <Picture src={profileBackground} placeholder={profileBackgroundSqip} />

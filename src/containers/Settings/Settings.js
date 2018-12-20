@@ -6,8 +6,18 @@ import Icon from '@mdi/react'
 import { mdiAccount, mdiBellRing, mdiApplication, mdiInformationOutline } from '@mdi/js'
 import User from 'containers/User/User'
 import { withNamespaces } from 'react-i18next'
+import { withRouter } from 'react-router-dom'
 
-const Settings = ({ t, username, email, updateEmail, updateUsername }) => (
+const Settings = ({
+  t,
+  username,
+  email,
+  updateEmail,
+  updateUsername,
+  match: {
+    params: { section },
+  },
+}) => (
   <Tabs className="z-depth-1 tabs-fixed-width">
     <Tab
       title={
@@ -28,7 +38,7 @@ const Settings = ({ t, username, email, updateEmail, updateUsername }) => (
           </span>
         </span>
       }
-      active>
+      active={section === 'interface' ? true : false}>
       <h1>Interface Settings</h1>
     </Tab>
     <Tab
@@ -50,7 +60,7 @@ const Settings = ({ t, username, email, updateEmail, updateUsername }) => (
           </span>
         </span>
       }
-      active>
+      active={section === 'notifications' ? true : false}>
       <h1>Notifications Settings</h1>
     </Tab>
     <Tab
@@ -72,7 +82,7 @@ const Settings = ({ t, username, email, updateEmail, updateUsername }) => (
           </span>
         </span>
       }
-      active>
+      active={section === 'account' ? true : false}>
       <User
         username={username}
         email={email}
@@ -99,7 +109,7 @@ const Settings = ({ t, username, email, updateEmail, updateUsername }) => (
           </span>
         </span>
       }
-      active>
+      active={section === 'informations' ? true : false}>
       <h1>Pitia v0.1.0</h1>
     </Tab>
   </Tabs>
@@ -111,6 +121,7 @@ Settings.propTypes = {
   email: PropTypes.string.isRequired,
   updateEmail: PropTypes.string.isRequired,
   updateUsername: PropTypes.string.isRequired,
+  match: PropTypes.object.isRequired,
 }
 
-export default withNamespaces()(Settings)
+export default withNamespaces()(withRouter(Settings))

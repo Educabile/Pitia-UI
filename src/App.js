@@ -74,7 +74,7 @@ class App extends Component {
           <Route path="/networks/" exact component={Networks} />
           <Route path="/networks/:networkId" exact component={Network} />
           <Route
-            path="/settings"
+            path="/settings/:section?"
             exact
             render={() => (
               <Settings
