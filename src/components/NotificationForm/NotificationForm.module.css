@@ -1,0 +1,11 @@
+.Input {
+  color: white;
+
+  &:not(:global(.valid)) {
+    border-bottom: 1px solid white !important;
+  }
+
+  & ~ label {
+    color: white !important;
+  }
+}

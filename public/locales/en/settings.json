@@ -1,0 +1,15 @@
+{
+  "interfaccia": "Interface",
+  "durataNotifiche": "Notification duration",
+  "suonoNotifiche": "Notification sound",
+  "notifiche": "Notifications",
+  "notificheInfo": "Information notifications",
+  "notificheSuccesso": "Success notifications",
+  "notificheWarning": "Warning notifications",
+  "notificheErrore": "Error notifications",
+  "account": "Account",
+  "informazioni": "Information",
+  "nomeCognome": "Name and Surname",
+  "lingua": "Language",
+  "email": "Email"
+}
