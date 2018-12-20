@@ -24,7 +24,7 @@ const Dashboard = ({ t, loggedIn, infoEventMock }) =>
     <Redirect to="/login" />
   ) : (
     <Row style={{ marginBottom: 0 }}>
-      <Col s={12} m={8}>
+      <Col s={12} xl={8}>
         <Row
           className="grey lighten-5"
           style={{
@@ -138,78 +138,78 @@ const Dashboard = ({ t, loggedIn, infoEventMock }) =>
               </Collapsible>
             </Resizable>
           </Col>
-        </Row>
-        <Button
-          floating
-          fab="vertical"
-          waves="light"
-          icon={
-            <Icon
-              path={mdiPencil}
-              size={1.25}
-              color="white"
-              style={{
-                position: 'absolute',
-                top: '50%',
-                left: '50%',
-                transform: 'translate(-50%, -50%)',
+          <Button
+            floating
+            fab="vertical"
+            waves="light"
+            icon={
+              <Icon
+                path={mdiPencil}
+                size={1.25}
+                color="white"
+                style={{
+                  position: 'absolute',
+                  top: '50%',
+                  left: '50%',
+                  transform: 'translate(-50%, -50%)',
+                }}
+              />
+            }
+            className="blueGradient hoverable"
+            large
+            style={{
+              bottom: 20,
+              right: 560,
+            }}>
+            <Button
+              floating
+              icon={
+                <Icon
+                  path={mdiCursorMove}
+                  size={1.25}
+                  color="white"
+                  style={{
+                    position: 'absolute',
+                    top: '50%',
+                    left: '50%',
+                    transform: 'translate(-50%, -50%)',
+                  }}
+                />
+              }
+              className="orangeGradient"
+              tooltip={t('common:riorganizzaWidget')}
+              tooltipOptions={{
+                position: 'left',
               }}
             />
-          }
-          className="blueGradient hoverable"
-          large
-          style={{
-            bottom: 20,
-            right: 560,
-          }}>
-          <Button
-            floating
-            icon={
-              <Icon
-                path={mdiCursorMove}
-                size={1.25}
-                color="white"
-                style={{
-                  position: 'absolute',
-                  top: '50%',
-                  left: '50%',
-                  transform: 'translate(-50%, -50%)',
-                }}
-              />
-            }
-            className="orangeGradient"
-            tooltip={t('common:riorganizzaWidget')}
-            tooltipOptions={{
-              position: 'left',
-            }}
-          />
-          <Button
-            onClick={() => {
-              window.$('#widgets-modal').modal('open')
-            }}
-            floating
-            icon={
-              <Icon
-                path={mdiPlus}
-                size={1.25}
-                color="white"
-                style={{
-                  position: 'absolute',
-                  top: '50%',
-                  left: '50%',
-                  transform: 'translate(-50%, -50%)',
-                }}
-              />
-            }
-            className="greenGradient"
-            tooltip={t('common:aggiungiWidget')}
-            tooltipOptions={{
-              position: 'left',
-            }}
-          />
-        </Button>
+            <Button
+              onClick={() => {
+                window.$('#widgets-modal').modal('open')
+              }}
+              floating
+              icon={
+                <Icon
+                  path={mdiPlus}
+                  size={1.25}
+                  color="white"
+                  style={{
+                    position: 'absolute',
+                    top: '50%',
+                    left: '50%',
+                    transform: 'translate(-50%, -50%)',
+                  }}
+                />
+              }
+              className="greenGradient"
+              tooltip={t('common:aggiungiWidget')}
+              tooltipOptions={{
+                position: 'left',
+              }}
+            />
+          </Button>
+        </Row>
       </Col>
-      <Col s={12} m={4} className={cx('z-depth-1', Style.Col)}>
+      <Col s={12} xl={4} className={cx('z-depth-1', Style.Col)}>
         <Logger infoEventMock={infoEventMock} />
       </Col>
     </Row>
