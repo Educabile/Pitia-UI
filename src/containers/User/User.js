@@ -35,12 +35,11 @@ class User extends Component {
         style={{ minHeight: 'calc(100vh - 56px - 48px)', margin: '0 -0.75rem' }}>
         <Row style={{ paddingTop: '15vh', marginBottom: 0 }}>
           <Col s={12} m={6} className="push-m3">
-            <Card className="rounded">
+            <Card className="rounded hoverable">
               <Row>
                 <Col s={12} className="center">
                   <Avatar className="blueGradient" name={username} email={email} round />
                 </Col>
-
                 <Col s={8} className="push-s2">
                   <div>
                     <form
