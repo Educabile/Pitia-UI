@@ -10,6 +10,7 @@ import { withRouter } from 'react-router-dom'
 import { ErrorToast, SuccessToast, InfoToast, WarningToast } from 'components/Toast'
 import Button from 'components/Button/Button'
 import NotificationForm from 'components/NotificationForm/NotificationForm'
+import Informations from 'containers/Informations/Informations'
 
 const Settings = ({
   t,
@@ -245,7 +246,7 @@ const Settings = ({
         </span>
       }
       active={section === 'informations' ? true : false}>
-      <h1>Pitia v0.1.0</h1>
+      <Informations /> 
     </Tab>
   </Tabs>
 )

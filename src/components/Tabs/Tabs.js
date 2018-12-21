@@ -17,21 +17,21 @@ class Tabs extends Component {
   }
 
   componentDidMount() {
-    const { tabOptions = {} } = this.props
+    const { tabOptions } = this.props
 
     if (typeof M !== 'undefined') {
       this.instance = window.M.Tabs.init(this._tabsEl, tabOptions)
     }
   }
 
-  componentDidUpdate() {
-    const { tabOptions = {} } = this.props
+  // componentDidUpdate() {
+  //   const { tabOptions } = this.props
 
-    if (typeof M !== 'undefined') {
-      this.instance.destroy()
-      this.instance = window.M.Tabs.init(this._tabsEl, tabOptions)
-    }
-  }
+  //   if (typeof M !== 'undefined') {
+  //     this.instance.destroy()
+  //     this.instance = window.M.Tabs.init(this._tabsEl, tabOptions)
+  //   }
+  // }
 
   componentWillUnmount() {
     if (this.instance) {
@@ -124,6 +124,15 @@ Tabs.propTypes = {
      */
     responsiveThreshold: PropTypes.number,
   }),
+}
+
+Tabs.defaultProps = {
+  tabOptions: {
+    duration: 300,
+    onShow: null,
+    swipeable: false,
+    responsiveThreshold: Infinity,
+  },
 }
 
 export default Tabs
