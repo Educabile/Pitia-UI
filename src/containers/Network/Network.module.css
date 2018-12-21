@@ -1,4 +1,15 @@
 .Tabs {
-  margin-left: -11.25px;
   width: calc(100vw - 300px);
+  z-index: 1;
+}
+
+.Row {
+  height: calc(100vh - 56px - 48px);
+  margin-bottom: 0;
+}
+
+.Map {
+  height: calc(100vh - 104px);
+  margin-right: -0.75em;
+  z-index: 0;
 }

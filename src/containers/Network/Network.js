@@ -2,9 +2,12 @@ import React from 'react'
 import cx from 'class-names'
 import PropTypes from 'prop-types'
 import Icon from '@mdi/react'
-import { mdiCrosshairsGps, mdiChartAreaspline, mdiTune } from '@mdi/js'
+import { mdiChartAreaspline, mdiTune } from '@mdi/js'
 import { withNamespaces } from 'react-i18next'
-import { Tabs, Tab } from 'react-materialize'
+import Tabs from 'components/Tabs'
+import { Tab, Row, Col, Card } from 'react-materialize'
+import { Map, Marker, TileLayer } from 'react-leaflet'
+import 'react-leaflet-fullscreen-control'
 import Chart from 'components/Chart/Chart'
 import NetworkForm from 'components/NetworkForm/NetworkForm'
 import Style from './Network.module.css'
@@ -15,7 +18,7 @@ const Network = ({
     state: { networkName, networkPosition, networkIP, wss },
   },
 }) => (
-  <Tabs className={cx('tab-demo z-depth-1 tabs-fixed-width', Style.Tabs)}>
+  <Tabs className={cx('z-depth-1 tabs-fixed-width', Style.Tabs)}>
     <Tab
       title={
         <span
@@ -36,28 +39,26 @@ const Network = ({
         </span>
       }
       active>
-      <Chart wss={wss} />
-    </Tab>
-    <Tab
-      title={
-        <span
-          style={{
-            display: 'flex',
-            textTransform: 'uppercase',
-            alignItems: 'center',
-            justifyContent: 'center',
-            width: '100%',
-          }}>
-          <Icon path={mdiCrosshairsGps} size={1.5} color="#1565c0" />
-          <span
-            style={{
-              marginLeft: '1em',
-            }}>
-            {t('geolocalizza')}
-          </span>
-        </span>
-      }>
-      Google Map Section
+      <Row className={cx('grey lighten-5', Style.Row)}>
+        <Col s={12} m={8} className={Style.Chart}>
+          <Card className="hoverable" title={networkName}>
+            <Chart wss={wss} />
+          </Card>
+        </Col>
+        <Col s={12} m={4}>
+          <Map
+            center={[51.505, -0.09]}
+            zoom={19}
+            className={cx('z-depth-3', Style.Map)}
+            fullscreenControl>
+            <TileLayer
+              url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+              attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+            />
+            <Marker position={[51.505, -0.09]} />
+          </Map>
+        </Col>
+      </Row>
     </Tab>
     <Tab
       title={
@@ -78,11 +79,22 @@ const Network = ({
           </span>
         </span>
       }>
-      <NetworkForm
-        networkName={networkName}
-        networkPosition={networkPosition}
-        networkIP={networkIP}
-      />
+      <Row className={cx('grey lighten-5', Style.Row)}>
+        <Col
+          s={6}
+          className="push-s3"
+          style={{
+            marginTop: '15vh',
+          }}>
+          <Card className="rounded hoverable">
+            <NetworkForm
+              networkName={networkName}
+              networkPosition={networkPosition}
+              networkIP={networkIP}
+            />
+          </Card>
+        </Col>
+      </Row>
     </Tab>
   </Tabs>
 )
