@@ -16,7 +16,7 @@ i18n
         {
           prefix: 'pitia_res_',
           versions: {
-            it: 'v1.0 Dev',
+            it: 'v1.1 Dev',
           },
         },
         {
