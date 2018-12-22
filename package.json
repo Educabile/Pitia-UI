@@ -27,6 +27,7 @@
     "@mdi/react": "^1.1.0",
     "chart.js": "^2.7.3",
     "class-names": "^1.0.0",
+    "compression-webpack-plugin": "^2.0.0",
     "i18next": "^13.0.0",
     "i18next-browser-languagedetector": "^2.2.4",
     "i18next-chained-backend": "^0.1.2",
