@@ -26,9 +26,9 @@ const Dashboard = ({ t, loggedIn, infoEventMock, widgetsMock }) =>
             overflowX: 'hidden',
             overflowY: 'auto',
           }}>
-          {widgetsMock.map((widget, index) => (
-            <Col key={`${widget}-${index}`}>
-              <Widget type={widget} />
+          {widgetsMock.map(({ type, ...options }, index) => (
+            <Col key={`${type}-${index}`}>
+              <Widget type={type} options={options} />
             </Col>
           ))}
 

@@ -8,7 +8,7 @@ import Tabs from 'components/Tabs'
 import { Tab, Row, Col, Card } from 'react-materialize'
 import { Map, Marker, TileLayer } from 'react-leaflet'
 import 'react-leaflet-fullscreen-control'
-import Chart from 'components/Chart/Chart'
+import Widget from 'components/Widgets'
 import NetworkForm from 'components/NetworkForm/NetworkForm'
 import Style from './Network.module.css'
 
@@ -41,9 +41,15 @@ const Network = ({
       active>
       <Row className={cx('grey lighten-5', Style.Row)}>
         <Col s={12} m={8} className={Style.Chart}>
-          <Card className="hoverable" title={networkName}>
-            <Chart wss={wss} />
-          </Card>
+          <Widget
+            type="network"
+            options={{
+              networkName,
+              networkPosition,
+              networkIP,
+              wss,
+            }}
+          />
         </Col>
         <Col s={12} m={4}>
           <Map

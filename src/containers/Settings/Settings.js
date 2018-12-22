@@ -246,7 +246,7 @@ const Settings = ({
         </span>
       }
       active={section === 'informations' ? true : false}>
-      <Informations /> 
+      <Informations />
     </Tab>
   </Tabs>
 )

@@ -40,7 +40,9 @@ const WidgetModal = ({ t, addWidget }) => (
     <Row>
       <Col
         onClick={() => {
-          addWidget('glance')
+          addWidget({
+            type: 'glance',
+          })
           SuccessToast({
             content: "Widget `A colpo d'occhio` aggiunto",
           })
@@ -61,7 +63,9 @@ const WidgetModal = ({ t, addWidget }) => (
       </Col>
       <Col
         onClick={() => {
-          addWidget('rapidCreation')
+          addWidget({
+            type: 'rapidCreation',
+          })
           SuccessToast({
             content: 'Widget `Creazione Rapida` aggiunto',
           })
@@ -77,6 +81,33 @@ const WidgetModal = ({ t, addWidget }) => (
             bottomRight: false,
             bottomLeft: false,
             topLeft: false,
+          }}
+        />
+      </Col>
+      <Col
+        onClick={() => {
+          addWidget({
+            type: 'network',
+            networkName: 'Network Placeholder',
+          })
+          SuccessToast({
+            content: 'Widget `Network` aggiunto',
+          })
+        }}>
+        <Widget
+          type="network"
+          enableResize={{
+            top: false,
+            right: false,
+            bottom: false,
+            left: false,
+            topRight: false,
+            bottomRight: false,
+            bottomLeft: false,
+            topLeft: false,
+          }}
+          options={{
+            networkName: 'Network Placeholder',
           }}
         />
       </Col>
