@@ -10,6 +10,7 @@ const imageminZopfli = require('imagemin-zopfli')
 const imageminGiflossy = require('imagemin-giflossy')
 const imageminWebp = require('imagemin-webp')
 const CompressionPlugin = require('compression-webpack-plugin')
+const HtmlCriticalPlugin = require('html-critical-webpack-plugin')
 
 // TODO: It's not working as of now! :(
 const DirectoryNamedWebpackPlugin = require('directory-named-webpack-plugin')
@@ -77,6 +78,17 @@ module.exports = function() {
                 },
               }),
               new CompressionPlugin(),
+              new HtmlCriticalPlugin({
+                base: path.join(path.resolve(__dirname), 'build/'),
+                src: 'index.html',
+                dest: 'index.html',
+                inline: true,
+                minify: true,
+                extract: true,
+                penthouse: {
+                  blockJSRequests: false,
+                },
+              }),
               new BundleAnalyzerPlugin(),
             ],
       resolve: {

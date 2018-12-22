@@ -115,9 +115,13 @@ class Navbar extends Component {
           id="mobile-nav"
           className={cx('sidenav', [alignLinks], {
             'sidenav-fixed': fixedSidenav,
+            'z-depth-3': fixedSidenav,
           })}
           ref={ul => {
             this._sidenav = ul
+          }}
+          style={{
+            zIndex: 996,
           }}>
           {links}
         </ul>

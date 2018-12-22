@@ -31,7 +31,6 @@ const Dashboard = ({ t, loggedIn, infoEventMock, widgetsMock }) =>
               <Widget type={widget} />
             </Col>
           ))}
-
           <Button
             floating
             fab="vertical"
@@ -103,7 +102,7 @@ const Dashboard = ({ t, loggedIn, infoEventMock, widgetsMock }) =>
           </Button>
         </Row>
       </Col>
-      <Col s={12} xl={4} className={cx('z-depth-1', Style.Col)}>
+      <Col s={12} xl={4} className={cx('z-depth-3', Style.Col)}>
         <Logger infoEventMock={infoEventMock} />
       </Col>
     </Row>
