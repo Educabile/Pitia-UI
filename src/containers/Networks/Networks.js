@@ -40,7 +40,7 @@ const networksMock = [
 
 const Networks = ({ t }) => (
   <>
-    <Row className="grey lighten-5" style={{ marginBottom: 0 }}>
+    <Row className="grey lighten-5" style={{ marginBottom: 0, overflow: 'hidden' }}>
       {networksMock.map(({ networkName, networkPosition, networkIP, networkDescription, wss }) => (
         <Col key={networkName}>
           <Widget
