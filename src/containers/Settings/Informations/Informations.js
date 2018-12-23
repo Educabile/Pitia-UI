@@ -2,7 +2,6 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { Row, Col, Card, Collapsible, CollapsibleItem } from 'react-materialize'
 import Picture from '@cloudpower97/react-progressive-picture'
-import 'react-toastify/dist/ReactToastify.css'
 import { withNamespaces } from 'react-i18next'
 import { logoEducabileIoTPng } from 'assets/img'
 

@@ -8,8 +8,8 @@ import Tabs from 'components/Tabs'
 import { Tab, Row, Col, Card } from 'react-materialize'
 import { Map, Marker, TileLayer } from 'react-leaflet'
 import 'react-leaflet-fullscreen-control'
-import Chart from 'components/Chart/Chart'
-import NetworkForm from 'components/NetworkForm/NetworkForm'
+import Chart from 'components/Chart'
+import NetworkForm from 'components/NetworkForm'
 import Style from './Network.module.css'
 
 const Network = ({

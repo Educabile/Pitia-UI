@@ -12,9 +12,6 @@ const imageminWebp = require('imagemin-webp')
 const CompressionPlugin = require('compression-webpack-plugin')
 const HtmlCriticalPlugin = require('html-critical-webpack-plugin')
 
-// TODO: It's not working as of now! :(
-const DirectoryNamedWebpackPlugin = require('directory-named-webpack-plugin')
-
 const { NODE_ENV } = process.env
 
 module.exports = function() {
@@ -91,10 +88,8 @@ module.exports = function() {
               }),
               new BundleAnalyzerPlugin(),
             ],
-      resolve: {
-        plugins: [new DirectoryNamedWebpackPlugin()],
-      },
       alias: {
+        src: path.join(paths.appSrc),
         components: path.join(paths.appSrc, 'components'),
         containers: path.join(paths.appSrc, 'containers'),
         hoc: path.join(paths.appSrc, 'hoc'),
@@ -108,6 +103,7 @@ module.exports = function() {
       configure: {
         snapshotSerializers: ['enzyme-to-json/serializer'],
         moduleNameMapper: {
+          '^src(.*)$': '<rootDir>/src/$1',
           '^components(.*)$': '<rootDir>/src/components$1',
           '^containers(.*)$': '<rootDir>/src/containers$1',
           '^hoc(.*)$': '<rootDir>/src/hoc$1',

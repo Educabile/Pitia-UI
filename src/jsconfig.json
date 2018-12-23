@@ -10,7 +10,8 @@
       "style": ["./style"],
       "libs": ["./libs"],
       "assets": ["./assets"],
-      "vendor": ["'./vendor"]
+      "vendor": ["'./vendor"],
+      "src": ["'./"]
     }
   },
   "exclude": ["node_modules", "build", "public", ".vscode"]

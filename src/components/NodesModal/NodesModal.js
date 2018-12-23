@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import { Modal } from 'react-materialize'
 import Icon from '@mdi/react'
 import { mdiGoogleNearby, mdiCloseCircleOutline } from '@mdi/js'
-import NodesForm from 'components/NodeForm/NodeForm'
+import NodesForm from 'components/NodeForm'
 import { withNamespaces } from 'react-i18next'
 
 const NodesModal = ({ t, addInfoEvent }) => (

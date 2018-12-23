@@ -1,15 +1,15 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { Input, Row, Col, Card } from 'react-materialize'
-import Button from 'components/Button/Button'
+import Button from 'components/Button'
 import Select from 'components/Select/Select'
+import i18n from 'src/i18n'
 import Icon from '@mdi/react'
 import { mdiAccountCardDetails, mdiTranslate, mdiAt } from '@mdi/js'
 import Avatar from 'react-avatar'
-import 'react-toastify/dist/ReactToastify.css'
 import { SuccessToast } from 'components/Toast'
 import { withNamespaces } from 'react-i18next'
-import i18n from '../../i18n'
+
 class User extends Component {
   static propTypes = {
     t: PropTypes.func.isRequired,
@@ -34,13 +34,13 @@ class User extends Component {
         className="grey lighten-4"
         style={{ minHeight: 'calc(100vh - 56px - 48px)', margin: '0 -0.75rem' }}>
         <Row style={{ paddingTop: '15vh', marginBottom: 0 }}>
-          <Col s={12} m={6} className="push-m3">
+          <Col s={12} m={6} push="m3">
             <Card className="rounded hoverable">
               <Row>
                 <Col s={12} className="center">
-                  <Avatar className="blueGradient" name={username} email={email} round />
+                  <Avatar className="blueGradient z-depth-2" name={username} email={email} round />
                 </Col>
-                <Col s={8} className="push-s2">
+                <Col s={8} push="s2">
                   <div>
                     <form
                       onSubmit={e => {

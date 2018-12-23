@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { Input, Row } from 'react-materialize'
-import Button from 'components/Button/Button'
+import Button from 'components/Button'
 import Icon from '@mdi/react'
 import { mdiCrosshairsGps, mdiPlus, mdiLabelOutline, mdiMemory, mdiIpNetwork } from '@mdi/js'
 import { SuccessToast } from 'components/Toast'

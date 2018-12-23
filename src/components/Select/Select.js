@@ -95,7 +95,7 @@ class Select extends Component {
             {
               validate,
               multiple,
-              ['browser-default']: browserDefault,
+              browserDefault,
             },
             selectClassName
           )}
