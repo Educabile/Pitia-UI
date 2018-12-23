@@ -4,7 +4,7 @@ import { Collapsible, CollapsibleItem } from 'react-materialize'
 import Icon from '@mdi/react'
 import { mdiPlus, mdiPlusNetwork, mdiGoogleNearby, mdiCodeTagsCheck } from '@mdi/js'
 import Resizable from 're-resizable'
-import Button from 'components/Button/Button'
+import Button from 'components/Button'
 import { withNamespaces } from 'react-i18next'
 
 const RapidCreation = ({ t, enableResize }) => (

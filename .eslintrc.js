@@ -102,6 +102,7 @@ module.exports = {
     'import/resolver': {
       alias: {
         map: [
+          ['src', './src'],
           ['components', './src/components'],
           ['containers', './src/containers'],
           ['hoc', './src/hoc'],

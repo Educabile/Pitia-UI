@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import { Modal } from 'react-materialize'
 import Icon from '@mdi/react'
 import { mdiPlusNetwork, mdiCloseCircleOutline } from '@mdi/js'
-import NetworkForm from 'components/NetworkForm/NetworkForm'
+import NetworkForm from 'components/NetworkForm'
 import { withNamespaces } from 'react-i18next'
 
 const NetworksModal = ({ t, addInfoEvent }) => (

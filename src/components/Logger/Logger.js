@@ -7,7 +7,7 @@ import Icon from '@mdi/react'
 import { mdiCheckbook, mdiInformationOutline, mdiAlert, mdiAlertCircle } from '@mdi/js'
 import { Timeline } from 'react-event-timeline'
 import Select from 'components/Select/Select'
-import Notification from 'components/Notifications/Notification'
+import Notification from 'components/Notifications'
 import { withNamespaces } from 'react-i18next'
 
 const Logger = ({ infoEventMock, t }) => (

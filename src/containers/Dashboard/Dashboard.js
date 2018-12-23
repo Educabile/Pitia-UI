@@ -6,10 +6,10 @@ import Icon from '@mdi/react'
 import { mdiPencil, mdiPlus, mdiCursorMove } from '@mdi/js'
 import { withNamespaces } from 'react-i18next'
 import { Redirect } from 'react-router-dom'
-import Logger from 'components/Logger/Logger'
-import Button from 'components/Button/Button'
-import Style from './Dashboard.module.css'
+import Logger from 'components/Logger'
+import Button from 'components/Button'
 import Widget from 'components/Widgets'
+import Style from './Dashboard.module.css'
 
 const Dashboard = ({ t, loggedIn, infoEventMock, widgetsMock }) =>
   !loggedIn ? (

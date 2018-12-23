@@ -90,6 +90,42 @@ html {
   }
 }
 
+@media screen and (prefers-reduced-motion: reduce) {
+  .btn,
+  .btn-small,
+  .btn-large {
+    transition: none;
+    &:hover,
+    &:focus {
+      background-color: inherit;
+    }
+  }
+}
+
+@media screen and (prefers-reduced-motion: reduce) {
+  .btn,
+  .btn-small,
+  .btn-large {
+    transition: none;
+    &:hover,
+    &:focus {
+      background-color: inherit;
+    }
+  }
+}
+
+@media screen and (prefers-reduced-motion: reduce) {
+.btn,
+.btn-small,
+.btn-large {
+  transition: none;
+  &:hover,
+  &:focus {
+    background-color: inherit;
+  }
+}
+}
+
 .btn,
 .btn-small,
 .btn-large {
@@ -189,68 +225,6 @@ ul.tabs {
   z-index: 1000;
 }
 
-footer {
-  bottom: 0;
-  color: white;
-  margin-bottom: -20px;
-  min-height: 64px;
-  position: fixed;
-  width: 100%;
-  z-index: 1;
-}
-
-@media screen and (prefers-reduced-motion: reduce) {
-  footer svg {
-    filter: none;
-    transition: none;
-  }
-}
-
-footer svg {
-  filter: none;
-  transition: fill 0.5s ease;
-}
-
-@media screen and (prefers-reduced-motion: reduce) {
-  footer svg path {
-    transition: none;
-  }
-}
-
-footer svg path {
-  transition: fill 0.325s ease-out;
-}
-
-footer a:hover svg,
-footer a:focus svg {
-  filter: drop-shadow(0px 3px 4px #333);
-}
-
-footer a:hover:nth-child(1) svg g:nth-child(2) path,
-footer a:focus:nth-child(1) svg g:nth-child(2) path {
-  fill: facebook-color !important;
-}
-
-footer a:hover:nth-child(2) svg g:nth-child(2) path,
-footer a:focus:nth-child(2) svg g:nth-child(2) path {
-  fill: twitter-color !important;
-}
-
-footer a:hover:nth-child(3) svg g:nth-child(2) path,
-footer a:focus:nth-child(3) svg g:nth-child(2) path {
-  fill: google-plus-color !important;
-}
-
-footer a:hover:nth-child(4) svg g:nth-child(2) path,
-footer a:focus:nth-child(4) svg g:nth-child(2) path {
-  fill: linkedin-color !important;
-}
-
-footer a:hover:nth-child(5) svg g:nth-child(2) path,
-footer a:focus:nth-child(5) svg g:nth-child(2) path {
-  fill: youtube-color !important;
-}
-
 .hiddendiv {
   width: 100% !important;
 }
@@ -258,14 +232,6 @@ footer a:focus:nth-child(5) svg g:nth-child(2) path {
 @media (max-width: 768px) {
   main {
     padding-bottom: 0px;
-  }
-
-  footer {
-    position: static;
-  }
-
-  footer .row {
-    margin-bottom: 0px;
   }
 }
 

@@ -1,11 +1,11 @@
 import React, { Component } from 'react'
 import { Route, withRouter, Redirect, Switch } from 'react-router-dom'
 import Layout from 'hoc/Layout.js'
-import Dashboard from 'containers/Dashboard/Dashboard'
-import Networks from 'containers/Networks/Networks'
-import Network from 'containers/Network/Network'
-import Login from 'containers/Login/Login'
-import Settings from 'containers/Settings/Settings'
+import Dashboard from 'containers/Dashboard'
+import Networks from 'containers/Networks'
+import Network from 'containers/Network'
+import Login from 'containers/Login'
+import Settings from 'containers/Settings'
 
 class App extends Component {
   state = {
