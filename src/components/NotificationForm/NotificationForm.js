@@ -5,7 +5,6 @@ import Icon from '@mdi/react'
 import { mdiTimer, mdiMusicNote } from '@mdi/js'
 import { withNamespaces } from 'react-i18next'
 import Style from './NotificationForm.module.css'
-
 class NotificationForm extends Component {
   state = {
     timer: 4000,

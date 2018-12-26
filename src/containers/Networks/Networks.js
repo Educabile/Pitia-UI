@@ -8,45 +8,25 @@ import Button from 'components/Button'
 import Resizable from 're-resizable'
 import { Row, Col, Card } from 'react-materialize'
 import { Link } from 'react-router-dom'
+import { connect } from 'react-redux'
+import { withRouter } from 'react-router'
+import Spinner from 'components/Spinner'
 
-const networksMock = [
-  {
-    networkName: 'First Network Placeholder',
-    networkPosition: 'Naples, Italy',
-    networkIP: '143.225.48.253',
-    networkDescription: 'Lorem ipsum dolorem sit amet',
-    wss: 'wss://ws-feed.gdax.com',
-  },
-  {
-    networkName: 'This is a Network Placeholder',
-    networkPosition: 'Orlando, USA',
-    networkIP: '125.32.44.167',
-    networkDescription: 'This is a test description',
-    wss: 'wss://ws-feed.gdax.com',
-  },
-  {
-    networkName: 'Third Network Placeholder',
-    networkPosition: 'Paris, France',
-    networkIP: '230.12.222.176',
-    networkDescription:
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed congue vestibulum libero sit amet posuere. Nunc at vulputate tortor. Morbi pellentesque lectus ut quam tempor eleifend. Ut blandit ornare lacus, eget dapibus quam consequat luctus. Maecenas eu eros tellus. Cras scelerisque nunc mauris, nec rhoncus orci tincidunt non. Sed suscipit tincidunt molestie. Fusce imperdiet felis vel odio dignissim, vitae vehicula urna ullamcorper. Sed ornare fermentum massa ut lobortis. Suspendisse interdum lacinia sem, et semper enim.',
-    wss: 'wss://ws-feed.gdax.com',
-  },
-  {
-    networkName: 'Another Network Placeholder',
-    networkPosition: 'Bruxelles, Belgium',
-    networkIP: '245.97.12.35',
-    networkDescription: 'This network is situated in Bruxelles',
-    wss: 'wss://ws-feed.gdax.com',
-  },
-]
-
-const Networks = ({ t, match }) => (
+const Networks = ({ t, match, networks: { networks, loading, error } }) => (
   <Row
     className="grey lighten-5"
-    style={{ marginBottom: 0, padding: '20px 0', overflow: 'hidden' }}>
-    {networksMock.map(({ networkName, networkPosition, networkIP, networkDescription, wss }) => (
-      <Col key={networkName}>
+    style={{
+      minHeight: 'calc(100vh - 56px)',
+      maxHeight: 'calc(100vh - 56px)',
+      marginBottom: 0,
+      padding: '20px 0',
+      overflowX: 'hidden',
+      overflowY: 'auto',
+    }}>
+    {loading && <Spinner />}
+    {error && <h1>{error}</h1>}
+    {networks.map(({ networkName, networkPosition, networkIP, networkDescription, wss }, index) => (
+      <Col key={`${networkName}-${index}`}>
         <Resizable
           defaultSize={{
             height: 527,
@@ -146,6 +126,16 @@ const Networks = ({ t, match }) => (
 Networks.propTypes = {
   t: PropTypes.func.isRequired,
   match: PropTypes.object.isRequired,
+  networks: PropTypes.object.isRequired,
 }
 
-export default withNamespaces()(Networks)
+const mapStateToProps = ({ networks }) => ({
+  networks,
+})
+
+export default withNamespaces()(
+  connect(
+    mapStateToProps,
+    null
+  )(withRouter(Networks))
+)

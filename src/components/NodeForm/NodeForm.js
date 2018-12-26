@@ -6,6 +6,8 @@ import Icon from '@mdi/react'
 import { mdiCrosshairsGps, mdiPlus, mdiLabelOutline, mdiMemory, mdiIpNetwork } from '@mdi/js'
 import { SuccessToast } from 'components/Toast'
 import { withNamespaces } from 'react-i18next'
+import { notification } from 'actions/notifications'
+import { connect } from 'react-redux'
 class NodeForm extends Component {
   static propTypes = {
     t: PropTypes.func.isRequired,
@@ -13,7 +15,7 @@ class NodeForm extends Component {
     sensorType: PropTypes.string,
     sensorPosition: PropTypes.string,
     sensorIP: PropTypes.string,
-    addInfoEvent: PropTypes.func.isRequired,
+    addNotification: PropTypes.func.isRequired,
   }
 
   static defaultProps = {
@@ -56,12 +58,29 @@ class NodeForm extends Component {
 
   render() {
     const { name, type, position, ip } = this.state
-    const { t, addInfoEvent } = this.props
+    const { t, addNotification } = this.props
 
     return (
       <form
         onSubmit={e => {
           e.preventDefault()
+          this.setState({
+            name: '',
+            type: '',
+            position: '',
+            ip: '',
+          })
+          window.$('#nodes-modal').modal('close')
+          SuccessToast({
+            content: `Nuovo nodo \`${name}\` aggiunto con successo`,
+            action: addNotification({
+              type: 'success',
+              action: 'newNode',
+              content: `Nuovo nodo \`${name}\` aggiunto con successo`,
+              details: `E' stata aggiunto un nuovo nodo: \`${name}\``,
+              date: +new Date(),
+            }),
+          })
         }}>
         <Row>
           <Input
@@ -96,24 +115,6 @@ class NodeForm extends Component {
 
           <div className="center">
             <Button
-              onClick={() => {
-                this.setState({
-                  name: '',
-                  type: '',
-                  position: '',
-                  ip: '',
-                })
-                window.$('#nodes-modal').modal('close')
-                SuccessToast({
-                  content: `Nuovo nodo \`${name}\` aggiunto con successo`,
-                  action: addInfoEvent({
-                    type: 'newNode',
-                    content: `Nuovo nodo \`${name}\` aggiunto con successo`,
-                    details: `E' stata aggiunto un nuovo nodo: \`${name}\``,
-                    date: +new Date(),
-                  }),
-                })
-              }}
               large
               className="blueGradient hoverable white-text"
               waves
@@ -137,4 +138,15 @@ class NodeForm extends Component {
   }
 }
 
-export default withNamespaces()(NodeForm)
+const mapDispatchToProps = dispatch => ({
+  addNotification: event => {
+    dispatch(notification(event))
+  },
+})
+
+export default withNamespaces()(
+  connect(
+    null,
+    mapDispatchToProps
+  )(NodeForm)
+)

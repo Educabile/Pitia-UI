@@ -6,6 +6,7 @@ import Icon from '@mdi/react'
 import { mdiAccount, mdiBellRing, mdiApplication, mdiInformationOutline } from '@mdi/js'
 import { withNamespaces } from 'react-i18next'
 import { withRouter } from 'react-router-dom'
+import { connect } from 'react-redux'
 import Account from './Account'
 import Informations from './Informations'
 import Notifications from './Notifications'
@@ -13,10 +14,6 @@ import Style from './Settings.module.css'
 
 const Settings = ({
   t,
-  username,
-  email,
-  updateEmail,
-  updateUsername,
   match: {
     params: { section },
   },
@@ -50,12 +47,7 @@ const Settings = ({
         </span>
       }
       active={section === 'account' ? true : false}>
-      <Account
-        username={username}
-        email={email}
-        updateEmail={updateEmail}
-        updateUsername={updateUsername}
-      />
+      <Account />
     </Tab>
     <Tab
       title={
@@ -72,11 +64,18 @@ const Settings = ({
 
 Settings.propTypes = {
   t: PropTypes.func.isRequired,
-  username: PropTypes.string.isRequired,
-  email: PropTypes.string.isRequired,
-  updateEmail: PropTypes.string.isRequired,
-  updateUsername: PropTypes.string.isRequired,
   match: PropTypes.object.isRequired,
 }
 
-export default withNamespaces(['notifications', 'settings'])(withRouter(Settings))
+const mapStateToProps = ({ auth }) => ({
+  auth,
+})
+
+export default withRouter(
+  withNamespaces(['notifications', 'settings'])(
+    connect(
+      mapStateToProps,
+      null
+    )(Settings)
+  )
+)

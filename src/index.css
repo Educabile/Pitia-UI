@@ -115,6 +115,42 @@ html {
 }
 
 @media screen and (prefers-reduced-motion: reduce) {
+  .btn,
+  .btn-small,
+  .btn-large {
+    transition: none;
+    &:hover,
+    &:focus {
+      background-color: inherit;
+    }
+  }
+}
+
+@media screen and (prefers-reduced-motion: reduce) {
+  .btn,
+  .btn-small,
+  .btn-large {
+    transition: none;
+    &:hover,
+    &:focus {
+      background-color: inherit;
+    }
+  }
+}
+
+@media screen and (prefers-reduced-motion: reduce) {
+  .btn,
+  .btn-small,
+  .btn-large {
+    transition: none;
+    &:hover,
+    &:focus {
+      background-color: inherit;
+    }
+  }
+}
+
+@media screen and (prefers-reduced-motion: reduce) {
 .btn,
 .btn-small,
 .btn-large {
@@ -216,6 +252,7 @@ ul.tabs {
 #mobile-nav {
   height: calc(100vh - 56px);
   margin-top: 56px;
+  z-index: 996;
 }
 
 #footer-logo {
@@ -243,5 +280,6 @@ ul.tabs {
   #mobile-nav {
     height: 100vh;
     margin-top: 0px;
+    z-index: 999;
   }
 }

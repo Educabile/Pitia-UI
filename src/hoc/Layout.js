@@ -22,8 +22,6 @@ class Layout extends Component {
     history: PropTypes.object.isRequired,
     username: PropTypes.string.isRequired,
     email: PropTypes.string.isRequired,
-    addInfoEvent: PropTypes.func.isRequired,
-    addWidget: PropTypes.func.isRequired,
     loggedIn: PropTypes.bool.isRequired,
   }
 
@@ -33,11 +31,11 @@ class Layout extends Component {
 
   render() {
     const { errorToast } = this.state
-    const { children, t, history, username, email, addInfoEvent, addWidget, loggedIn } = this.props
+    const { children, t, history, username, email, loggedIn } = this.props
     return (
       <>
         <header>
-          <Navbar className="z-depth-3 center" fixed fixedSidenav={loggedIn}>
+          <Navbar className="z-depth-3 center" fixed fixedSidenav={loggedIn} loggedIn={loggedIn}>
             <div
               onClick={() => history.push('settings/account')}
               className="user-view"
@@ -195,9 +193,9 @@ class Layout extends Component {
           </Navbar>
         </header>
         <main>{children}</main>
-        <NetworkModal addInfoEvent={addInfoEvent} />
-        <NodesModal addInfoEvent={addInfoEvent} />
-        <WidgetsModal addWidget={addWidget} />
+        <NetworkModal />
+        <NodesModal />
+        <WidgetsModal />
         <ToastContainer
           style={{ top: 70 }}
           autoClose={4000}

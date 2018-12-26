@@ -11,6 +11,7 @@ import 'react-leaflet-fullscreen-control'
 import Chart from 'components/Chart'
 import NetworkForm from 'components/NetworkForm'
 import Style from './Network.module.css'
+import { withRouter } from 'react-router'
 
 const Network = ({
   t,
@@ -108,4 +109,4 @@ Network.propTypes = {
   location: PropTypes.object.isRequired,
 }
 
-export default withNamespaces()(Network)
+export default withNamespaces()(withRouter(Network))

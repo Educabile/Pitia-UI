@@ -6,13 +6,17 @@ import Icon from '@mdi/react'
 import { mdiHelpNetwork, mdiCrosshairsGps, mdiDomain, mdiIpNetwork, mdiPlus } from '@mdi/js'
 import { SuccessToast } from 'components/Toast'
 import { withNamespaces } from 'react-i18next'
+import { notification } from 'actions/notifications'
+import { networkAdd } from 'actions/networks'
+import { connect } from 'react-redux'
 class NetworkForm extends Component {
   static propTypes = {
+    addNetwork: PropTypes.func.isRequired,
+    addNotification: PropTypes.func.isRequired,
     networkName: PropTypes.string,
     networkPosition: PropTypes.string,
     networkStructure: PropTypes.string,
     networkIP: PropTypes.string,
-    addInfoEvent: PropTypes.func.isRequired,
     t: PropTypes.func.isRequired,
   }
 
@@ -62,12 +66,29 @@ class NetworkForm extends Component {
 
   render() {
     const { name, position, structure, ip } = this.state
-    const { t, addInfoEvent } = this.props
+    const { t, addNotification, addNetwork } = this.props
 
     return (
       <form
         onSubmit={e => {
           e.preventDefault()
+          window.$('#networks-modal').modal('close')
+          SuccessToast({
+            content: `Nuova rete \`${name}\` creata`,
+            action: addNotification({
+              type: 'success',
+              action: 'newNetwork',
+              content: `E' stata creata una nuova rete: \`${name}\``,
+              date: +new Date(),
+            }),
+          })
+          addNetwork({
+            networkName: 'First Network Placeholder',
+            networkPosition: 'Naples, Italy',
+            networkIP: '143.225.48.253',
+            networkDescription: 'Lorem ipsum dolorem sit amet',
+            wss: 'wss://ws-feed.gdax.com',
+          })
         }}>
         <Row>
           <Input
@@ -101,18 +122,6 @@ class NetworkForm extends Component {
 
           <div className="center">
             <Button
-              onClick={() => {
-                window.$('#networks-modal').modal('close')
-                SuccessToast({
-                  content: `Nuova rete \`${name}\` creata`,
-                  action: addInfoEvent({
-                    type: 'newNetwork',
-                    content: `Nuova rete \`${name}\` creata`,
-                    details: `E' stata creata una nuova rete: \`${name}\``,
-                    date: +new Date(),
-                  }),
-                })
-              }}
               className="blueGradient hoverable white-text"
               waves
               large
@@ -136,4 +145,14 @@ class NetworkForm extends Component {
   }
 }
 
-export default withNamespaces()(NetworkForm)
+const mapDispatchToProps = dispatch => ({
+  addNotification: event => dispatch(notification(event)),
+  addNetwork: network => dispatch(networkAdd(network)),
+})
+
+export default withNamespaces()(
+  connect(
+    null,
+    mapDispatchToProps
+  )(NetworkForm)
+)

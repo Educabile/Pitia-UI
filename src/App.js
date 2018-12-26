@@ -1,112 +1,60 @@
-import React, { Component } from 'react'
+import React from 'react'
+import PropTypes from 'prop-types'
 import { Route, withRouter, Redirect, Switch } from 'react-router-dom'
-import Layout from 'hoc/Layout.js'
+import Layout from 'hoc/Layout'
 import Dashboard from 'containers/Dashboard'
 import Networks from 'containers/Networks'
 import Network from 'containers/Network'
 import Login from 'containers/Login'
 import Settings from 'containers/Settings'
+import { connect } from 'react-redux'
 
-class App extends Component {
-  state = {
-    loggedIn: true,
-    username: 'Claudio Cortese',
-    email: 'claudio.cortese@outlook.it',
-    infoEventMock: [
-      {
-        type: 'newNetwork',
-        content: "E' stata creata una nuova rete: `Network Placeholder`",
-        date: '2018-09-12 10:06 PM',
-      },
-      {
-        type: 'newNode',
-        content: "E' stato creato un nuovo nodo: `Node Placeholder`",
-        date: '2018-19-12 10:06 AM',
-      },
-    ],
-    widgetsMock: [],
-  }
+const App = ({ auth: { auth, nameSurname, email } }) => (
+  <Layout loggedIn={auth} username={nameSurname} email={email}>
+    <Switch>
+      <Route
+        path="/dashboard"
+        exact
+        render={() => (auth ? <Dashboard /> : <Redirect to="/login" />)}
+      />
+      <Route
+        path="/networks/"
+        exact
+        render={() => (auth ? <Networks /> : <Redirect to="/login" />)}
+      />
+      <Route
+        path="/networks/:networkId"
+        exact
+        render={() => (auth ? <Network /> : <Redirect to="/login" />)}
+      />
+      <Route
+        path="/settings/:section?"
+        exact
+        render={() => (auth ? <Settings /> : <Redirect to="/login" />)}
+      />
+      <Route path="/login" exact component={Login} />
+      <Redirect to="/login" />
+    </Switch>
+  </Layout>
+)
 
-  logIn = () => {
-    this.setState({
-      loggedIn: true,
-    })
-  }
-
-  updateUsername = username => {
-    this.setState({
-      username,
-    })
-  }
-
-  updateEmail = email => {
-    this.setState({
-      email,
-    })
-  }
-
-  addInfoEvent = event => {
-    this.setState(({ infoEventMock }) => {
-      infoEventMock.unshift(event)
-
-      return {
-        infoEventMock,
-      }
-    })
-  }
-
-  addWidget = widget => {
-    this.setState(({ widgetsMock }) => ({
-      widgetsMock: widgetsMock.concat(widget),
-    }))
-  }
-
-  render() {
-    const { loggedIn, username, email } = this.state
-
-    return (
-      <Layout
-        loggedIn={loggedIn}
-        username={username}
-        email={email}
-        addInfoEvent={this.addInfoEvent}
-        addWidget={this.addWidget}>
-        <Switch>
-          <Route
-            path="/dashboard"
-            exact
-            render={() => (
-              <Dashboard
-                loggedIn={this.state.loggedIn}
-                infoEventMock={this.state.infoEventMock}
-                widgetsMock={this.state.widgetsMock}
-              />
-            )}
-          />
-          <Route path="/networks/" exact component={Networks} />
-          <Route path="/networks/:networkId" exact component={Network} />
-          <Route
-            path="/settings/:section?"
-            exact
-            render={() => (
-              <Settings
-                username={username}
-                email={email}
-                updateEmail={this.updateEmail}
-                updateUsername={this.updateUsername}
-              />
-            )}
-          />
-          <Route
-            path="/login"
-            exact
-            render={() => <Login loggedIn={this.state.loggedIn} logIn={this.logIn} />}
-          />
-          <Redirect to="/dashboard" />
-        </Switch>
-      </Layout>
-    )
-  }
+App.propTypes = {
+  auth: PropTypes.shape({
+    auth: PropTypes.bool,
+    nameSurname: PropTypes.string,
+    email: PropTypes.string,
+    error: PropTypes.string,
+    loading: PropTypes.bool,
+  }).isRequired,
 }
 
-export default withRouter(App)
+const mapStateToProps = ({ auth }) => ({
+  auth,
+})
+
+export default withRouter(
+  connect(
+    mapStateToProps,
+    null
+  )(App)
+)

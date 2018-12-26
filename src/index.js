@@ -7,12 +7,25 @@ import 'react-toastify/dist/ReactToastify.css'
 import App from './App'
 import { BrowserRouter } from 'react-router-dom'
 import * as serviceWorker from './serviceWorker'
+import auth from 'reducers/auth'
+import notifications from 'reducers/notifications'
+import networks from 'reducers/networks'
+import widgets from 'reducers/widgets'
+import { createStore, applyMiddleware, combineReducers } from 'redux'
+import thunk from 'redux-thunk'
+import { composeWithDevTools } from 'redux-devtools-extension'
+import { Provider } from 'react-redux'
+
+const rootReducer = combineReducers({ auth, notifications, networks, widgets })
+const store = createStore(rootReducer, composeWithDevTools(applyMiddleware(thunk)))
 
 const { PUBLIC_URL } = process.env
 
 const app = (
   <BrowserRouter basename={PUBLIC_URL}>
-    <App />
+    <Provider store={store}>
+      <App />
+    </Provider>
   </BrowserRouter>
 )
 

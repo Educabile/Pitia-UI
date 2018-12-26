@@ -97,6 +97,8 @@ module.exports = function() {
         libs: path.join(paths.appSrc, 'libs'),
         assets: path.join(paths.appSrc, 'assets'),
         vendor: path.join(paths.appSrc, 'vendor'),
+        actions: path.join(paths.appSrc, 'store', 'actions'),
+        reducers: path.join(paths.appSrc, 'store', 'reducers'),
       },
     },
     jest: {
@@ -111,6 +113,8 @@ module.exports = function() {
           '^libs(.*)$': '<rootDir>/src/libs$1',
           '^assets(.*)$': '<rootDir>/src/assets$1',
           '^vendor(.*)$': '<rootDir>/src/vendor$1',
+          '^actions(.*)$': '<rootDir>/src/store/actions$1',
+          '^reducers(.*)$': '<rootDir>/src/store/reducers$1',
         },
         moduleDirectories: ['node_modules', 'src'],
         testPathIgnorePatterns: ['<rootDir>/cypress/', '<rootDir>/node_modules/'],

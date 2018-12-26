@@ -1,16 +1,24 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { Redirect } from 'react-router-dom'
-import { Row, Col, Input, Card, Button } from 'react-materialize'
+import { Row, Col, Input, Card } from 'react-materialize'
+import Button from 'components/Button'
 import { Icon } from '@mdi/react'
 import { mdiAccount, mdiLogin } from '@mdi/js'
 import Style from './Login.module.css'
 import Avatar from 'react-avatar'
 import { withNamespaces } from 'react-i18next'
+import { connect } from 'react-redux'
+import { auth } from 'actions/auth'
+
 class Login extends Component {
   static propTypes = {
-    loggedIn: PropTypes.bool.isRequired,
-    logIn: PropTypes.func.isRequired,
+    auth: PropTypes.shape({
+      auth: PropTypes.bool.isRequired,
+      loading: PropTypes.bool.isRequired,
+      error: PropTypes.string,
+    }).isRequired,
+    login: PropTypes.func.isRequired,
     t: PropTypes.func.isRequired,
   }
 
@@ -21,9 +29,13 @@ class Login extends Component {
 
   render() {
     const { email, password } = this.state
-    const { t, logIn } = this.props
+    const {
+      t,
+      login,
+      auth: { auth, error },
+    } = this.props
 
-    return this.props.loggedIn ? (
+    return auth ? (
       <Redirect to="/dashboard" />
     ) : (
       <Row className={Style.Login}>
@@ -42,7 +54,7 @@ class Login extends Component {
               onSubmit={e => {
                 e.preventDefault()
 
-                logIn()
+                login(email, password)
               }}>
               <Row>
                 <Input
@@ -71,6 +83,7 @@ class Login extends Component {
                   validate
                   required
                 />
+                {error && <span className="red-text">{error}</span>}
                 <div className="center">
                   <Button
                     disabled={!(email.length > 0 && password.length > 0)}
@@ -100,4 +113,15 @@ class Login extends Component {
   }
 }
 
-export default withNamespaces()(Login)
+const mapStateToProps = ({ auth }) => ({
+  auth,
+})
+
+const mapDispatchToProps = dispatch => ({
+  login: (email, password) => dispatch(auth(email, password)),
+})
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(withNamespaces()(Login))

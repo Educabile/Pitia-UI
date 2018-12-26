@@ -9,8 +9,12 @@ import { Timeline } from 'react-event-timeline'
 import Select from 'components/Select/Select'
 import Notification from 'components/Notifications'
 import { withNamespaces } from 'react-i18next'
+import { connect } from 'react-redux'
 
-const Logger = ({ infoEventMock, t }) => (
+const Logger = ({
+  notifications: { infoNotifications, warningNotifications, errorNotifications },
+  t,
+}) => (
   <>
     <div
       className="collapsible-header flow-text white"
@@ -88,11 +92,13 @@ const Logger = ({ infoEventMock, t }) => (
             <option value="4">{t('menoRecenti')}</option>
           </Select>
           <Col s={12} className="flow-text">
-            <Timeline lineColor="#1565C0">
-              {infoEventMock.map((event, index) => (
-                <Notification key={index} event={event} />
-              ))}
-            </Timeline>
+            {infoNotifications.length ? (
+              <Timeline lineColor="#1565C0">
+                {infoNotifications.map((event, index) => (
+                  <Notification key={index} event={event} />
+                ))}
+              </Timeline>
+            ) : null}
           </Col>
         </Row>
       </Tab>
@@ -121,11 +127,13 @@ const Logger = ({ infoEventMock, t }) => (
           <option value="4">{t('menoRecenti')}</option>
         </Select>
         <Col s={12}>
-          <Timeline lineColor="#ffa000">
-            {infoEventMock.map((event, index) => (
-              <Notification key={index} event={event} />
-            ))}
-          </Timeline>
+          {warningNotifications.length ? (
+            <Timeline lineColor="#FFA000">
+              {warningNotifications.map((event, index) => (
+                <Notification key={index} event={event} />
+              ))}
+            </Timeline>
+          ) : null}
         </Col>
       </Tab>
       <Tab
@@ -153,11 +161,13 @@ const Logger = ({ infoEventMock, t }) => (
           <option value="4">{t('menoRecenti')}</option>
         </Select>
         <Col s={12}>
-          <Timeline lineColor="#fb3349">
-            {infoEventMock.map((event, index) => (
-              <Notification key={index} event={event} />
-            ))}
-          </Timeline>
+          {errorNotifications.length ? (
+            <Timeline lineColor="#fb3349">
+              {errorNotifications.map((event, index) => (
+                <Notification key={index} event={event} />
+              ))}
+            </Timeline>
+          ) : null}
         </Col>
       </Tab>
     </Tabs>
@@ -166,7 +176,20 @@ const Logger = ({ infoEventMock, t }) => (
 
 Logger.propTypes = {
   t: PropTypes.func.isRequired,
-  infoEventMock: PropTypes.arrayOf(PropTypes.object).isRequired,
+  notifications: PropTypes.shape({
+    infoNotifications: PropTypes.array.isRequired,
+    warningNotifications: PropTypes.array.isRequired,
+    errorNotifications: PropTypes.array.isRequired,
+  }).isRequired,
 }
 
-export default withNamespaces()(Logger)
+const mapStateToProps = ({ notifications }) => ({
+  notifications,
+})
+
+export default withNamespaces()(
+  connect(
+    mapStateToProps,
+    null
+  )(Logger)
+)
