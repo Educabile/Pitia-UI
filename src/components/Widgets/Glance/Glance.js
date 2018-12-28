@@ -5,8 +5,10 @@ import Icon from '@mdi/react'
 import Resizable from 're-resizable'
 import { withNamespaces } from 'react-i18next'
 import { mdiEye } from '@mdi/js'
+import { connect } from 'react-redux'
+import { compose } from 'redux'
 
-const Glance = ({ t, enableResize }) => (
+const Glance = ({ t, enableResize, networks: { networks } }) => (
   <Resizable
     defaultSize={{
       width: 240,
@@ -32,7 +34,7 @@ const Glance = ({ t, enableResize }) => (
           </span>
         }>
         <Row>
-          <Col s={12}>4 Network</Col>
+          <Col s={12}>{networks.length} Network</Col>
           <Col s={12}>20 Sensori</Col>
         </Row>
       </CollapsibleItem>
@@ -43,6 +45,11 @@ const Glance = ({ t, enableResize }) => (
 Glance.propTypes = {
   t: PropTypes.func.isRequired,
   enableResize: PropTypes.object.isRequired,
+  networks: PropTypes.shape({
+    loading: PropTypes.bool,
+    networks: PropTypes.array,
+    error: PropTypes.string,
+  }).isRequired,
 }
 
 Glance.defaultProps = {
@@ -58,4 +65,14 @@ Glance.defaultProps = {
   },
 }
 
-export default withNamespaces(['widgets'])(Glance)
+const mapStateToProps = ({ networks }) => ({
+  networks,
+})
+
+export default compose(
+  withNamespaces(['widgets']),
+  connect(
+    mapStateToProps,
+    null
+  )
+)(Glance)

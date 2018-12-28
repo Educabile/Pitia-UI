@@ -1,112 +1,94 @@
-import React, { Component } from 'react'
+import React, { Suspense, lazy } from 'react'
+import PropTypes from 'prop-types'
 import { Route, withRouter, Redirect, Switch } from 'react-router-dom'
-import Layout from 'hoc/Layout.js'
-import Dashboard from 'containers/Dashboard'
-import Networks from 'containers/Networks'
-import Network from 'containers/Network'
-import Login from 'containers/Login'
-import Settings from 'containers/Settings'
+import Layout from 'hoc/Layout'
+import { connect } from 'react-redux'
+import { compose } from 'redux'
+import Spinner from 'components/Spinner'
 
-class App extends Component {
-  state = {
-    loggedIn: true,
-    username: 'Claudio Cortese',
-    email: 'claudio.cortese@outlook.it',
-    infoEventMock: [
-      {
-        type: 'newNetwork',
-        content: "E' stata creata una nuova rete: `Network Placeholder`",
-        date: '2018-09-12 10:06 PM',
-      },
-      {
-        type: 'newNode',
-        content: "E' stato creato un nuovo nodo: `Node Placeholder`",
-        date: '2018-19-12 10:06 AM',
-      },
-    ],
-    widgetsMock: [],
-  }
+const Dashboard = lazy(() => import('containers/Dashboard'))
+const Networks = lazy(() => import('containers/Networks'))
+const Network = lazy(() => import('containers/Network'))
+const Login = lazy(() => import('containers/Login'))
+const Settings = lazy(() => import('containers/Settings'))
 
-  logIn = () => {
-    this.setState({
-      loggedIn: true,
-    })
-  }
+const App = ({ auth: { auth } }) => (
+  <Layout loggedIn={auth}>
+    {auth ? (
+      <Switch>
+        <Route
+          path="/dashboard"
+          exact
+          render={() => (
+            <Suspense fallback={<Spinner />}>
+              <Dashboard />
+            </Suspense>
+          )}
+        />
+        <Route
+          path="/networks/"
+          exact
+          render={() => (
+            <Suspense fallback={<Spinner />}>
+              <Networks />
+            </Suspense>
+          )}
+        />
+        <Route
+          path="/networks/:networkId"
+          exact
+          render={() => (
+            <Suspense fallback={<Spinner />}>
+              <Network />
+            </Suspense>
+          )}
+        />
+        <Route
+          path="/settings/:section?"
+          exact
+          render={() => (
+            <Suspense fallback={<Spinner />}>
+              <Settings />
+            </Suspense>
+          )}
+        />
+        <Redirect to="/dashboard" />
+      </Switch>
+    ) : (
+      <Switch>
+        <Route
+          path="/login"
+          exact
+          render={() => (
+            <Suspense fallback={<Spinner />}>
+              <Login />
+            </Suspense>
+          )}
+        />
+        <Redirect to="/login" />
+      </Switch>
+    )}
+  </Layout>
+)
 
-  updateUsername = username => {
-    this.setState({
-      username,
-    })
-  }
-
-  updateEmail = email => {
-    this.setState({
-      email,
-    })
-  }
-
-  addInfoEvent = event => {
-    this.setState(({ infoEventMock }) => {
-      infoEventMock.unshift(event)
-
-      return {
-        infoEventMock,
-      }
-    })
-  }
-
-  addWidget = widget => {
-    this.setState(({ widgetsMock }) => ({
-      widgetsMock: widgetsMock.concat(widget),
-    }))
-  }
-
-  render() {
-    const { loggedIn, username, email } = this.state
-
-    return (
-      <Layout
-        loggedIn={loggedIn}
-        username={username}
-        email={email}
-        addInfoEvent={this.addInfoEvent}
-        addWidget={this.addWidget}>
-        <Switch>
-          <Route
-            path="/dashboard"
-            exact
-            render={() => (
-              <Dashboard
-                loggedIn={this.state.loggedIn}
-                infoEventMock={this.state.infoEventMock}
-                widgetsMock={this.state.widgetsMock}
-              />
-            )}
-          />
-          <Route path="/networks/" exact component={Networks} />
-          <Route path="/networks/:networkId" exact component={Network} />
-          <Route
-            path="/settings/:section?"
-            exact
-            render={() => (
-              <Settings
-                username={username}
-                email={email}
-                updateEmail={this.updateEmail}
-                updateUsername={this.updateUsername}
-              />
-            )}
-          />
-          <Route
-            path="/login"
-            exact
-            render={() => <Login loggedIn={this.state.loggedIn} logIn={this.logIn} />}
-          />
-          <Redirect to="/dashboard" />
-        </Switch>
-      </Layout>
-    )
-  }
+App.propTypes = {
+  auth: PropTypes.shape({
+    auth: PropTypes.bool,
+    nameSurname: PropTypes.string,
+    email: PropTypes.string,
+    error: PropTypes.string,
+    loading: PropTypes.bool,
+  }).isRequired,
 }
 
-export default withRouter(App)
+const mapStateToProps = ({ auth }) => ({
+  auth,
+})
+
+export default compose(
+  withRouter,
+  connect(
+    mapStateToProps,
+    null
+  )
+)(App)

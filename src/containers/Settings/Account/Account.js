@@ -9,25 +9,41 @@ import { mdiAccountCardDetails, mdiTranslate, mdiAt } from '@mdi/js'
 import Avatar from 'react-avatar'
 import { SuccessToast } from 'components/Toast'
 import { withNamespaces } from 'react-i18next'
-
-class User extends Component {
+import { connect } from 'react-redux'
+import { compose } from 'redux'
+import { changeEmail, changeUsername, changeLanguage } from 'actions/account'
+class Account extends Component {
   static propTypes = {
     t: PropTypes.func.isRequired,
-    email: PropTypes.string.isRequired,
-    username: PropTypes.string.isRequired,
+    account: PropTypes.shape({
+      nameSurname: PropTypes.string.isRequired,
+      email: PropTypes.string.isRequired,
+      language: PropTypes.string.isRequired,
+    }).isRequired,
     updateEmail: PropTypes.func.isRequired,
     updateUsername: PropTypes.func.isRequired,
+    updateLanguage: PropTypes.func.isRequired,
   }
 
   state = {
-    email: this.props.email,
-    username: this.props.username,
-    language: i18n.language,
+    email: this.props.account.email,
+    username: this.props.account.nameSurname,
+    language: this.props.account.language,
+    shouldUpdateEmail: false,
+    shouldUpdateUsername: false,
+    shouldUpdateLanguage: false,
   }
 
   render() {
-    const { email, username, language } = this.state
-    const { t, updateEmail, updateUsername } = this.props
+    const {
+      email,
+      username,
+      language,
+      shouldUpdateEmail,
+      shouldUpdateUsername,
+      shouldUpdateLanguage,
+    } = this.state
+    const { t, updateEmail, updateUsername, updateLanguage } = this.props
 
     return (
       <div
@@ -45,10 +61,27 @@ class User extends Component {
                     <form
                       onSubmit={e => {
                         e.preventDefault()
+
+                        shouldUpdateEmail && updateEmail(email)
+                        shouldUpdateUsername && updateUsername(username)
+                        shouldUpdateLanguage && updateLanguage(language)
+
+                        SuccessToast({
+                          content: t('informazioniAggiornate'),
+                        })
+
+                        i18n.changeLanguage(language)
+
+                        this.setState({
+                          shouldUpdateEmail: false,
+                          shouldUpdateUsername: false,
+                          shouldUpdateLanguage: false,
+                        })
                       }}>
                       <Row>
                         <Input
                           type="email"
+                          autoComplete="email"
                           s={12}
                           label={t('settings:email')}
                           validate
@@ -57,23 +90,24 @@ class User extends Component {
                           onChange={({ target: { value: email } }) => {
                             this.setState({
                               email,
+                              shouldUpdateEmail: true,
                             })
                           }}>
                           <Icon path={mdiAt} size={1.175} color="#1565c0" />
                         </Input>
                         <Input
+                          autoComplete="name"
                           s={12}
                           label={t('settings:nomeCognome')}
                           validate
                           required
                           value={username}
                           onChange={({ target: { value: username } }) => {
-                            this.setState({ username })
+                            this.setState({ username, shouldUpdateUsername: true })
                           }}>
                           <Icon path={mdiAccountCardDetails} size={1.175} color="#1565c0" />
                         </Input>
                         <Select
-                          id="boo"
                           s={12}
                           label={t('settings:lingua')}
                           value={language}
@@ -81,37 +115,30 @@ class User extends Component {
                           onChange={({ currentTarget: { value: language } }) => {
                             this.setState({
                               language,
+                              shouldUpdateLanguage: true,
                             })
                           }}>
                           <option value="it">Italiano</option>
                           <option value="en">English</option>
                         </Select>
                       </Row>
+                      <div className="center">
+                        <Button
+                          disabled={
+                            !(shouldUpdateEmail || shouldUpdateLanguage || shouldUpdateUsername)
+                          }
+                          large
+                          className="blueGradient hoverable white-text"
+                          waves
+                          style={{
+                            display: 'inline-flex',
+                            justifyContent: 'center',
+                            alignItems: 'center',
+                          }}>
+                          <span>{t('common:aggiornaInformazioni')}</span>
+                        </Button>
+                      </div>
                     </form>
-
-                    <div className="center">
-                      <Button
-                        large
-                        onClick={() => {
-                          updateEmail(email)
-                          updateUsername(username)
-
-                          SuccessToast({
-                            content: t('informazioniAggiornate'),
-                          })
-
-                          i18n.changeLanguage(language)
-                        }}
-                        className="blueGradient hoverable white-text"
-                        waves
-                        style={{
-                          display: 'inline-flex',
-                          justifyContent: 'center',
-                          alignItems: 'center',
-                        }}>
-                        <span>{t('common:aggiornaInformazioni')}</span>
-                      </Button>
-                    </div>
                   </div>
                 </Col>
               </Row>
@@ -123,4 +150,26 @@ class User extends Component {
   }
 }
 
-export default withNamespaces(['notifications', 'settings'])(User)
+const mapStateToProps = ({ account }) => ({
+  account,
+})
+
+const mapDispatchToProps = dispatch => ({
+  updateEmail: email => {
+    dispatch(changeEmail(email))
+  },
+  updateUsername: username => {
+    dispatch(changeUsername(username))
+  },
+  updateLanguage: language => {
+    dispatch(changeLanguage(language))
+  },
+})
+
+export default compose(
+  withNamespaces(['notifications', 'settings']),
+  connect(
+    mapStateToProps,
+    mapDispatchToProps
+  )
+)(Account)

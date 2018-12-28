@@ -6,8 +6,12 @@ import { mdiCloseCircleOutline, mdiWidgets } from '@mdi/js'
 import { withNamespaces } from 'react-i18next'
 import Widget from 'components/Widgets'
 import { SuccessToast } from 'components/Toast'
+import { notification } from 'actions/notifications'
+import { widgetAdd } from 'actions/widgets'
+import { connect } from 'react-redux'
+import { compose } from 'redux'
 
-const WidgetModal = ({ t, addWidget }) => (
+const WidgetModal = ({ t, addWidget, addNotification }) => (
   <Modal
     id="widgets-modal"
     actions={null}
@@ -43,6 +47,13 @@ const WidgetModal = ({ t, addWidget }) => (
           addWidget('glance')
           SuccessToast({
             content: "Widget `A colpo d'occhio` aggiunto",
+            action: addNotification({
+              type: 'success',
+              action: 'newWidget',
+              content: "Widget `A colpo d'occhio` aggiunto",
+              details: '..',
+              date: +new Date(),
+            }),
           })
         }}>
         <Widget
@@ -64,6 +75,13 @@ const WidgetModal = ({ t, addWidget }) => (
           addWidget('rapidCreation')
           SuccessToast({
             content: 'Widget `Creazione Rapida` aggiunto',
+            action: addNotification({
+              type: 'success',
+              action: 'newWidget',
+              content: 'Widget `Creazione Rapida` aggiunto',
+              details: '..',
+              date: +new Date(),
+            }),
           })
         }}>
         <Widget
@@ -88,6 +106,22 @@ const WidgetModal = ({ t, addWidget }) => (
 WidgetModal.propTypes = {
   t: PropTypes.func.isRequired,
   addWidget: PropTypes.func.isRequired,
+  addNotification: PropTypes.func.isRequired,
 }
 
-export default withNamespaces()(WidgetModal)
+const mapDispatchToProps = dispatch => ({
+  addNotification: event => {
+    dispatch(notification(event))
+  },
+  addWidget: widget => {
+    dispatch(widgetAdd(widget))
+  },
+})
+
+export default compose(
+  withNamespaces(),
+  connect(
+    null,
+    mapDispatchToProps
+  )
+)(WidgetModal)

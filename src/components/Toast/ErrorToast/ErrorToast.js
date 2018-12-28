@@ -6,7 +6,8 @@ import {
   notification18Mp3,
   notification18Wav,
 } from 'assets/sounds/notifications'
-export default ({ content, action, autoClose = 8000 }) => {
+
+const errorToast = ({ content, action, autoClose = 8000 }) => {
   toast.error(
     <>
       <div onClick={action}>{content}</div>
@@ -15,7 +16,7 @@ export default ({ content, action, autoClose = 8000 }) => {
         <source src={notification18Ogg} type="audio/ogg; coded=vorbis" />
         <source src={notification18Mp3} type="audio/mpeg" />
         <source src={notification18Wav} type="audio/wav" />
-      </audio>{' '}
+      </audio>
     </>,
     {
       position: 'top-right',
@@ -31,3 +32,5 @@ export default ({ content, action, autoClose = 8000 }) => {
 
   return null
 }
+
+export default errorToast

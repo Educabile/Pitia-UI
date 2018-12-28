@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { lazy, Suspense } from 'react'
 import PropTypes from 'prop-types'
 import { Tab } from 'react-materialize'
 import Tabs from 'components/Tabs/Tabs'
@@ -6,17 +6,17 @@ import Icon from '@mdi/react'
 import { mdiAccount, mdiBellRing, mdiApplication, mdiInformationOutline } from '@mdi/js'
 import { withNamespaces } from 'react-i18next'
 import { withRouter } from 'react-router-dom'
-import Account from './Account'
-import Informations from './Informations'
-import Notifications from './Notifications'
+import { connect } from 'react-redux'
+import { compose } from 'redux'
+import Spinner from 'components/Spinner'
 import Style from './Settings.module.css'
+
+const Account = lazy(() => import('./Account'))
+const Informations = lazy(() => import('./Informations'))
+const Notifications = lazy(() => import('./Notifications'))
 
 const Settings = ({
   t,
-  username,
-  email,
-  updateEmail,
-  updateUsername,
   match: {
     params: { section },
   },
@@ -40,7 +40,9 @@ const Settings = ({
         </span>
       }
       active={section === 'notifications' ? true : false}>
-      <Notifications />
+      <Suspense fallback={<Spinner />}>
+        <Notifications />
+      </Suspense>
     </Tab>
     <Tab
       title={
@@ -50,12 +52,9 @@ const Settings = ({
         </span>
       }
       active={section === 'account' ? true : false}>
-      <Account
-        username={username}
-        email={email}
-        updateEmail={updateEmail}
-        updateUsername={updateUsername}
-      />
+      <Suspense fallback={<Spinner />}>
+        <Account />
+      </Suspense>
     </Tab>
     <Tab
       title={
@@ -65,18 +64,27 @@ const Settings = ({
         </span>
       }
       active={section === 'informations' ? true : false}>
-      <Informations />
+      <Suspense fallback={<Spinner />}>
+        <Informations />
+      </Suspense>
     </Tab>
   </Tabs>
 )
 
 Settings.propTypes = {
   t: PropTypes.func.isRequired,
-  username: PropTypes.string.isRequired,
-  email: PropTypes.string.isRequired,
-  updateEmail: PropTypes.string.isRequired,
-  updateUsername: PropTypes.string.isRequired,
   match: PropTypes.object.isRequired,
 }
 
-export default withNamespaces(['notifications', 'settings'])(withRouter(Settings))
+const mapStateToProps = ({ auth }) => ({
+  auth,
+})
+
+export default compose(
+  withNamespaces(['notifications', 'settings']),
+  connect(
+    mapStateToProps,
+    null
+  ),
+  withRouter
+)(Settings)

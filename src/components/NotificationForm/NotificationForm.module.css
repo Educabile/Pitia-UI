@@ -9,3 +9,18 @@
     color: white !important;
   }
 }
+
+.Select {
+  & > :global(.select-wrapper input.select-dropdown) {
+    border-bottom: 1px solid white !important;
+    color: white !important;
+  }
+
+  & > :global(.select-wrapper .caret) {
+    fill: white !important;
+  }
+
+  & > label {
+    color: white !important;
+  }
+}

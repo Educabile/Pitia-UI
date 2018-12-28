@@ -11,6 +11,9 @@ import 'react-leaflet-fullscreen-control'
 import Chart from 'components/Chart'
 import NetworkForm from 'components/NetworkForm'
 import Style from './Network.module.css'
+import 'leaflet/dist/leaflet.css'
+import { withRouter } from 'react-router'
+import { compose } from 'redux'
 
 const Network = ({
   t,
@@ -108,4 +111,7 @@ Network.propTypes = {
   location: PropTypes.object.isRequired,
 }
 
-export default withNamespaces()(Network)
+export default compose(
+  withNamespaces(),
+  withRouter
+)(Network)
