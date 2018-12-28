@@ -10,6 +10,7 @@ import Select from 'components/Select/Select'
 import Notification from 'components/Notifications'
 import { withNamespaces } from 'react-i18next'
 import { connect } from 'react-redux'
+import { compose } from 'redux'
 
 const Logger = ({
   notifications: { infoNotifications, warningNotifications, errorNotifications },
@@ -187,9 +188,10 @@ const mapStateToProps = ({ notifications }) => ({
   notifications,
 })
 
-export default withNamespaces()(
+export default compose(
+  withNamespaces(),
   connect(
     mapStateToProps,
     null
-  )(Logger)
-)
+  )
+)(Logger)

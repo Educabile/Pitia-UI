@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { lazy, Suspense } from 'react'
 import PropTypes from 'prop-types'
 import { Tab } from 'react-materialize'
 import Tabs from 'components/Tabs/Tabs'
@@ -7,10 +7,13 @@ import { mdiAccount, mdiBellRing, mdiApplication, mdiInformationOutline } from '
 import { withNamespaces } from 'react-i18next'
 import { withRouter } from 'react-router-dom'
 import { connect } from 'react-redux'
-import Account from './Account'
-import Informations from './Informations'
-import Notifications from './Notifications'
+import { compose } from 'redux'
+import Spinner from 'components/Spinner'
 import Style from './Settings.module.css'
+
+const Account = lazy(() => import('./Account'))
+const Informations = lazy(() => import('./Informations'))
+const Notifications = lazy(() => import('./Notifications'))
 
 const Settings = ({
   t,
@@ -37,7 +40,9 @@ const Settings = ({
         </span>
       }
       active={section === 'notifications' ? true : false}>
-      <Notifications />
+      <Suspense fallback={<Spinner />}>
+        <Notifications />
+      </Suspense>
     </Tab>
     <Tab
       title={
@@ -47,7 +52,9 @@ const Settings = ({
         </span>
       }
       active={section === 'account' ? true : false}>
-      <Account />
+      <Suspense fallback={<Spinner />}>
+        <Account />
+      </Suspense>
     </Tab>
     <Tab
       title={
@@ -57,7 +64,9 @@ const Settings = ({
         </span>
       }
       active={section === 'informations' ? true : false}>
-      <Informations />
+      <Suspense fallback={<Spinner />}>
+        <Informations />
+      </Suspense>
     </Tab>
   </Tabs>
 )
@@ -71,11 +80,11 @@ const mapStateToProps = ({ auth }) => ({
   auth,
 })
 
-export default withRouter(
-  withNamespaces(['notifications', 'settings'])(
-    connect(
-      mapStateToProps,
-      null
-    )(Settings)
-  )
-)
+export default compose(
+  withNamespaces(['notifications', 'settings']),
+  connect(
+    mapStateToProps,
+    null
+  ),
+  withRouter
+)(Settings)

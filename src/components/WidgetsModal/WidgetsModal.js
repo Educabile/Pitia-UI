@@ -9,6 +9,7 @@ import { SuccessToast } from 'components/Toast'
 import { notification } from 'actions/notifications'
 import { widgetAdd } from 'actions/widgets'
 import { connect } from 'react-redux'
+import { compose } from 'redux'
 
 const WidgetModal = ({ t, addWidget, addNotification }) => (
   <Modal
@@ -117,9 +118,10 @@ const mapDispatchToProps = dispatch => ({
   },
 })
 
-export default withNamespaces()(
+export default compose(
+  withNamespaces(),
   connect(
     null,
     mapDispatchToProps
-  )(WidgetModal)
-)
+  )
+)(WidgetModal)

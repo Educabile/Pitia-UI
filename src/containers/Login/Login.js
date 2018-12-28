@@ -9,6 +9,7 @@ import Style from './Login.module.css'
 import Avatar from 'react-avatar'
 import { withNamespaces } from 'react-i18next'
 import { connect } from 'react-redux'
+import { compose } from 'redux'
 import { auth } from 'actions/auth'
 
 class Login extends Component {
@@ -66,12 +67,12 @@ class Login extends Component {
                     })
                   }
                   type="email"
+                  autoComplete="email"
                   value={email}
                   validate
                   required
                 />
                 <Input
-                  type="password"
                   label={t('password')}
                   s={12}
                   onChange={({ target: { value: password } }) =>
@@ -79,6 +80,8 @@ class Login extends Component {
                       password,
                     })
                   }
+                  type="password"
+                  autoComplete="current-password"
                   value={password}
                   validate
                   required
@@ -121,7 +124,10 @@ const mapDispatchToProps = dispatch => ({
   login: (email, password) => dispatch(auth(email, password)),
 })
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(withNamespaces()(Login))
+export default compose(
+  withNamespaces(),
+  connect(
+    mapStateToProps,
+    mapDispatchToProps
+  )
+)(Login)

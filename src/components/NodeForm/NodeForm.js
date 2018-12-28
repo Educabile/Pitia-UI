@@ -8,6 +8,7 @@ import { SuccessToast } from 'components/Toast'
 import { withNamespaces } from 'react-i18next'
 import { notification } from 'actions/notifications'
 import { connect } from 'react-redux'
+import { compose } from 'redux'
 class NodeForm extends Component {
   static propTypes = {
     t: PropTypes.func.isRequired,
@@ -144,9 +145,10 @@ const mapDispatchToProps = dispatch => ({
   },
 })
 
-export default withNamespaces()(
+export default compose(
+  withNamespaces(),
   connect(
     null,
     mapDispatchToProps
-  )(NodeForm)
-)
+  )
+)(NodeForm)

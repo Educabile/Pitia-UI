@@ -26,20 +26,20 @@ export const fetchNetworks = () => dispatch => {
   dispatch(networkInitStart())
 
   setTimeout(() => {
-    if (Math.random() >= 0.5) {
-      dispatch(
-        networkInitSuccess([
-          {
-            networkName: 'First Network Placeholder',
-            networkPosition: 'Naples, Italy',
-            networkIP: '143.225.48.253',
-            networkDescription: 'Lorem ipsum dolorem sit amet',
-            wss: 'wss://ws-feed.gdax.com',
-          },
-        ])
-      )
-    } else {
-      dispatch(networkInitFail('Errore nel fetching dei dati'))
-    }
+    // if (Math.random() >= 0.5) {
+    dispatch(
+      networkInitSuccess([
+        {
+          networkName: 'First Network Placeholder',
+          networkPosition: 'Naples, Italy',
+          networkIP: '143.225.48.253',
+          networkDescription: 'Lorem ipsum dolorem sit amet',
+          wss: 'wss://ws-feed.gdax.com',
+        },
+      ])
+    )
+    // } else {
+    //   dispatch(networkInitFail('Errore nel fetching dei dati'))
+    // }
   }, 3000)
 }

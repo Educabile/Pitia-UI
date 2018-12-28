@@ -9,6 +9,7 @@ import Resizable from 're-resizable'
 import { Row, Col, Card } from 'react-materialize'
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
+import { compose } from 'redux'
 import { withRouter } from 'react-router'
 import Spinner from 'components/Spinner'
 
@@ -133,9 +134,11 @@ const mapStateToProps = ({ networks }) => ({
   networks,
 })
 
-export default withNamespaces()(
+export default compose(
+  withNamespaces(),
   connect(
     mapStateToProps,
     null
-  )(withRouter(Networks))
-)
+  ),
+  withRouter
+)(Networks)

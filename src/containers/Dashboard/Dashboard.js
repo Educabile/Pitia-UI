@@ -6,6 +6,7 @@ import Icon from '@mdi/react'
 import { mdiPencil, mdiPlus, mdiCursorMove } from '@mdi/js'
 import { withNamespaces } from 'react-i18next'
 import { connect } from 'react-redux'
+import { compose } from 'redux'
 import Spinner from 'components/Spinner'
 import Logger from 'components/Logger'
 import Button from 'components/Button'
@@ -123,9 +124,10 @@ const mapStateToProps = ({ widgets }) => ({
   widgets,
 })
 
-export default withNamespaces(['widget'])(
+export default compose(
+  withNamespaces(['widget']),
   connect(
     mapStateToProps,
     null
-  )(Dashboard)
-)
+  )
+)(Dashboard)

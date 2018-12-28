@@ -1,6 +1,6 @@
 import { fetchNetworks } from 'actions/networks'
 import { fetchWidgets } from 'actions/widgets'
-
+import { accountInit } from 'actions/account'
 export const AUTH_START = 'AUTH_START'
 export const AUTH_SUCCESS = 'AUTH_SUCCESS'
 export const AUTH_FAIL = 'AUTH_FAIL'
@@ -11,25 +11,13 @@ const authStart = () => ({
   type: AUTH_START,
 })
 
-const authSuccess = (email, nameSurname) => ({
+const authSuccess = () => ({
   type: AUTH_SUCCESS,
-  email,
-  nameSurname,
 })
 
 const authFail = error => ({
   type: AUTH_FAIL,
   error,
-})
-
-export const changeEmail = email => ({
-  type: CHANGE_EMAIL,
-  email,
-})
-
-export const changeUsername = username => ({
-  type: CHANGE_USERNAME,
-  username,
 })
 
 export const auth = (email, password) => dispatch => {
@@ -38,7 +26,8 @@ export const auth = (email, password) => dispatch => {
   setTimeout(() => {
     if (email === 'claudio.cortese@outlook.it') {
       if (password === '1234') {
-        dispatch(authSuccess(email, 'Claudio Cortese'))
+        dispatch(authSuccess())
+        dispatch(accountInit(email, 'Claudio Cortese', 'en'))
         dispatch(fetchNetworks())
         dispatch(fetchWidgets())
       } else {

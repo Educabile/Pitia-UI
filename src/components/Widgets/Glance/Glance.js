@@ -6,6 +6,7 @@ import Resizable from 're-resizable'
 import { withNamespaces } from 'react-i18next'
 import { mdiEye } from '@mdi/js'
 import { connect } from 'react-redux'
+import { compose } from 'redux'
 
 const Glance = ({ t, enableResize, networks: { networks } }) => (
   <Resizable
@@ -68,9 +69,10 @@ const mapStateToProps = ({ networks }) => ({
   networks,
 })
 
-export default withNamespaces(['widgets'])(
+export default compose(
+  withNamespaces(['widgets']),
   connect(
     mapStateToProps,
     null
-  )(Glance)
-)
+  )
+)(Glance)

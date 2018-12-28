@@ -9,6 +9,7 @@ import { withNamespaces } from 'react-i18next'
 import { notification } from 'actions/notifications'
 import { networkAdd } from 'actions/networks'
 import { connect } from 'react-redux'
+import { compose } from 'redux'
 class NetworkForm extends Component {
   static propTypes = {
     addNetwork: PropTypes.func.isRequired,
@@ -150,9 +151,10 @@ const mapDispatchToProps = dispatch => ({
   addNetwork: network => dispatch(networkAdd(network)),
 })
 
-export default withNamespaces()(
+export default compose(
+  withNamespaces(),
   connect(
     null,
     mapDispatchToProps
-  )(NetworkForm)
-)
+  )
+)(NetworkForm)
