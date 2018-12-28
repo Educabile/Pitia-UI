@@ -11,7 +11,6 @@ const imageminGiflossy = require('imagemin-giflossy')
 const imageminWebp = require('imagemin-webp')
 const CompressionPlugin = require('compression-webpack-plugin')
 const HtmlCriticalPlugin = require('html-critical-webpack-plugin')
-const CleanWebpackPlugin = require('clean-webpack-plugin')
 
 const { NODE_ENV } = process.env
 
@@ -46,10 +45,8 @@ module.exports = function() {
     webpack: {
       plugins:
         NODE_ENV === 'development'
-          ? [new CleanWebpackPlugin(['build'])]
+          ? []
           : [
-              new CleanWebpackPlugin(['build']),
-
               new ImageminPlugin({
                 plugins: [
                   imageminPngquant({
