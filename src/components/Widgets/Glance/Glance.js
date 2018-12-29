@@ -1,6 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { Row, Col, Collapsible, CollapsibleItem } from 'react-materialize'
+import { Row, Col, Collapsible } from 'react-materialize'
+import CollapsibleItem from 'components/CollapsibleItem'
 import Icon from '@mdi/react'
 import Resizable from 're-resizable'
 import { withNamespaces } from 'react-i18next'
@@ -8,7 +9,14 @@ import { mdiEye } from '@mdi/js'
 import { connect } from 'react-redux'
 import { compose } from 'redux'
 
-const Glance = ({ t, enableResize, networks: { networks } }) => (
+const Glance = ({
+  t,
+  enableResize,
+  networks: { networks },
+  disableHeader,
+  hideHeader,
+  disableContent,
+}) => (
   <Resizable
     defaultSize={{
       width: 240,
@@ -21,7 +29,7 @@ const Glance = ({ t, enableResize, networks: { networks } }) => (
     enable={enableResize}>
     <Collapsible>
       <CollapsibleItem
-        className="white flow-text"
+        className="white grey-text text-darken-4 flow-text"
         expanded
         header={
           <span
@@ -32,7 +40,10 @@ const Glance = ({ t, enableResize, networks: { networks } }) => (
             <Icon path={mdiEye} size={1.5} color="#1565c0" />
             <span style={{ marginLeft: '1em' }}>{t('riassunto')}</span>
           </span>
-        }>
+        }
+        disableHeader={disableHeader}
+        disableContent={disableContent}
+        hideHeader={hideHeader}>
         <Row>
           <Col s={12}>{networks.length} Network</Col>
           <Col s={12}>20 Sensori</Col>
@@ -44,12 +55,22 @@ const Glance = ({ t, enableResize, networks: { networks } }) => (
 
 Glance.propTypes = {
   t: PropTypes.func.isRequired,
-  enableResize: PropTypes.object.isRequired,
+  enableResize: PropTypes.shape({
+    bottom: PropTypes.bool,
+    top: PropTypes.bool,
+    left: PropTypes.bool,
+    right: PropTypes.bool,
+  }).isRequired,
+
   networks: PropTypes.shape({
     loading: PropTypes.bool,
     networks: PropTypes.array,
     error: PropTypes.string,
   }).isRequired,
+  disableHeader: PropTypes.bool.isRequired,
+  hideHeader: PropTypes.bool.isRequired,
+  disableContent: PropTypes.bool.isRequired,
+
 }
 
 Glance.defaultProps = {
@@ -63,6 +84,9 @@ Glance.defaultProps = {
     bottomLeft: false,
     topLeft: false,
   },
+  disableHeader: false,
+  hideHeader: false,
+  disableContent: false,
 }
 
 const mapStateToProps = ({ networks }) => ({

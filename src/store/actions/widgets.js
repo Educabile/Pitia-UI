@@ -33,7 +33,14 @@ export const fetchWidgets = () => dispatch => {
 
   setTimeout(() => {
     // if (Math.random() >= 0.5) {
-    dispatch(widgetInitSuccess(['glance']))
+    dispatch(
+      widgetInitSuccess([
+        {
+          type: 'glance',
+        },
+      ])
+    )
+
     // } else {
     //   dispatch(widgetInitFail('Errore nel fetching dei dati'))
     // }

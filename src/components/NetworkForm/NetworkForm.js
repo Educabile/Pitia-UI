@@ -84,9 +84,10 @@ class NetworkForm extends Component {
             }),
           })
           addNetwork({
-            networkName: 'First Network Placeholder',
-            networkPosition: 'Naples, Italy',
-            networkIP: '143.225.48.253',
+            networkName: name,
+            networkPosition: position,
+            networkIP: ip,
+            networkStructure: structure,
             networkDescription: 'Lorem ipsum dolorem sit amet',
             wss: 'wss://ws-feed.gdax.com',
           })

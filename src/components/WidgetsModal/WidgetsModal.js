@@ -44,7 +44,9 @@ const WidgetModal = ({ t, addWidget, addNotification }) => (
     <Row>
       <Col
         onClick={() => {
-          addWidget('glance')
+          addWidget({
+            type: 'glance',
+          })
           SuccessToast({
             content: "Widget `A colpo d'occhio` aggiunto",
             action: addNotification({
@@ -68,11 +70,15 @@ const WidgetModal = ({ t, addWidget, addNotification }) => (
             bottomLeft: false,
             topLeft: false,
           }}
+          disableHeader
+          disableContent
         />
       </Col>
       <Col
         onClick={() => {
-          addWidget('rapidCreation')
+          addWidget({
+            type: 'rapidCreation',
+          })
           SuccessToast({
             content: 'Widget `Creazione Rapida` aggiunto',
             action: addNotification({
@@ -96,6 +102,44 @@ const WidgetModal = ({ t, addWidget, addNotification }) => (
             bottomLeft: false,
             topLeft: false,
           }}
+          disableHeader
+          disableContent
+        />
+      </Col>
+      <Col
+        onClick={() => {
+          addWidget({
+            type: 'network',
+            networkName: 'Network Placeholder',
+          })
+          SuccessToast({
+            content: 'Widget `Creazione Rapida` aggiunto',
+            action: addNotification({
+              type: 'success',
+              action: 'newWidget',
+              content: 'Widget `Network` aggiunto',
+              details: '..',
+              date: +new Date(),
+            }),
+          })
+        }}>
+        <Widget
+          type="network"
+          enableResize={{
+            top: false,
+            right: false,
+            bottom: false,
+            left: false,
+            topRight: false,
+            bottomRight: false,
+            bottomLeft: false,
+            topLeft: false,
+          }}
+          options={{
+            networkName: 'Network Placeholder',
+          }}
+          disableHeader
+          disableContent
         />
       </Col>
     </Row>

@@ -1,19 +1,16 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import Chart from 'components/Chart'
 import Icon from '@mdi/react'
-import { mdiDelete, mdiPencil, mdiPlus } from '@mdi/js'
+import { mdiPlus } from '@mdi/js'
 import { withNamespaces } from 'react-i18next'
 import Button from 'components/Button'
-import Resizable from 're-resizable'
-import { Row, Col, Card } from 'react-materialize'
-import { Link } from 'react-router-dom'
+import { Row, Col } from 'react-materialize'
 import { connect } from 'react-redux'
 import { compose } from 'redux'
-import { withRouter } from 'react-router'
 import Spinner from 'components/Spinner'
+import Widget from 'components/Widgets'
 
-const Networks = ({ t, match, networks: { networks, loading, error } }) => (
+const Networks = ({ t, networks: { networks, loading, error } }) => (
   <Row
     className="grey lighten-5"
     style={{
@@ -26,69 +23,9 @@ const Networks = ({ t, match, networks: { networks, loading, error } }) => (
     }}>
     {loading && <Spinner />}
     {error && <h1>{error}</h1>}
-    {networks.map(({ networkName, networkPosition, networkIP, networkDescription, wss }, index) => (
-      <Col key={`${networkName}-${index}`}>
-        <Resizable
-          defaultSize={{
-            height: 527,
-          }}
-          minWidth={515}
-          maxWidth={780}
-          snap={{ x: [515, 600, 780] }}
-          enable={{
-            bottom: false,
-            top: false,
-            left: false,
-            right: true,
-          }}>
-          <Link
-            to={{
-              pathname: `${match.url}/${networkName.toLowerCase().replace(/\s/g, '-')}`,
-              state: {
-                networkName,
-                networkPosition,
-                networkIP,
-                networkDescription,
-                wss,
-              },
-            }}>
-            <Card
-              textClassName="grey-text text-darken-2 flow-text"
-              title={networkName}
-              actions={[
-                <Button
-                  key="mod"
-                  floating
-                  flat
-                  tooltip={t('modifica')}
-                  style={{
-                    display: 'inline-flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                  }}>
-                  <Icon path={mdiPencil} size={1.25} />
-                </Button>,
-                <Button
-                  key="del"
-                  waves
-                  floating
-                  flat
-                  tooltip={t('elimina')}
-                  onClick={e => {
-                    e.preventDefault()
-                  }}
-                  style={{
-                    display: 'inline-flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                  }}>
-                  <Icon path={mdiDelete} size={1.25} />
-                </Button>,
-              ]}>
-              <Chart wss="wss://ws-feed.gdax.com" />
-            </Card>
-          </Link>
-        </Resizable>
+    {networks.map((network, index) => (
+      <Col key={`${network.networkName}-${index}`}>
+        <Widget type="network" options={network} />
       </Col>
     ))}
     <Button
@@ -139,6 +76,5 @@ export default compose(
   connect(
     mapStateToProps,
     null
-  ),
-  withRouter
+  )
 )(Networks)

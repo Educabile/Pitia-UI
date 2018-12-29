@@ -27,9 +27,9 @@ const Dashboard = ({ t, widgets: { widgets, loading, error } }) => (
         }}>
         {loading && <Spinner />}
         {error && <h1>{error}</h1>}
-        {widgets.map((widget, index) => (
-          <Col key={`${widget}-${index}`}>
-            <Widget type={widget} />
+        {widgets.map(({ type, ...options }, index) => (
+          <Col key={`${type}-${index}`}>
+            <Widget type={type} options={options} />
           </Col>
         ))}
         <Button
