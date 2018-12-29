@@ -8,7 +8,7 @@ import { Collapsible } from 'react-materialize'
 import CollapsibleItem from 'components/CollapsibleItem'
 
 const Network = ({
-  options: { networkName, wss },
+  options: { networkName, networkPosition, networkIP, networkDescription, wss },
   enableResize,
   disableHeader,
   hideHeader,
@@ -33,7 +33,17 @@ const Network = ({
         }
         disableHeader={disableHeader}
         disableContent={disableContent}
-        hideHeader={hideHeader}>
+        hideHeader={hideHeader}
+        to={{
+          pathname: `/networks/${networkName.toLowerCase().replace(/\s/g, '-')}`,
+          state: {
+            networkName: networkName,
+            networkPosition: networkPosition,
+            networkIP: networkIP,
+            networkDescription: networkDescription,
+            wss: wss,
+          },
+        }}>
         <Chart wss={wss} />
       </CollapsibleItem>
     </Collapsible>

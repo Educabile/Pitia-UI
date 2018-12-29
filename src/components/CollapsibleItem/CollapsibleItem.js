@@ -1,6 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import cx from 'classnames'
+import { Link } from 'react-router-dom'
 
 const CollapsibleItem = ({
   className,
@@ -14,6 +15,7 @@ const CollapsibleItem = ({
   hideHeader,
   disableHeader,
   disableContent,
+  to,
   ...props
 }) => (
   <li className={cx(className, { active: expanded })} {...props}>
@@ -26,15 +28,24 @@ const CollapsibleItem = ({
         {header}
       </Node>
     )}
-    <div className="collapsible-body" style={{ pointerEvents: disableContent ? 'none' : 'unset' }}>
-      {children}
-    </div>
+    {to ? (
+      <Link to={to} className="collapsible-body">
+        <div style={{ pointerEvents: disableContent ? 'none' : 'unset' }}>{children}</div>
+      </Link>
+    ) : (
+      <div
+        className="collapsible-body"
+        style={{ pointerEvents: disableContent ? 'none' : 'unset' }}>
+        {children}
+      </div>
+    )}
   </li>
 )
 
 CollapsibleItem.propTypes = {
   header: PropTypes.any.isRequired,
   hideHeader: PropTypes.bool.isRequired,
+  to: PropTypes.object,
   icon: PropTypes.string,
   iconClassName: PropTypes.string,
   children: PropTypes.node,
@@ -54,10 +65,6 @@ CollapsibleItem.propTypes = {
    * @default a
    */
   node: PropTypes.node,
-  /**
-   * The scroll behavior for scrollIntoView
-   */
-  scroll: PropTypes.oneOf(['auto', 'instant', 'smooth']),
 }
 
 CollapsibleItem.defaultProps = {

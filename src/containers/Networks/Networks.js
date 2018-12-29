@@ -9,9 +9,8 @@ import { connect } from 'react-redux'
 import { compose } from 'redux'
 import Spinner from 'components/Spinner'
 import Widget from 'components/Widgets'
-import { withRouter, Link } from 'react-router-dom'
 
-const Networks = ({ t, networks: { networks, loading, error }, match }) => (
+const Networks = ({ t, networks: { networks, loading, error } }) => (
   <Row
     className="grey lighten-5"
     style={{
@@ -26,19 +25,7 @@ const Networks = ({ t, networks: { networks, loading, error }, match }) => (
     {error && <h1>{error}</h1>}
     {networks.map((network, index) => (
       <Col key={`${network.networkName}-${index}`}>
-        <Link
-          to={{
-            pathname: `${match.url}/${network.networkName.toLowerCase().replace(/\s/g, '-')}`,
-            state: {
-              networkName: network.networkName,
-              networkPosition: network.networkPosition,
-              networkIP: network.networkIP,
-              networkDescription: network.networkDescription,
-              wss: network.wss,
-            },
-          }}>
-          <Widget type="network" options={network} />
-        </Link>
+        <Widget type="network" options={network} />
       </Col>
     ))}
     <Button
@@ -89,6 +76,5 @@ export default compose(
   connect(
     mapStateToProps,
     null
-  ),
-  withRouter
+  )
 )(Networks)
