@@ -4,7 +4,8 @@ import cx from 'class-names'
 import { Icon } from '@mdi/react'
 import { mdiMenu } from '@mdi/js'
 import { Breadcrumb } from 'react-materialize'
-import { withRouter } from 'react-router-dom'
+import { Link } from 'react-router-dom'
+import withBreadcrumbs from 'react-router-breadcrumbs-hoc'
 
 class Navbar extends Component {
   componentDidMount() {
@@ -31,21 +32,14 @@ class Navbar extends Component {
       fixedSidenav,
       alignLinks,
       centerLogo,
-      history: {
-        location: { pathname },
-      },
-      history,
       loggedIn,
+      breadcrumbs,
     } = this.props
 
     const brandClasses = cx({
       'brand-logo': true,
       center: centerLogo,
     })
-
-    const breadcrumbs = pathname.split('/').slice(1)
-
-    // breadcrumbs[0] = <Link to={`/${breadcrumbs[0].props.children}`}>{breadcrumbs[0]}</Link>
 
     const navCSS = cx({ 'nav-extended': extendWith }, className)
 
@@ -81,18 +75,9 @@ class Navbar extends Component {
             />
           </a>
           <Breadcrumb>
-            {breadcrumbs.map((breadcrumb, index) => (
-              <span
-                key={index}
-                style={{ textTransform: 'capitalize', cursor: 'pointer' }}
-                onClick={() => {
-                  if (index > 0) {
-                    history.push(`/${breadcrumbs.join('/')}`)
-                  } else {
-                    history.push(`/${breadcrumbs[0]}`)
-                  }
-                }}>
-                {breadcrumb.replace(/-/g, ' ')}
+            {breadcrumbs.map(breadcrumb => (
+              <span key={breadcrumb.key}>
+                <Link to={breadcrumb.props.match.url}>{breadcrumb}</Link>
               </span>
             ))}
           </Breadcrumb>
@@ -132,7 +117,7 @@ Navbar.propTypes = {
   children: PropTypes.node,
   className: PropTypes.string,
   extendWith: PropTypes.node,
-  history: PropTypes.object,
+  breadcrumbs: PropTypes.object,
   /**
    * left makes the navbar links left aligned, right makes them right aligned
    */
@@ -187,4 +172,4 @@ Navbar.defaultProps = {
   },
 }
 
-export default withRouter(Navbar)
+export default withBreadcrumbs([], { excludePaths: ['/'] })(Navbar)
