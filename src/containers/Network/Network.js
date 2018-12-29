@@ -11,6 +11,9 @@ import 'react-leaflet-fullscreen-control'
 import Widget from 'components/Widgets'
 import NetworkForm from 'components/NetworkForm/NetworkForm'
 import Style from './Network.module.css'
+import 'leaflet/dist/leaflet.css'
+import { withRouter } from 'react-router'
+import { compose } from 'redux'
 
 const Network = ({
   t,
@@ -42,7 +45,9 @@ const Network = ({
       <Row className={cx('grey lighten-5', Style.Row)}>
         <Col s={12} m={8} className={Style.Chart}>
           <Widget
+            enableResize={false}
             type="network"
+            hideHeader={true}
             options={{
               networkName,
               networkPosition,
@@ -114,4 +119,7 @@ Network.propTypes = {
   location: PropTypes.object.isRequired,
 }
 
-export default withNamespaces()(Network)
+export default compose(
+  withNamespaces(),
+  withRouter
+)(Network)

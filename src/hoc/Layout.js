@@ -1,30 +1,35 @@
-import React, { Component } from 'react'
-import Navbar from 'components/Navbar/Navbar'
-import Button from 'components/Button/Button'
+import React, { Component, Suspense, lazy } from 'react'
+import Navbar from 'components/Navbar'
+import Button from 'components/Button'
 import Icon from '@mdi/react'
 import { mdiViewDashboard, mdiLan, mdiTune, mdiBookOpen, mdiDomain } from '@mdi/js'
 import { withRouter, Link } from 'react-router-dom'
 import { withNamespaces } from 'react-i18next'
 import PropTypes from 'prop-types'
 import Picture from '@cloudpower97/react-progressive-picture'
-import NetworkModal from 'components/NetworksModal/NetworksModal'
-import NodesModal from 'components/NodesModal/NodesModal'
-import WidgetsModal from 'components/WidgetsModal/WidgetsModal'
 import { profileBackground, profileBackgroundSqip, logoEducabileIoTPng } from 'assets/img'
 import Avatar from 'react-avatar'
 import { ToastContainer, toast } from 'react-toastify'
 import { Offline, Online } from 'react-detect-offline'
 import { ErrorToast, SuccessToast } from 'components/Toast'
+import { connect } from 'react-redux'
+import { compose } from 'redux'
+import Spinner from 'components/Spinner'
+
+const NetworkModal = lazy(() => import('components/NetworksModal'))
+const NodesModal = lazy(() => import('components/NodesModal'))
+const WidgetsModal = lazy(() => import('components/WidgetsModal'))
+
 class Layout extends Component {
   static propTypes = {
     children: PropTypes.node,
     t: PropTypes.func.isRequired,
     history: PropTypes.object.isRequired,
-    username: PropTypes.string.isRequired,
-    email: PropTypes.string.isRequired,
-    addInfoEvent: PropTypes.func.isRequired,
-    addWidget: PropTypes.func.isRequired,
     loggedIn: PropTypes.bool.isRequired,
+    account: PropTypes.shape({
+      nameSurname: PropTypes.string,
+      email: PropTypes.string,
+    }),
   }
 
   state = {
@@ -33,11 +38,17 @@ class Layout extends Component {
 
   render() {
     const { errorToast } = this.state
-    const { children, t, history, username, email, addInfoEvent, addWidget, loggedIn } = this.props
+    const {
+      children,
+      t,
+      history,
+      account: { nameSurname, email },
+      loggedIn,
+    } = this.props
     return (
       <>
         <header>
-          <Navbar className="z-depth-3 center" fixed fixedSidenav={loggedIn}>
+          <Navbar className="z-depth-3 center" fixed fixedSidenav={loggedIn} loggedIn={loggedIn}>
             <div
               onClick={() => history.push('settings/account')}
               className="user-view"
@@ -48,8 +59,8 @@ class Layout extends Component {
               <div className="background">
                 <Picture src={profileBackground} placeholder={profileBackgroundSqip} />
               </div>
-              <Avatar className="blueGradient" name={username} email={email} round size={70} />
-              <span className="white-text name">{username}</span>
+              <Avatar className="blueGradient" name={nameSurname} email={email} round size={70} />
+              <span className="white-text name">{nameSurname}</span>
               <span className="white-text email">{email}</span>
             </div>
             <Button
@@ -195,42 +206,52 @@ class Layout extends Component {
           </Navbar>
         </header>
         <main>{children}</main>
-        <NetworkModal addInfoEvent={addInfoEvent} />
-        <NodesModal addInfoEvent={addInfoEvent} />
-        <WidgetsModal addWidget={addWidget} />
-        <ToastContainer
-          style={{ top: 70 }}
-          autoClose={4000}
-          hideProgressBar={false}
-          newestOnTop
-          closeOnClick
-          rtl={false}
-          pauseOnVisibilityChange
-          draggable
-          pauseOnHover
-        />
-        <Online
-          onChange={online => {
-            if (online) {
-              SuccessToast({
-                content: t('notifications:connessioneRistabilita'),
-              })
+        {loggedIn && (
+          <>
+            <Suspense fallback={<Spinner />}>
+              <NetworkModal />
+            </Suspense>
+            <Suspense fallback={<Spinner />}>
+              <NodesModal />
+            </Suspense>
+            <Suspense fallback={<Spinner />}>
+              <WidgetsModal />
+            </Suspense>
+            <ToastContainer
+              style={{ top: 70 }}
+              autoClose={4000}
+              hideProgressBar={false}
+              newestOnTop
+              closeOnClick
+              rtl={false}
+              pauseOnVisibilityChange
+              draggable
+              pauseOnHover
+            />
+            <Online
+              onChange={online => {
+                if (online) {
+                  SuccessToast({
+                    content: t('notifications:connessioneRistabilita'),
+                  })
 
-              toast.dismiss(errorToast)
-            }
-          }}
-        />
-        <Offline
-          onChange={online => {
-            !online &&
-              this.setState({
-                errorToast: ErrorToast({
-                  content: t('notifications:connessioneInterrotta'),
-                  autoClose: false,
-                }),
-              })
-          }}
-        />
+                  toast.dismiss(errorToast)
+                }
+              }}
+            />
+            <Offline
+              onChange={online => {
+                !online &&
+                  this.setState({
+                    errorToast: ErrorToast({
+                      content: t('notifications:connessioneInterrotta'),
+                      autoClose: false,
+                    }),
+                  })
+              }}
+            />
+          </>
+        )}
         <Link to="/dashboard">
           <Picture
             sources={[
@@ -256,4 +277,15 @@ class Layout extends Component {
   }
 }
 
-export default withRouter(withNamespaces(['notifications'])(Layout))
+const mapStateToProps = ({ account }) => ({
+  account,
+})
+
+export default compose(
+  withNamespaces(['notifications']),
+  connect(
+    mapStateToProps,
+    null
+  ),
+  withRouter
+)(Layout)

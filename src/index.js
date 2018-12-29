@@ -1,17 +1,29 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import './i18n'
-import './index.css'
 import 'vendor/modernizr.min.js'
+import 'react-toastify/dist/ReactToastify.css'
+import 'vendor/materialize.min.css'
+import 'vendor/materialize.min.js'
+import './index.css'
 import App from './App'
 import { BrowserRouter } from 'react-router-dom'
 import * as serviceWorker from './serviceWorker'
+import { createStore, applyMiddleware } from 'redux'
+import rootReducer from 'reducers'
+import thunk from 'redux-thunk'
+import { composeWithDevTools } from 'redux-devtools-extension'
+import { Provider } from 'react-redux'
+
+const store = createStore(rootReducer, composeWithDevTools(applyMiddleware(thunk)))
 
 const { PUBLIC_URL } = process.env
 
 const app = (
   <BrowserRouter basename={PUBLIC_URL}>
-    <App />
+    <Provider store={store}>
+      <App />
+    </Provider>
   </BrowserRouter>
 )
 

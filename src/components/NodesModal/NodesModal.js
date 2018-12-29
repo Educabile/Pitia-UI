@@ -3,10 +3,10 @@ import PropTypes from 'prop-types'
 import { Modal } from 'react-materialize'
 import Icon from '@mdi/react'
 import { mdiGoogleNearby, mdiCloseCircleOutline } from '@mdi/js'
-import NodesForm from 'components/NodeForm/NodeForm'
+import NodesForm from 'components/NodeForm'
 import { withNamespaces } from 'react-i18next'
 
-const NodesModal = ({ t, addInfoEvent }) => (
+const NodesModal = ({ t }) => (
   <Modal
     id="nodes-modal"
     actions={null}
@@ -36,13 +36,12 @@ const NodesModal = ({ t, addInfoEvent }) => (
         </span>
       </div>
     }>
-    <NodesForm addInfoEvent={addInfoEvent} />
+    <NodesForm />
   </Modal>
 )
 
 NodesModal.propTypes = {
   t: PropTypes.func.isRequired,
-  addInfoEvent: PropTypes.func.isRequired,
 }
 
 export default withNamespaces()(NodesModal)

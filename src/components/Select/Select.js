@@ -59,7 +59,7 @@ class Select extends Component {
       })
     }
 
-    const wrapperClasses = cx('input-field', responsiveClasses)
+    const wrapperClasses = cx('input-field', responsiveClasses, selectClassName)
 
     const selectProps = {
       type: 'select',
@@ -91,14 +91,11 @@ class Select extends Component {
             this._selectRef = el
           }}
           onChange={this.handleChange}
-          className={cx(
-            {
-              validate,
-              multiple,
-              ['browser-default']: browserDefault,
-            },
-            selectClassName
-          )}
+          className={cx({
+            validate,
+            multiple,
+            browserDefault,
+          })}
           {...selectProps}>
           {renderOptions()}
         </select>

@@ -35,6 +35,7 @@ class Navbar extends Component {
         location: { pathname },
       },
       history,
+      loggedIn,
     } = this.props
 
     const brandClasses = cx({
@@ -62,9 +63,7 @@ class Navbar extends Component {
             })}
           </li>
         ) : null}
-        {Children.map(children, (link, index) => (
-          <li key={index}>{link}</li>
-        ))}
+        {loggedIn && Children.map(children, (link, index) => <li key={index}>{link}</li>)}
       </>
     )
     let navbar = (
@@ -115,6 +114,7 @@ class Navbar extends Component {
           id="mobile-nav"
           className={cx('sidenav', [alignLinks], {
             'sidenav-fixed': fixedSidenav,
+            'z-depth-3': fixedSidenav,
           })}
           ref={ul => {
             this._sidenav = ul
@@ -127,6 +127,7 @@ class Navbar extends Component {
 }
 
 Navbar.propTypes = {
+  loggedIn: PropTypes.bool,
   brand: PropTypes.node,
   children: PropTypes.node,
   className: PropTypes.string,

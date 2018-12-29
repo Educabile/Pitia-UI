@@ -9,10 +9,8 @@ const imageminPngquant = require('imagemin-pngquant')
 const imageminZopfli = require('imagemin-zopfli')
 const imageminGiflossy = require('imagemin-giflossy')
 const imageminWebp = require('imagemin-webp')
+const CompressionPlugin = require('compression-webpack-plugin')
 const HtmlCriticalPlugin = require('html-critical-webpack-plugin')
-
-// TODO: It's not working as of now! :(
-const DirectoryNamedWebpackPlugin = require('directory-named-webpack-plugin')
 
 const { NODE_ENV } = process.env
 
@@ -76,6 +74,7 @@ module.exports = function() {
                   removeViewBox: false,
                 },
               }),
+              new CompressionPlugin(),
               new HtmlCriticalPlugin({
                 base: path.join(path.resolve(__dirname), 'build/'),
                 src: 'index.html',
@@ -89,10 +88,8 @@ module.exports = function() {
               }),
               new BundleAnalyzerPlugin(),
             ],
-      resolve: {
-        plugins: [new DirectoryNamedWebpackPlugin()],
-      },
       alias: {
+        src: path.join(paths.appSrc),
         components: path.join(paths.appSrc, 'components'),
         containers: path.join(paths.appSrc, 'containers'),
         hoc: path.join(paths.appSrc, 'hoc'),
@@ -100,12 +97,15 @@ module.exports = function() {
         libs: path.join(paths.appSrc, 'libs'),
         assets: path.join(paths.appSrc, 'assets'),
         vendor: path.join(paths.appSrc, 'vendor'),
+        actions: path.join(paths.appSrc, 'store', 'actions'),
+        reducers: path.join(paths.appSrc, 'store', 'reducers'),
       },
     },
     jest: {
       configure: {
         snapshotSerializers: ['enzyme-to-json/serializer'],
         moduleNameMapper: {
+          '^src(.*)$': '<rootDir>/src/$1',
           '^components(.*)$': '<rootDir>/src/components$1',
           '^containers(.*)$': '<rootDir>/src/containers$1',
           '^hoc(.*)$': '<rootDir>/src/hoc$1',
@@ -113,6 +113,8 @@ module.exports = function() {
           '^libs(.*)$': '<rootDir>/src/libs$1',
           '^assets(.*)$': '<rootDir>/src/assets$1',
           '^vendor(.*)$': '<rootDir>/src/vendor$1',
+          '^actions(.*)$': '<rootDir>/src/store/actions$1',
+          '^reducers(.*)$': '<rootDir>/src/store/reducers$1',
         },
         moduleDirectories: ['node_modules', 'src'],
         testPathIgnorePatterns: ['<rootDir>/cypress/', '<rootDir>/node_modules/'],

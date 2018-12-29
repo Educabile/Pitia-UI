@@ -1,18 +1,22 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import NewNetwork from './NewNetwork/NewNetwork'
-import NewNode from './NewNode/NewNode'
+import NewNetwork from './NewNetwork'
+import NewNode from './NewNode'
+import NewWidget from './NewWidget'
 
 const Notification = ({ event }) => {
-  switch (event.type) {
+  switch (event.action) {
     case 'newNetwork':
       return <NewNetwork event={event} />
 
     case 'newNode':
       return <NewNode event={event} />
 
+    case 'newWidget':
+      return <NewWidget event={event} />
+
     default:
-      break
+      return null
   }
 }
 
