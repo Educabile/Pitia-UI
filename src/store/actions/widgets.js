@@ -40,6 +40,7 @@ export const fetchWidgets = () => dispatch => {
         },
       ])
     )
+
     // } else {
     //   dispatch(widgetInitFail('Errore nel fetching dei dati'))
     // }

@@ -61,6 +61,7 @@ Glance.propTypes = {
     left: PropTypes.bool,
     right: PropTypes.bool,
   }).isRequired,
+
   networks: PropTypes.shape({
     loading: PropTypes.bool,
     networks: PropTypes.array,
@@ -69,6 +70,7 @@ Glance.propTypes = {
   disableHeader: PropTypes.bool.isRequired,
   hideHeader: PropTypes.bool.isRequired,
   disableContent: PropTypes.bool.isRequired,
+
 }
 
 Glance.defaultProps = {
