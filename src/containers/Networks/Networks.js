@@ -1,5 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import cx from 'class-names'
 import Icon from '@mdi/react'
 import { mdiPlus } from '@mdi/js'
 import { withNamespaces } from 'react-i18next'
@@ -9,18 +10,10 @@ import { connect } from 'react-redux'
 import { compose } from 'redux'
 import Spinner from 'components/Spinner'
 import Widget from 'components/Widgets'
+import Style from './Networks.module.css'
 
 const Networks = ({ t, networks: { networks, loading, error } }) => (
-  <Row
-    className="grey lighten-5"
-    style={{
-      minHeight: 'calc(100vh - 56px)',
-      maxHeight: 'calc(100vh - 56px)',
-      marginBottom: 0,
-      padding: '20px 0',
-      overflowX: 'hidden',
-      overflowY: 'auto',
-    }}>
+  <Row className={cx('grey lighten-5', Style.Row)}>
     {loading && <Spinner />}
     {error && <h1>{error}</h1>}
     {networks.map((network, index) => (
@@ -35,20 +28,10 @@ const Networks = ({ t, networks: { networks, loading, error } }) => (
       floating
       fab
       waves="light"
-      icon={
-        <Icon
-          path={mdiPlus}
-          size={1.25}
-          color="white"
-          style={{
-            position: 'absolute',
-            top: '50%',
-            left: '50%',
-            transform: 'translate(-50%, -50%)',
-          }}
-        />
-      }
-      className="blueGradient hoverable"
+      icon={<Icon path={mdiPlus} size={1.25} color="white" className={Style.Icon} />}
+      className={cx('scale-transition scale-out blueGradient hoverable', {
+        'scale-in': !loading && !error,
+      })}
       large
       style={{
         bottom: 20,

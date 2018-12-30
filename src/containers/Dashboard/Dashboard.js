@@ -16,15 +16,7 @@ import Style from './Dashboard.module.css'
 const Dashboard = ({ t, widgets: { widgets, loading, error } }) => (
   <Row style={{ marginBottom: 0 }}>
     <Col s={12} xl={8}>
-      <Row
-        className="grey lighten-5"
-        style={{
-          minHeight: 'calc(100vh - 56px)',
-          maxHeight: 'calc(100vh - 56px)',
-          marginBottom: 0,
-          overflowX: 'hidden',
-          overflowY: 'auto',
-        }}>
+      <Row className={cx('grey lighten-5', Style.Row)}>
         {loading && <Spinner />}
         {error && <h1>{error}</h1>}
         {widgets.map(({ type, ...options }, index) => (
@@ -36,19 +28,7 @@ const Dashboard = ({ t, widgets: { widgets, loading, error } }) => (
           floating
           fab="vertical"
           waves="light"
-          icon={
-            <Icon
-              path={mdiPencil}
-              size={1.25}
-              color="white"
-              style={{
-                position: 'absolute',
-                top: '50%',
-                left: '50%',
-                transform: 'translate(-50%, -50%)',
-              }}
-            />
-          }
+          icon={<Icon path={mdiPencil} size={1.25} color="white" className={Style.Icon} />}
           className={cx('scale-transition scale-out blueGradient hoverable', {
             'scale-in': !loading && !error,
           })}
@@ -59,19 +39,7 @@ const Dashboard = ({ t, widgets: { widgets, loading, error } }) => (
           }}>
           <Button
             floating
-            icon={
-              <Icon
-                path={mdiCursorMove}
-                size={1.25}
-                color="white"
-                style={{
-                  position: 'absolute',
-                  top: '50%',
-                  left: '50%',
-                  transform: 'translate(-50%, -50%)',
-                }}
-              />
-            }
+            icon={<Icon path={mdiCursorMove} size={1.25} color="white" className={Style.Icon} />}
             className="orangeGradient"
             tooltip={t('common:riorganizzaWidget')}
             tooltipOptions={{
@@ -83,19 +51,7 @@ const Dashboard = ({ t, widgets: { widgets, loading, error } }) => (
               window.$('#widgets-modal').modal('open')
             }}
             floating
-            icon={
-              <Icon
-                path={mdiPlus}
-                size={1.25}
-                color="white"
-                style={{
-                  position: 'absolute',
-                  top: '50%',
-                  left: '50%',
-                  transform: 'translate(-50%, -50%)',
-                }}
-              />
-            }
+            icon={<Icon path={mdiPlus} size={1.25} color="white" className={Style.Icon} />}
             className="greenGradient"
             tooltip={t('common:aggiungiWidget')}
             tooltipOptions={{
