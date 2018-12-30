@@ -19,6 +19,7 @@ const Network = ({
     <Collapsible style={style}>
       <CollapsibleItem
         className="white grey-text text-darken-4 flow-text"
+        style={{ paddingTop: 0, paddingBottom: 0 }}
         expanded
         header={
           <span
@@ -54,11 +55,13 @@ const Network = ({
     widget = (
       <Resizable
         defaultSize={{
-          height: 527,
+          width: 513,
+          height: 351.75,
         }}
-        minWidth={515}
+        minWidth={240}
         maxWidth={780}
-        snap={{ x: [515, 600, 780] }}
+        minHeight={351.75}
+        snap={{ x: [240, 377.5, 513, 600, 780] }}
         enable={enableResize}>
         {widget}
       </Resizable>

@@ -42,6 +42,18 @@ html {
   }
 }
 
+@media screen and (prefers-reduced-motion: reduce) {
+.btn,
+.btn-small,
+.btn-large {
+  transition: none;
+  &:hover,
+  &:focus {
+    background-color: inherit;
+  }
+}
+}
+
 .btn,
 .btn-small,
 .btn-large {
@@ -109,6 +121,10 @@ ul.tabs {
 .move-icon-forward:hover svg,
 .move-icon-forward:focus svg {
   transform: translateX(75%);
+}
+
+.modal {
+  width: 59%;
 }
 
 .card.large {

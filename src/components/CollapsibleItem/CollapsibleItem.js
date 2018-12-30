@@ -16,6 +16,7 @@ const CollapsibleItem = ({
   disableHeader,
   disableContent,
   to,
+  style,
   ...props
 }) => (
   <li className={cx(className, { active: expanded })} {...props}>
@@ -32,13 +33,13 @@ const CollapsibleItem = ({
       <Link
         to={to}
         className="collapsible-body"
-        style={{ pointerEvents: disableContent ? 'none' : 'unset' }}>
+        style={{ pointerEvents: disableContent ? 'none' : 'unset', ...style }}>
         <div>{children}</div>
       </Link>
     ) : (
       <div
         className="collapsible-body"
-        style={{ pointerEvents: disableContent ? 'none' : 'unset' }}>
+        style={{ pointerEvents: disableContent ? 'none' : 'unset', ...style }}>
         {children}
       </div>
     )}
@@ -68,12 +69,16 @@ CollapsibleItem.propTypes = {
    * @default a
    */
   node: PropTypes.node,
+  style: PropTypes.object,
 }
 
 CollapsibleItem.defaultProps = {
   expanded: false,
   node: 'div',
   hideHeader: false,
+  style: {
+    paddingBottom: '3.07rem',
+  },
 }
 
 export default CollapsibleItem

@@ -1,13 +1,15 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { Row, Col, Collapsible } from 'react-materialize'
+import { Collapsible } from 'react-materialize'
 import CollapsibleItem from 'components/CollapsibleItem'
+import { mdiEye, mdiLan, mdiGoogleNearby, mdiDomain } from '@mdi/js'
 import Icon from '@mdi/react'
 import Resizable from 're-resizable'
 import { withNamespaces } from 'react-i18next'
-import { mdiEye } from '@mdi/js'
 import { connect } from 'react-redux'
 import { compose } from 'redux'
+import Button from 'components/Button'
+import { Link } from 'react-router-dom'
 
 const Glance = ({
   t,
@@ -20,13 +22,13 @@ const Glance = ({
 }) => (
   <Resizable
     defaultSize={{
-      width: 240,
-      height: 213.25,
+      width: 513,
+      height: 351.75,
     }}
     minWidth={240}
-    maxWidth={515}
-    minHeight={213.25}
-    snap={{ x: [240, 377.5, 515] }}
+    maxWidth={513}
+    minHeight={351.75}
+    snap={{ x: [240, 377.5, 513] }}
     enable={enableResize}>
     <Collapsible style={style}>
       <CollapsibleItem
@@ -45,10 +47,48 @@ const Glance = ({
         disableHeader={disableHeader}
         disableContent={disableContent}
         hideHeader={hideHeader}>
-        <Row>
-          <Col s={12}>{networks.length} Network</Col>
-          <Col s={12}>20 Sensori</Col>
-        </Row>
+        <Link to="/networks">
+          <Button flat>
+            <span
+              style={{
+                display: 'inline-flex',
+                alignItems: 'center',
+              }}>
+              <Icon path={mdiLan} size={1.5} color="#1565c0" />
+              <span style={{ marginLeft: '1em' }}>{networks.length} Network</span>
+            </span>
+          </Button>
+        </Link>
+        <hr />
+        <Link to="/networks">
+          <Button flat>
+            <span
+              style={{
+                display: 'inline-flex',
+                alignItems: 'center',
+              }}>
+              <Icon path={mdiGoogleNearby} size={1.5} color="#1565c0" />
+              <span style={{ marginLeft: '1em' }}>20 Sensori</span>
+            </span>
+          </Button>
+        </Link>
+        <hr />
+        <Link to="/assets">
+          <Button
+            flat
+            onClick={() => {
+              window.$('#networks-modal').modal('open')
+            }}>
+            <span
+              style={{
+                display: 'inline-flex',
+                alignItems: 'center',
+              }}>
+              <Icon path={mdiDomain} size={1.5} color="#1565c0" />
+              <span style={{ marginLeft: '1em' }}>10 Assets</span>
+            </span>
+          </Button>
+        </Link>
       </CollapsibleItem>
     </Collapsible>
   </Resizable>

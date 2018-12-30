@@ -11,13 +11,13 @@ import { withNamespaces } from 'react-i18next'
 const RapidCreation = ({ t, enableResize, disableHeader, hideHeader, disableContent, style }) => (
   <Resizable
     defaultSize={{
-      width: 515,
-      height: 300,
+      width: 513,
+      height: 351.75,
     }}
-    minWidth={515}
-    maxWidth={615}
-    minHeight={213.25}
-    snap={{ x: [515, 615] }}
+    minWidth={307}
+    maxWidth={513}
+    minHeight={351.75}
+    snap={{ x: [307, 377.5, 513] }}
     enable={enableResize}>
     <Collapsible style={style}>
       <CollapsibleItem
