@@ -5,7 +5,15 @@ import Network from './Network'
 import Glance from './Glance'
 import { ErrorToast } from 'components/Toast'
 
-const Widget = ({ type, enableResize, disableHeader, hideHeader, disableContent, options }) => {
+const Widget = ({
+  type,
+  enableResize,
+  disableHeader,
+  hideHeader,
+  disableContent,
+  options,
+  style,
+}) => {
   switch (type) {
     case 'glance':
       return (
@@ -14,6 +22,7 @@ const Widget = ({ type, enableResize, disableHeader, hideHeader, disableContent,
           disableHeader={disableHeader}
           disableContent={disableContent}
           hideHeader={hideHeader}
+          style={style}
         />
       )
 
@@ -24,6 +33,7 @@ const Widget = ({ type, enableResize, disableHeader, hideHeader, disableContent,
           disableHeader={disableHeader}
           disableContent={disableContent}
           hideHeader={hideHeader}
+          style={style}
         />
       )
 
@@ -35,6 +45,7 @@ const Widget = ({ type, enableResize, disableHeader, hideHeader, disableContent,
           disableContent={disableContent}
           hideHeader={hideHeader}
           options={options}
+          style={style}
         />
       )
 

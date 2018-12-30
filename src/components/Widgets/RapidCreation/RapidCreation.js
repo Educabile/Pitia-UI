@@ -8,7 +8,7 @@ import Resizable from 're-resizable'
 import Button from 'components/Button'
 import { withNamespaces } from 'react-i18next'
 
-const RapidCreation = ({ t, enableResize, disableHeader, hideHeader, disableContent }) => (
+const RapidCreation = ({ t, enableResize, disableHeader, hideHeader, disableContent, style }) => (
   <Resizable
     defaultSize={{
       width: 515,
@@ -19,7 +19,7 @@ const RapidCreation = ({ t, enableResize, disableHeader, hideHeader, disableCont
     minHeight={213.25}
     snap={{ x: [515, 615] }}
     enable={enableResize}>
-    <Collapsible>
+    <Collapsible style={style}>
       <CollapsibleItem
         className="white grey-text text-darken-4 flow-text"
         expanded
@@ -96,6 +96,7 @@ RapidCreation.propTypes = {
   disableHeader: PropTypes.bool.isRequired,
   hideHeader: PropTypes.bool.isRequired,
   disableContent: PropTypes.bool.isRequired,
+  style: PropTypes.object,
 }
 
 RapidCreation.defaultProps = {

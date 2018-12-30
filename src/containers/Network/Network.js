@@ -48,6 +48,7 @@ const Network = ({
             enableResize={false}
             type="network"
             hideHeader={true}
+            disableContent={true}
             options={{
               networkName,
               networkPosition,

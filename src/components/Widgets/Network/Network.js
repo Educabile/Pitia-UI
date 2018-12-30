@@ -13,9 +13,10 @@ const Network = ({
   disableHeader,
   hideHeader,
   disableContent,
+  style,
 }) => {
   let widget = (
-    <Collapsible>
+    <Collapsible style={style}>
       <CollapsibleItem
         className="white grey-text text-darken-4 flow-text"
         expanded
@@ -80,6 +81,7 @@ Network.propTypes = {
   disableHeader: PropTypes.bool.isRequired,
   hideHeader: PropTypes.bool.isRequired,
   disableContent: PropTypes.bool.isRequired,
+  style: PropTypes.object,
 }
 
 Network.defaultProps = {

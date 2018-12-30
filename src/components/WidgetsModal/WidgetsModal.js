@@ -72,6 +72,9 @@ const WidgetModal = ({ t, addWidget, addNotification }) => (
           }}
           disableHeader
           disableContent
+          style={{
+            cursor: 'pointer',
+          }}
         />
       </Col>
       <Col
@@ -104,6 +107,9 @@ const WidgetModal = ({ t, addWidget, addNotification }) => (
           }}
           disableHeader
           disableContent
+          style={{
+            cursor: 'pointer',
+          }}
         />
       </Col>
       <Col
@@ -140,6 +146,9 @@ const WidgetModal = ({ t, addWidget, addNotification }) => (
           }}
           disableHeader
           disableContent
+          style={{
+            cursor: 'pointer',
+          }}
         />
       </Col>
     </Row>

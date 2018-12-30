@@ -16,6 +16,7 @@ const Glance = ({
   disableHeader,
   hideHeader,
   disableContent,
+  style,
 }) => (
   <Resizable
     defaultSize={{
@@ -27,7 +28,7 @@ const Glance = ({
     minHeight={213.25}
     snap={{ x: [240, 377.5, 515] }}
     enable={enableResize}>
-    <Collapsible>
+    <Collapsible style={style}>
       <CollapsibleItem
         className="white grey-text text-darken-4 flow-text"
         expanded
@@ -61,7 +62,6 @@ Glance.propTypes = {
     left: PropTypes.bool,
     right: PropTypes.bool,
   }).isRequired,
-
   networks: PropTypes.shape({
     loading: PropTypes.bool,
     networks: PropTypes.array,
@@ -70,7 +70,7 @@ Glance.propTypes = {
   disableHeader: PropTypes.bool.isRequired,
   hideHeader: PropTypes.bool.isRequired,
   disableContent: PropTypes.bool.isRequired,
-
+  style: PropTypes.object,
 }
 
 Glance.defaultProps = {

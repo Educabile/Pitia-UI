@@ -29,8 +29,11 @@ const CollapsibleItem = ({
       </Node>
     )}
     {to ? (
-      <Link to={to} className="collapsible-body">
-        <div style={{ pointerEvents: disableContent ? 'none' : 'unset' }}>{children}</div>
+      <Link
+        to={to}
+        className="collapsible-body"
+        style={{ pointerEvents: disableContent ? 'none' : 'unset' }}>
+        <div>{children}</div>
       </Link>
     ) : (
       <div
