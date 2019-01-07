@@ -26,8 +26,26 @@ class Select extends Component {
   }
 
   componentDidMount() {
+    const { options } = this.props
+
     if (typeof window.M !== 'undefined') {
-      this.instance = window.M.FormSelect.init(this._selectRef)
+      this.instance = window.M.FormSelect.init(this._selectRef, options)
+    }
+  }
+
+  componentDidUpdate() {
+    const { options } = this.props
+
+    if (this.instance) {
+      this.instance.destroy()
+    }
+
+    this.instance = window.M.FormSelect.init(this._selectRef, options)
+  }
+
+  componentWillUnmount() {
+    if (this.instance) {
+      this.instance.destroy()
     }
   }
 
@@ -36,6 +54,7 @@ class Select extends Component {
       s,
       m,
       l,
+      xl,
       disabled,
       noLayout,
       browserDefault,
@@ -49,7 +68,7 @@ class Select extends Component {
       multiple,
     } = this.props
 
-    const sizes = { s, m, l }
+    const sizes = { s, m, l, xl }
     const SIZES = ['s', 'm', 'l', 'xl']
     let responsiveClasses
     if (!noLayout) {
@@ -115,17 +134,21 @@ Select.propTypes = {
    */
   noLayout: PropTypes.bool,
   /*
-   * Responsive size for Small
+   * Responsive size for small size screens (Mobile Devices <= 600px)
    */
   s: PropTypes.number,
   /*
-   * Responsive size for Medium
+   * Responsive size for middle size screens (Tablet Devices > 600px)
    */
   m: PropTypes.number,
   /*
-   * Responsive size for Large
+   * Responsive size for large size screens (Desktop Devices > 992px)
    */
   l: PropTypes.number,
+  /**
+   * Responsive size for extra large screens (Large Desktop Devices > 1200px)
+   */
+  xl: PropTypes.number,
   /*
    * disabled input
    */
@@ -178,6 +201,53 @@ Select.propTypes = {
    */
   multiple: PropTypes.bool,
   children: PropTypes.any,
+  /**
+   * Options for the select
+   * <a target="_blank" href="https://materializecss.com/select.html#options">https://materializecss.com/select.html</a>
+   */
+  options: PropTypes.shape({
+    classes: PropTypes.string,
+    /**
+     * Options for the dropdown
+     * <a target="_blank" href="http://materializecss.com/dropdown.html#options">http://materializecss.com/dropdown.html</a>
+     */
+    dropdownOptions: PropTypes.shape({
+      alignment: PropTypes.oneOf(['left', 'right']),
+      autoTrigger: PropTypes.bool,
+      constrainWidth: PropTypes.bool,
+      container: PropTypes.node,
+      coverTrigger: PropTypes.bool,
+      closeOnClick: PropTypes.bool,
+      hover: PropTypes.bool,
+      inDuration: PropTypes.number,
+      outDuration: PropTypes.number,
+      onOpenStart: PropTypes.func,
+      onOpenEnd: PropTypes.func,
+      onCloseStart: PropTypes.func,
+      onCloseEnd: PropTypes.func,
+    }),
+  }),
+}
+
+Select.defaultProps = {
+  options: {
+    classes: '',
+    dropdownOptions: {
+      alignment: 'left',
+      autoTrigger: true,
+      constrainWidth: true,
+      container: null,
+      coverTrigger: true,
+      closeOnClick: true,
+      hover: false,
+      inDuration: 150,
+      outDuration: 250,
+      onOpenStart: null,
+      onOpenEnd: null,
+      onCloseStart: null,
+      onCloseEnd: null,
+    },
+  },
 }
 
 export default Select

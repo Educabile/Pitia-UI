@@ -11,8 +11,17 @@ import Notification from 'components/Notifications'
 import { withNamespaces } from 'react-i18next'
 import { connect } from 'react-redux'
 import { compose } from 'redux'
+import {
+  infoNotificationsReverse,
+  warningNotificationsReverse,
+  errorNotificationsReverse,
+} from 'actions/notifications'
 
 const Logger = ({
+  networks: { networks },
+  reverseInfoNotifications,
+  reverseWarningNotifications,
+  reverseErrorNotifications,
   notifications: {
     infoNotifications: { notifications: infoNotifications },
     warningNotifications: { notifications: warningNotifications },
@@ -92,7 +101,13 @@ const Logger = ({
         }
         active>
         <Row>
-          <Select label={t('ordinaPer')} value={'Piu recenti'}>
+          <Select
+            label={t('ordinaPer')}
+            value={'Piu recenti'}
+            disabled={!infoNotifications.length}
+            onChange={() => {
+              reverseInfoNotifications()
+            }}>
             <option value="3,4">{t('piuRecenti')}</option>
             <option value="4">{t('menoRecenti')}</option>
           </Select>
@@ -127,9 +142,23 @@ const Logger = ({
             </span>
           </span>
         }>
-        <Select label={t('ordinaPer')} value={'Piu recenti'}>
+        <Select
+          label={t('ordinaPer')}
+          value={'Piu recenti'}
+          onChange={() => {
+            reverseWarningNotifications()
+          }}
+          disabled={!warningNotifications.length}>
           <option value="3,4">{t('piuRecenti')}</option>
           <option value="4">{t('menoRecenti')}</option>
+        </Select>
+        <Select label={t('ordinaPer')} disabled={!warningNotifications.length} defaultValue="all">
+          <option value="all">All Networks</option>
+          {networks.map(network => (
+            <option key={network.networkName} value={network.networkName}>
+              {network.networkName}
+            </option>
+          ))}
         </Select>
         <Col s={12}>
           {warningNotifications.length ? (
@@ -161,9 +190,33 @@ const Logger = ({
             </span>
           </span>
         }>
-        <Select label={t('ordinaPer')} value={'Piu recenti'}>
+        <Select
+          label={t('ordinaPer')}
+          value={'Piu recenti'}
+          onChange={() => {
+            reverseErrorNotifications()
+          }}
+          disabled={!errorNotifications.length}>
           <option value="3,4">{t('piuRecenti')}</option>
           <option value="4">{t('menoRecenti')}</option>
+        </Select>
+        <Select
+          label={t('ordinaPer')}
+          disabled={!errorNotifications.length}
+          defaultValue="all"
+          options={{
+            classes: '',
+            dropdownOptions: {
+              coverTrigger: false,
+              constrainWidth: false,
+            },
+          }}>
+          <option value="all">All Networks</option>
+          {networks.map(network => (
+            <option key={network.networkName} value={network.networkName}>
+              {network.networkName}
+            </option>
+          ))}
         </Select>
         <Col s={12}>
           {errorNotifications.length ? (
@@ -186,14 +239,21 @@ Logger.propTypes = {
   errorNotifications: PropTypes.array,
 }
 
-const mapStateToProps = ({ notifications }) => ({
+const mapStateToProps = ({ notifications, networks }) => ({
   notifications,
+  networks,
+})
+
+const mapDispatchToProps = dispatch => ({
+  reverseInfoNotifications: () => dispatch(infoNotificationsReverse()),
+  reverseWarningNotifications: () => dispatch(warningNotificationsReverse()),
+  reverseErrorNotifications: () => dispatch(errorNotificationsReverse()),
 })
 
 export default compose(
   withNamespaces(),
   connect(
     mapStateToProps,
-    null
+    mapDispatchToProps
   )
 )(Logger)

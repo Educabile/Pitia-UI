@@ -21,15 +21,18 @@ const initialState = {
     sound: 1,
     duration: 4,
     notifications: [],
+    desc: true,
   },
   successNotifications: {
     sound: 1,
     duration: 4,
     notifications: [],
+    desc: true,
   },
   warningNotifications: {
     sound: 15,
     duration: 6,
+    desc: true,
     notifications: [
       {
         type: 'success',
@@ -57,6 +60,7 @@ const initialState = {
   errorNotifications: {
     sound: 18,
     duration: 8,
+    desc: true,
     notifications: [
       {
         type: 'success',
@@ -91,7 +95,9 @@ export default (state = initialState, action) => {
         ...state,
         infoNotifications: {
           ...state.infoNotifications,
-          notifications: [action.notification, ...state.infoNotifications.notifications],
+          notifications: state.infoNotifications.desc
+            ? [action.notification, ...state.infoNotifications.notifications]
+            : [...state.infoNotifications.notifications, action.notification],
         },
       }
 
@@ -101,6 +107,7 @@ export default (state = initialState, action) => {
         infoNotifications: {
           ...state.infoNotifications,
           notifications: [...state.infoNotifications.notifications].reverse(),
+          desc: !state.infoNotifications.desc,
         },
       }
 
@@ -145,7 +152,9 @@ export default (state = initialState, action) => {
         ...state,
         warningNotifications: {
           ...state.infoNotifications,
-          notifications: [action.notification, ...state.warningNotifications],
+          notifications: state.warningNotifications.desc
+            ? [action.notification, ...state.warningNotifications.notifications]
+            : [...state.warningNotifications.notifications, action.notification],
         },
       }
 
@@ -154,6 +163,7 @@ export default (state = initialState, action) => {
         ...state,
         warningNotifications: {
           ...state.warningNotifications,
+          desc: !state.warningNotifications.desc,
           notifications: [...state.warningNotifications.notifications].reverse(),
         },
       }
@@ -181,7 +191,9 @@ export default (state = initialState, action) => {
         ...state,
         errorNotifications: {
           ...state.infoNotifications,
-          notifications: [action.notification, ...state.errorNotifications.notifications],
+          notifications: state.errorNotifications.desc
+            ? [action.notification, ...state.errorNotifications.notifications]
+            : [...state.errorNotifications.notifications, action.notification],
         },
       }
 
@@ -190,6 +202,7 @@ export default (state = initialState, action) => {
         ...state,
         errorNotifications: {
           ...state.infoNotifications,
+          desc: !state.errorNotifications.desc,
           notifications: [...state.errorNotifications.notifications].reverse(),
         },
       }
