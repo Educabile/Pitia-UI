@@ -1,21 +1,49 @@
 import React from 'react'
 import { toast } from 'react-toastify'
-import {
-  notification18Ogg,
-  notification18Opus,
-  notification18Mp3,
-  notification18Wav,
-} from 'assets/sounds/notifications'
+import store from 'store'
+import * as notifications from 'assets/sounds/notifications'
 
-const errorToast = ({ content, action, autoClose = 8000 }) => {
+const errorToast = ({
+  content,
+  action,
+  autoClose = store.getState().notifications.errorNotifications.duration * 1000,
+}) => {
   toast.error(
     <>
       <div onClick={action}>{content}</div>
       <audio autoPlay>
-        <source src={notification18Opus} type="audio/ogg; coded=opus" />
-        <source src={notification18Ogg} type="audio/ogg; coded=vorbis" />
-        <source src={notification18Mp3} type="audio/mpeg" />
-        <source src={notification18Wav} type="audio/wav" />
+        <source
+          src={
+            notifications[
+              `notification${store.getState().notifications.errorNotifications.sound}Opus`
+            ]
+          }
+          type="audio/ogg; coded=opus"
+        />
+        <source
+          src={
+            notifications[
+              `notification${store.getState().notifications.errorNotifications.sound}Ogg`
+            ]
+          }
+          type="audio/ogg; coded=vorbis"
+        />
+        <source
+          src={
+            notifications[
+              `notification${store.getState().notifications.errorNotifications.sound}Mp3`
+            ]
+          }
+          type="audio/mpeg"
+        />
+        <source
+          src={
+            notifications[
+              `notification${store.getState().notifications.errorNotifications.sound}Wav`
+            ]
+          }
+          type="audio/wav"
+        />
       </audio>
     </>,
     {

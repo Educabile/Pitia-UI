@@ -18,11 +18,15 @@ import {
 } from 'actions/notifications'
 
 const Logger = ({
-  notifications: { infoNotifications, warningNotifications, errorNotifications },
   networks: { networks },
   reverseInfoNotifications,
   reverseWarningNotifications,
   reverseErrorNotifications,
+  notifications: {
+    infoNotifications: { notifications: infoNotifications },
+    warningNotifications: { notifications: warningNotifications },
+    errorNotifications: { notifications: errorNotifications },
+  },
   t,
 }) => (
   <>
@@ -230,11 +234,9 @@ const Logger = ({
 
 Logger.propTypes = {
   t: PropTypes.func.isRequired,
-  notifications: PropTypes.shape({
-    infoNotifications: PropTypes.array.isRequired,
-    warningNotifications: PropTypes.array.isRequired,
-    errorNotifications: PropTypes.array.isRequired,
-  }).isRequired,
+  infoNtifications: PropTypes.array,
+  warningNotifications: PropTypes.array,
+  errorNotifications: PropTypes.array,
 }
 
 const mapStateToProps = ({ notifications, networks }) => ({
