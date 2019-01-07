@@ -7,8 +7,42 @@ import { ErrorToast, SuccessToast, InfoToast, WarningToast } from 'components/To
 import { withNamespaces } from 'react-i18next'
 import Button from 'components/Button'
 import NotificationForm from 'components/NotificationForm'
+import {
+  infoNotificationSoundChange,
+  infoNotificationDurationChange,
+  successNotificationSoundChange,
+  successNotificationDurationChange,
+  warningNotificationSoundChange,
+  warningNotificationDurationChange,
+  errorNotificationSoundChange,
+  errorNotificationDurationChange,
+} from 'actions/notifications'
+import { compose } from 'redux'
+import { connect } from 'react-redux'
 
-const Notifications = ({ t }) => (
+const Notifications = ({
+  t,
+  notifications: {
+    infoNotifications: { duration: infoNotificationDuration, sound: infoNotificationSound },
+    successNotifications: {
+      duration: successNotificationDuration,
+      sound: successNotificationSound,
+    },
+    warningNotifications: {
+      duration: warningNotificationDuration,
+      sound: warningNotificationSound,
+    },
+    errorNotifications: { duration: errorNotificationDuration, sound: errorNotificationSound },
+  },
+  changeInfoNotificationSound,
+  changeInfoNotificationDuration,
+  changeSuccessNotificationSound,
+  changeSuccessNotificationDuration,
+  changeWarningNotificationSound,
+  changeWarningNotificationDuration,
+  changeErrorNotificationSound,
+  changeErrorNotificationDuration,
+}) => (
   <Row
     className="grey lighten-4"
     style={{
@@ -42,7 +76,12 @@ const Notifications = ({ t }) => (
             <Icon path={mdiBellRing} size={1.25} color="white" />
           </Button>,
         ]}>
-        <NotificationForm />
+        <NotificationForm
+          updateNotificationSound={changeInfoNotificationSound}
+          updateNotificationDuration={changeInfoNotificationDuration}
+          currentNotificationSound={infoNotificationSound}
+          currentNotificationDuration={infoNotificationDuration}
+        />
       </Card>
     </Col>
     <Col s={12} m={6}>
@@ -68,7 +107,12 @@ const Notifications = ({ t }) => (
             <Icon path={mdiBellRing} size={1.25} color="white" />
           </Button>,
         ]}>
-        <NotificationForm />
+        <NotificationForm
+          updateNotificationSound={changeSuccessNotificationSound}
+          updateNotificationDuration={changeSuccessNotificationDuration}
+          currentNotificationSound={successNotificationSound}
+          currentNotificationDuration={successNotificationDuration}
+        />
       </Card>
     </Col>
     <Col s={12} m={6}>
@@ -94,7 +138,12 @@ const Notifications = ({ t }) => (
             <Icon path={mdiBellRing} size={1.25} color="white" />
           </Button>,
         ]}>
-        <NotificationForm />
+        <NotificationForm
+          updateNotificationSound={changeWarningNotificationSound}
+          updateNotificationDuration={changeWarningNotificationDuration}
+          currentNotificationSound={warningNotificationSound}
+          currentNotificationDuration={warningNotificationDuration}
+        />
       </Card>
     </Col>
     <Col s={12} m={6}>
@@ -120,32 +169,51 @@ const Notifications = ({ t }) => (
             <Icon path={mdiBellRing} size={1.25} color="white" />
           </Button>,
         ]}>
-        <NotificationForm />
+        <NotificationForm
+          updateNotificationSound={changeErrorNotificationSound}
+          updateNotificationDuration={changeErrorNotificationDuration}
+          currentNotificationSound={errorNotificationSound}
+          currentNotificationDuration={errorNotificationDuration}
+        />
       </Card>
     </Col>
-    <div className="center">
-      <Button
-        large
-        onClick={() => {
-          SuccessToast({
-            content: t('notifications:testNotifica'),
-          })
-        }}
-        className="blueGradient hoverable white-text"
-        waves
-        style={{
-          display: 'inline-flex',
-          justifyContent: 'center',
-          alignItems: 'center',
-        }}>
-        <span>{t('common:aggiornaInformazioni')}</span>
-      </Button>
-    </div>
   </Row>
 )
 
 Notifications.propTypes = {
   t: PropTypes.func.isRequired,
+  notifications: PropTypes.object.isRequired,
+  changeInfoNotificationSound: PropTypes.func.isRequired,
+  changeInfoNotificationDuration: PropTypes.func.isRequired,
+  changeSuccessNotificationSound: PropTypes.func.isRequired,
+  changeSuccessNotificationDuration: PropTypes.func.isRequired,
+  changeWarningNotificationSound: PropTypes.func.isRequired,
+  changeWarningNotificationDuration: PropTypes.func.isRequired,
+  changeErrorNotificationSound: PropTypes.func.isRequired,
+  changeErrorNotificationDuration: PropTypes.func.isRequired,
 }
 
-export default withNamespaces(['notifications', 'settings'])(Notifications)
+const mapStateToProps = ({ notifications }) => ({
+  notifications,
+})
+
+const mapDispatchToProps = dispatch => ({
+  changeInfoNotificationSound: sound => dispatch(infoNotificationSoundChange(sound)),
+  changeInfoNotificationDuration: duration => dispatch(infoNotificationDurationChange(duration)),
+  changeSuccessNotificationSound: sound => dispatch(successNotificationSoundChange(sound)),
+  changeSuccessNotificationDuration: duration =>
+    dispatch(successNotificationDurationChange(duration)),
+  changeWarningNotificationSound: sound => dispatch(warningNotificationSoundChange(sound)),
+  changeWarningNotificationDuration: duration =>
+    dispatch(warningNotificationDurationChange(duration)),
+  changeErrorNotificationSound: sound => dispatch(errorNotificationSoundChange(sound)),
+  changeErrorNotificationDuration: duration => dispatch(errorNotificationDurationChange(duration)),
+})
+
+export default compose(
+  withNamespaces(['notifications', 'settings']),
+  connect(
+    mapStateToProps,
+    mapDispatchToProps
+  )
+)(Notifications)

@@ -110,6 +110,7 @@ module.exports = {
           ['libs', './src/libs'],
           ['assets', './src/assets'],
           ['vendor', './src/vendor'],
+          ['store', './src/store'],
           ['actions', './src/store/actions'],
           ['reducers', './src/store/reducers'],
         ],

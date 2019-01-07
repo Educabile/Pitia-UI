@@ -8,28 +8,48 @@ import Select from 'components/Select/Select'
 import Style from './NotificationForm.module.css'
 class NotificationForm extends Component {
   state = {
-    timer: 4000,
-    notificationSound: 'boh',
+    notificationDuration: this.props.currentNotificationDuration,
+    notificationSound: this.props.currentNotificationSound,
   }
 
   static propTypes = {
     t: PropTypes.func.isRequired,
-  }
-
-  updateTimer = ({ target: { value: timer } }) => {
-    this.setState({
-      timer,
-    })
+    updateNotificationSound: PropTypes.func.isRequired,
+    updateNotificationDuration: PropTypes.func.isRequired,
+    currentNotificationSound: PropTypes.number.isRequired,
+    currentNotificationDuration: PropTypes.number.isRequired,
   }
 
   updateNotificationSound = notificationSound => {
-    this.setState({
-      notificationSound,
-    })
+    this.setState(
+      {
+        notificationSound,
+      },
+      () => {
+        const { updateNotificationSound } = this.props
+        const { notificationSound } = this.state
+
+        updateNotificationSound(notificationSound)
+      }
+    )
+  }
+
+  updateNotificationDuration = ({ target: { value: notificationDuration } }) => {
+    this.setState(
+      {
+        notificationDuration,
+      },
+      () => {
+        const { updateNotificationDuration } = this.props
+        const { notificationDuration } = this.state
+
+        updateNotificationDuration(notificationDuration)
+      }
+    )
   }
 
   render() {
-    const { timer, notificationSound } = this.state
+    const { notificationDuration, notificationSound } = this.state
     const { t } = this.props
 
     return (
@@ -42,12 +62,13 @@ class NotificationForm extends Component {
           <Input
             s={12}
             type="number"
+            min={4}
             className={Style.Input}
             label={t('settings:durataNotifiche')}
             validate
             required
-            value={timer}
-            onChange={this.updateTimer}>
+            value={notificationDuration}
+            onChange={this.updateNotificationDuration}>
             <Icon path={mdiTimer} size={1.175} color="white" />
           </Input>
           <Select
@@ -59,9 +80,9 @@ class NotificationForm extends Component {
             onChange={({ currentTarget: { value: notificationSound } }) => {
               this.updateNotificationSound(notificationSound)
             }}>
-            <option value="0">Suono 1</option>
-            <option value="1">Suono 2</option>
-            <option value="2">Suono 3</option>
+            <option value="1">Suono 1</option>
+            <option value="2">Suono 2</option>
+            <option value="3">Suono 3</option>
             <option value="4">Suono 4</option>
             <option value="5">Suono 5</option>
             <option value="6">Suono 6</option>
@@ -78,15 +99,6 @@ class NotificationForm extends Component {
             <option value="17">Suono 17</option>
             <option value="18">Suono 18</option>
           </Select>
-          {/* <Input
-            className={Style.Input}
-            s={12}
-            label={t('settings:suonoNotifiche')}
-            validate
-            value={notificationSound}
-            onChange={this.updateNotificationSound}>
-            <Icon path={mdiMusicNote} size={1.175} color="white" />
-          </Input> */}
         </Row>
       </form>
     )

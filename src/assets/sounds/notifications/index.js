@@ -1,7 +1,7 @@
-import notificationOgg from './notification.ogg'
-import notificationOpus from './notification.opus'
-import notificationWav from './notification.wav'
-import notificationMp3 from './notification.mp3'
+import notification1Ogg from './notification1.ogg'
+import notification1Opus from './notification1.opus'
+import notification1Wav from './notification1.wav'
+import notification1Mp3 from './notification1.mp3'
 import notification2Ogg from './notification2.ogg'
 import notification2Opus from './notification2.opus'
 import notification2Wav from './notification2.wav'
@@ -72,10 +72,10 @@ import notification18Wav from './notification18.wav'
 import notification18Mp3 from './notification18.mp3'
 
 export {
-  notificationOgg,
-  notificationOpus,
-  notificationWav,
-  notificationMp3,
+  notification1Ogg,
+  notification1Opus,
+  notification1Wav,
+  notification1Mp3,
   notification2Ogg,
   notification2Opus,
   notification2Wav,
