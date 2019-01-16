@@ -33,7 +33,7 @@ class Login extends Component {
     const {
       t,
       login,
-      auth: { auth, error },
+      auth: { auth, error, loading },
     } = this.props
 
     return auth ? (
@@ -89,7 +89,7 @@ class Login extends Component {
                 {error && <span className="red-text">{error}</span>}
                 <div className="center">
                   <Button
-                    disabled={!(email.length > 0 && password.length > 0)}
+                    disabled={!(email.length > 0 && password.length > 0) || loading}
                     className="blueGradient hoverable white-text"
                     large
                     waves
