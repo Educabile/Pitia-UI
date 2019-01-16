@@ -43,6 +43,30 @@ html {
 }
 
 @media screen and (prefers-reduced-motion: reduce) {
+  .btn,
+  .btn-small,
+  .btn-large {
+    transition: none;
+    &:hover,
+    &:focus {
+      background-color: inherit;
+    }
+  }
+}
+
+@media screen and (prefers-reduced-motion: reduce) {
+  .btn,
+  .btn-small,
+  .btn-large {
+    transition: none;
+    &:hover,
+    &:focus {
+      background-color: inherit;
+    }
+  }
+}
+
+@media screen and (prefers-reduced-motion: reduce) {
 .btn,
 .btn-small,
 .btn-large {
@@ -155,6 +179,7 @@ ul.tabs {
   bottom: 10px;
   left: 25px;
   position: fixed;
+  user-select: none;
   z-index: 1000;
 }
 
