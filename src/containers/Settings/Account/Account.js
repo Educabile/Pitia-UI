@@ -62,7 +62,7 @@ class Account extends Component {
                       onSubmit={e => {
                         e.preventDefault()
 
-                        shouldUpdateEmail && updateEmail(email)
+                        shouldUpdateEmail && updateEmail(this.props.account.email, email)
                         shouldUpdateUsername && updateUsername(username)
                         shouldUpdateLanguage && updateLanguage(language)
 
@@ -155,8 +155,8 @@ const mapStateToProps = ({ account }) => ({
 })
 
 const mapDispatchToProps = dispatch => ({
-  updateEmail: email => {
-    dispatch(changeEmail(email))
+  updateEmail: (currentEmail, newEmail) => {
+    dispatch(changeEmail(currentEmail, newEmail))
   },
   updateUsername: username => {
     dispatch(changeUsername(username))

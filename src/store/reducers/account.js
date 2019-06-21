@@ -1,6 +1,6 @@
 import {
   ACCOUNT_INIT,
-  ACCOUNT_CHANGE_EMAIL,
+  ACCOUNT_CHANGE_EMAIL_SUCCESS,
   ACCOUNT_CHANGE_USERNAME,
   ACCOUNT_CHANGE_LANGUAGE,
 } from 'actions/account'
@@ -23,7 +23,7 @@ export default (state = initialState, action) => {
         language: action.language,
       }
 
-    case ACCOUNT_CHANGE_EMAIL:
+    case ACCOUNT_CHANGE_EMAIL_SUCCESS:
       return {
         ...state,
         email: action.email,

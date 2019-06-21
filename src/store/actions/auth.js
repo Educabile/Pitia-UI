@@ -1,3 +1,4 @@
+import client from '../../feathers'
 import { fetchNetworks } from 'actions/networks'
 import { fetchWidgets } from 'actions/widgets'
 import { accountInit } from 'actions/account'
@@ -23,18 +24,19 @@ const authFail = error => ({
 export const auth = (email, password) => dispatch => {
   dispatch(authStart())
 
-  setTimeout(() => {
-    if (email === 'claudio.cortese@outlook.it') {
-      if (password === '1234') {
-        dispatch(authSuccess())
-        dispatch(accountInit(email, 'Claudio Cortese', 'en'))
-        dispatch(fetchNetworks())
-        dispatch(fetchWidgets())
-      } else {
-        dispatch(authFail('Invalid Password'))
-      }
-    } else {
+  client
+    .authenticate({
+      strategy: 'local',
+      email,
+      password,
+    })
+    .then(() => {
+      dispatch(authSuccess())
+      dispatch(accountInit(email, 'Claudio Cortese', 'en'))
+      dispatch(fetchNetworks())
+      dispatch(fetchWidgets())
+    })
+    .catch(() => {
       dispatch(authFail('Invalid Credentials'))
-    }
-  }, 1000)
+    })
 }
